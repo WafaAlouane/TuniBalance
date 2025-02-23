@@ -5,10 +5,11 @@ import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
 import * as  bcrypt from 'bcrypt';
 import { LoginDto } from './dtos/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    constructor(@InjectModel(User.name) private UserModel:Model<User>){}
+    constructor(@InjectModel(User.name) private UserModel:Model<User>,private jwtservice:JwtService){}
     async signup(signupData:SignupDto){
         //extracting email,password and name from body
         const {email,password,name} = signupData;
@@ -23,6 +24,7 @@ export class AuthService {
             email,
             password:hashedPassword
         })
+
 
 
     }
@@ -41,8 +43,14 @@ const {email,password}=loginData;
             throw new UnauthorizedException("Invalid Password");
 
          }
-         return {message:"succusfully loged In"}
-      
+         //jwt token
+        return this.generateUserToken(user._id);      
 
         }
+
+            async generateUserToken(userId) {
+                const accessToken=this.jwtservice.sign({userId},{expiresIn:'1h'})
+                return {accessToken,};
+
+}
 }
