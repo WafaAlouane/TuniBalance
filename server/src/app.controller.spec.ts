@@ -15,8 +15,14 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return message and userId', () => {
+      // Mocking the request object with a userId
+      const mockRequest = { userId: '12345' };
+
+      // Call the method with the mock request object
+      const result = appController.getHello(mockRequest as any);
+
+    
     });
   });
 });

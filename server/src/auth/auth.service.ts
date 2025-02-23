@@ -49,7 +49,7 @@ const {email,password}=loginData;
         }
 
             async generateUserToken(userId) {
-                const accessToken=this.jwtservice.sign({userId},{expiresIn:'1h'})
+                const accessToken=this.jwtservice.sign({userId},{expiresIn:'1d'})
                 return {accessToken,};
 
 }

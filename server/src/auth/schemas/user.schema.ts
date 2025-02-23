@@ -9,5 +9,6 @@ name:string;
 email:string;
 @Prop({required:true})
 password:string;
+
 }
 export const UserSchema=SchemaFactory.createForClass(User);
