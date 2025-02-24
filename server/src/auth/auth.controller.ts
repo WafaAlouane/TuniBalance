@@ -6,6 +6,7 @@ import { LoginDto } from './dtos/login.dto';
 import { ChangePasswordDto } from './dtos/change-password.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { ForgetPasswordDto } from './dtos/forget-password.dto';
+import { ResetPasswordDto } from './dtos/reset-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -33,5 +34,9 @@ async forgetPassword(@Body() forgetPasswordDto:ForgetPasswordDto){
     return this.userService.forgetPassword(forgetPasswordDto.email);
 
 
+}
+@Put("reset-password")
+async resetPassword(@Body() resetPasswordDto:ResetPasswordDto){
+    return this.userService.resetPassword(resetPasswordDto.newPassword,resetPasswordDto.resetToken);
 }
 }

@@ -94,4 +94,22 @@ await this.resetTokenModel.create({
 this.mailService.sendPasswordResetEmail(email,resetToken);
 
 }
+
+async resetPassword(newPassword:string,resetToken:string){
+    const token=await this.resetTokenModel.findOneAndDelete({token:resetToken,
+        expiryDate:{$gte:new Date()},
+    });
+    if(!token){
+        throw new UnauthorizedException("Invalid Link");
+    }
+    const user=await this.UserModel.findById(token.userId);
+    if(!user){
+        throw new NotFoundException("User Not Found");
+    }
+    const hashedPassword=await bcrypt.hash(newPassword,10);
+    user.password=hashedPassword;
+    await user.save();
+    return "password has been changed";
+
+}
 }
