@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserModule } from './user/user.module';
 import config  from './config/config';
 
 @Module({
@@ -30,7 +31,7 @@ import config  from './config/config';
         uri:config.get('database.connectionString'),
       }),
       inject :[ConfigService],
-    }),AuthModule],
+    }),AuthModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

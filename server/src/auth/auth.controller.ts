@@ -10,33 +10,33 @@ import { ResetPasswordDto } from './dtos/reset-password.dto';
 
 @Controller('auth')
 export class AuthController {
-constructor(private userService :AuthService){}
+constructor(private authService :AuthService){}
 @Post("signup")
 async signUp(@Body() signupData:SignupDto){
-    return this.userService.signup(signupData); 
+    return this.authService.signup(signupData); 
 
 }
 
 @Post("login")
 async login(@Body() loginData:LoginDto){
-    return this.userService.login(loginData);
+    return this.authService.login(loginData);
 
 }
 @UseGuards(AuthGuard)
 @Put('change-password')
 
 async changePassword(@Body() changePasswordDto:ChangePasswordDto,@Req() req){
-    return this.userService.changePassword(changePasswordDto.oldPassword,changePasswordDto.newPassword,req.userId);
+    return this.authService.changePassword(changePasswordDto.oldPassword,changePasswordDto.newPassword,req.userId);
 
 }
 @Post("forget-password")
 async forgetPassword(@Body() forgetPasswordDto:ForgetPasswordDto){
-    return this.userService.forgetPassword(forgetPasswordDto.email);
+    return this.authService.forgetPassword(forgetPasswordDto.email);
 
 
 }
 @Put("reset-password")
 async resetPassword(@Body() resetPasswordDto:ResetPasswordDto){
-    return this.userService.resetPassword(resetPasswordDto.newPassword,resetPasswordDto.resetToken);
+    return this.authService.resetPassword(resetPasswordDto.newPassword,resetPasswordDto.resetToken);
 }
 }
