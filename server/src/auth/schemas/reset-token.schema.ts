@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { User } from 'src/auth/schemas/user.schema';
+import { User } from '../../user/schemas/user.schema';
 import mongoose from 'mongoose';
 
 @Schema({ versionKey:false,timestamps: true })  // Adds createdAt and updatedAt fields

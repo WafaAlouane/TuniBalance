@@ -1,73 +1,43 @@
-import React, { useState } from "react";
-import { login } from "../services/authService"; // Importation de la fonction login
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const Login = () => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
+import {AdminDashboard} from "./admindashbord";
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const data = await login(credentials);
-      localStorage.setItem("token", data.access_token);
-      navigate("/");
-    } catch (err) {
-      setError("Échec de la connexion. Vérifiez vos identifiants.");
+  const handleLogin = () => {
+    // Simuler un compte admin
+    if (email === "admin@example.com" && password === "admin123") {
+      localStorage.setItem("user", JSON.stringify({ role: "admin" }));
+      navigate("/AdminDashboard"); // Redirige vers le Dashboard Admin
+    } else {
+      alert("Identifiants incorrects !");
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h3 className="login-title">Connexion</h3>
-        {error && <div className="login-error">{error}</div>}
-        
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <span className="input-group-text">
-              <i className="fas fa-envelope"></i>
-            </span>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="Email"
-              value={credentials.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="input-group">
-            <span className="input-group-text">
-              <i className="fas fa-lock"></i>
-            </span>
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Mot de passe"
-              value={credentials.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button type="submit" className="btn-primary">Se connecter</button>
-        </form>
-
-        <p className="login-footer">
-          Pas encore de compte ? <a href="/register">Créer un compte</a>
-        </p>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="p-6 bg-white rounded shadow-md">
+        <h2 className="text-lg font-bold mb-4">Connexion</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          className="border p-2 w-full mb-2"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Mot de passe"
+          className="border p-2 w-full mb-2"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className="bg-blue-500 text-white p-2 w-full" onClick={handleLogin}>
+          Se connecter
+        </button>
       </div>
     </div>
   );
-};
-
-export default Login;
+}

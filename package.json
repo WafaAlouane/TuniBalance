@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.6",
+    "@nestjs/common": "^11.0.10",
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/graphql": "^13.0.3",
+    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/mongoose": "^11.0.1",
+    "@nestjs/passport": "^11.0.5",
+    "@nestjs/testing": "^11.0.10",
+    "@shadcn/ui": "^0.0.4",
+    "@types/express": "^5.0.0",
+    "bcrypt": "^5.1.1",
+    "class-validator": "^0.14.1",
+    "express": "^4.21.2",
+    "lucide-react": "^0.477.0",
+    "mongoose": "^8.10.2",
+    "nodemailer": "^6.10.0",
+    "passport-jwt": "^4.0.1",
+    "recharts": "^2.15.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.9"
+  }
+}

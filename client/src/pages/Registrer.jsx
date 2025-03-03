@@ -7,9 +7,29 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    phoneNumber: ''
   });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!/^[0-9]{10}$/.test(formData.phoneNumber)) {
+      setError('Numéro de téléphone invalide (10 chiffres requis)');
+      return;
+    }
+
+    try {
+      const { user } = await register(formData);
+      localStorage.setItem('tempUser', JSON.stringify(user));
+      navigate('/login');
+
+    } catch (err) {
+      setError(err.message.includes('409') 
+        ? 'Cet email est déjà utilisé' 
+        : err.message
+      );
+    }
+  };
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -17,28 +37,9 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Vérifier que le mot de passe et la confirmation du mot de passe correspondent
-    if (formData.password !== formData.confirmPassword) {
-      setError('Les mots de passe ne correspondent pas.');
-      return;
-    }
-
-    try {
-      // Appel de l'API de registre
-      const data = await register(formData);
-
-      // Si l'enregistrement est réussi, rediriger l'utilisateur vers la page de connexion
-      navigate('/login');
-    } catch (err) {
-      setError('Échec de l\'enregistrement. Veuillez réessayer.');
-    }
-  };
-
+  
   return (
-    <div className="container-fluid register py-5" >
+    <div className="container-fluid register py-5">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5 col-md-8 col-12">
@@ -48,7 +49,9 @@ const Register = () => {
                 
                 {error && <div className="alert alert-danger">{error}</div>}
 
-                <form onSubmit={handleSubmit}>
+                {/* SUPPRIMER UNE DES BALISES FORM */}
+                <form onSubmit={handleSubmit} style={{ maxWidth: '500px', margin: '0 auto' }}>
+                  {/* Champ Nom */}
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">Nom complet</label>
                     <input
@@ -56,13 +59,16 @@ const Register = () => {
                       id="name"
                       name="name"
                       className="form-control"
-                      placeholder="Entrez votre nom"
+                      placeholder="Votre nom complet"
+                      pattern=".{3,}"
+                      title="Minimum 3 caractères"
                       value={formData.name}
                       onChange={handleChange}
                       required
                     />
                   </div>
 
+                  {/* Champ Email */}
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">Adresse Email</label>
                     <input
@@ -70,13 +76,34 @@ const Register = () => {
                       id="email"
                       name="email"
                       className="form-control"
-                      placeholder="Entrez votre email"
+                      placeholder="exemple@entreprise.com"
                       value={formData.email}
                       onChange={handleChange}
                       required
                     />
                   </div>
 
+                  {/* Champ Téléphone */}
+                  <div className="mb-3">
+                    <label htmlFor="phoneNumber" className="form-label">Téléphone</label>
+                    <input
+                      type="tel"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      className="form-control"
+                      placeholder="0612345678"
+                      pattern="[0-9]{10}"
+                      title="10 chiffres sans espaces"
+                      value={formData.phoneNumber}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/\D/g, '');
+                        setFormData({...formData, phoneNumber: value.slice(0, 10)});
+                      }}
+                      required
+                    />
+                  </div>
+
+                  {/* Champ Mot de passe */}
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">Mot de passe</label>
                     <input
@@ -84,28 +111,17 @@ const Register = () => {
                       id="password"
                       name="password"
                       className="form-control"
-                      placeholder="Entrez votre mot de passe"
+                      placeholder="••••••••"
+                      minLength="6"
                       value={formData.password}
                       onChange={handleChange}
                       required
                     />
                   </div>
 
-                  <div className="mb-4">
-                    <label htmlFor="confirmPassword" className="form-label">Confirmer le mot de passe</label>
-                    <input
-                      type="password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      className="form-control"
-                      placeholder="Confirmez votre mot de passe"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <button type="submit" className="btn btn-primary w-100 py-2 mb-3">S'inscrire</button>
+                  <button type="submit" className="btn btn-primary w-100 py-2 mb-3">
+                    Devenir Business Owner
+                  </button>
 
                   <div className="text-center">
                     <p className="mb-0">Vous avez déjà un compte ? <a href="/login" className="text-decoration-none">Se connecter</a></p>

@@ -1,21 +1,34 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './schemas/user.schema';
+import { User, UserSchema } from '../user/schemas/user.schema';
 import { ResetToken, ResetTokenSchema } from './schemas/reset-token.schema';
-import { MailService } from 'src/services/mail.service';
+import { JwtStrategy } from '../auth/Strategies/jwt.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { forwardRef } from '@nestjs/common';
+import { UserModule } from '../user/user.module'; // Ajoutez UserModule ici pour les dépendances circulaires
 
 @Module({
-  imports:[MongooseModule.forFeature([{
-    name:User.name,
-    schema:UserSchema
-  },{
-    name:ResetToken.name,
-    schema:ResetTokenSchema,
-  }
-])] ,
+  imports: [
+    ConfigModule,
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+      { name: ResetToken.name, schema: ResetTokenSchema },
+    ]),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '1h' },
+      }),
+      inject: [ConfigService],
+    }),
+    forwardRef(() => UserModule), // Résolvez la dépendance circulaire ici
+  ],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
-  providers: [AuthService,MailService],
+  exports: [AuthService],
 })
 export class AuthModule {}
