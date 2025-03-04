@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     // Cloner le dépôt unique avec la branche correspondante
-                    git branch: "main", url: 'https://github.com/WafaAlouane/TuniBalance.git'
+                    git branch: "${env.BRANCH_NAME}", url: 'https://github.com/WafaAlouane/TuniBalance.git'
                 }
             }
         }
