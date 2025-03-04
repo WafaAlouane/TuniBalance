@@ -1,31 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './components/'; 
+
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        if (parsedUser.role !== 'admin') {
-          navigate('/login');
-        }
-      } catch (error) {
-        console.error('Erreur de parsing JSON:', error);
-        navigate('/login');
-      }
-    } else {
-      navigate('/login');
-    }
-    setLoading(false);
-  }, [navigate]);
-
-  if (loading) return <p>Chargement...</p>;
-
+  
   return (
     <div className="dashboard">
       <div className="sidebar">
@@ -49,3 +27,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
