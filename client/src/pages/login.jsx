@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {AdminDashboard} from "./admindashbord";
+import Dashboard from "./admindashbord";
+
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -8,9 +10,9 @@ export default function Login() {
 
   const handleLogin = () => {
     // Simuler un compte admin
-    if (email === "admin@example.com" && password === "admin123") {
+    if (email === "admin@example.com" && password === "AdminPassword123!") {
       localStorage.setItem("user", JSON.stringify({ role: "admin" }));
-      navigate("/AdminDashboard"); // Redirige vers le Dashboard Admin
+       navigate("/Dashboard");
     } else {
       alert("Identifiants incorrects !");
     }
