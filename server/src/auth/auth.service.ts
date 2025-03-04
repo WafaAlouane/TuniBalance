@@ -1,69 +1,134 @@
-import { BadRequestException, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { SignupDto } from './dtos/signup.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { User } from './schemas/user.schema';
-import { Model } from 'mongoose';
-import * as  bcrypt from 'bcrypt';
-import { LoginDto } from './dtos/login.dto';
+import { Injectable, NotFoundException, UnauthorizedException, ConflictException, BadRequestException, ForbiddenException, InternalServerErrorException, forwardRef, Inject, Logger } from '@nestjs/common';
+import { UsersService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { ChangePasswordDto } from './dtos/change-password.dto';
-import { nanoid } from 'nanoid';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import * as bcrypt from 'bcrypt';
+import {  UserRole } from '../auth/enums/role.enum';
 import { ResetToken } from './schemas/reset-token.schema';
-import Mail from 'nodemailer/lib/mailer';
-import { MailService } from 'src/services/mail.service';
+import { ChangePasswordDto } from './dtos/change-password.dto';
+import { ForgetPasswordDto } from './dtos/forget-password.dto';
+import { LoginDto } from './dtos/login.dto';
+import { ResetPasswordDto } from './dtos/reset-password.dto';
+import { SignupDto } from './dtos/signup.dto';
+import { User, UserDocument}from '../user/schemas/user.schema';
+
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class AuthService {
-    constructor(@InjectModel(User.name) private UserModel:Model<User>,private jwtservice:JwtService,
-@InjectModel(ResetToken.name)private resetTokenModel:Model<ResetToken>,
-private mailService:MailService) { }
-    async signup(signupData:SignupDto){
-        //extracting email,password and name from body
-        const {email,password,name} = signupData;
-        const emailInUse= await this.UserModel.findOne({email});
-        if(emailInUse){
-            throw new BadRequestException("email already in use");
+  constructor(
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(ResetToken.name) private resetTokenModel: Model<ResetToken>,
+    @Inject(forwardRef(() => UsersService)) private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
+
+  async registerBusinessOwner(signupDto: SignupDto) {
+    try {
+      const existingUser = await this.usersService.findByEmail(signupDto.email);
+      if (existingUser) throw new ConflictException('Email déjà utilisé');
+  
+      const newUser = await this.usersService.create({
+        ...signupDto,
+        role: UserRole.BUSINESS_OWNER
+      });
+  
+      return {
+        message: 'Inscription réussie',
+        user: {
+          id: newUser._id,
+          email: newUser.email,
+          role: newUser.role
         }
-        //hashing the password
-        const hashedPassword= await bcrypt.hash(password,10);
-        await this.UserModel.create({
-            name,
-            email,
-            password:hashedPassword
-        })
-
-
-
+      };
+      
+    } catch (error) {
+      console.error('Erreur lors de l\'inscription:', error);
+      throw new InternalServerErrorException('Erreur technique lors de l\'inscription');
+    }
+  }
+  async registerStaff(
+    createStaffDto: SignupDto & { role: UserRole }, 
+    businessOwnerId: string
+  ) {
+    if (![UserRole.FINANCIER, UserRole.ACCOUNTANT].includes(createStaffDto.role)) {
+      throw new ForbiddenException('Rôle non autorisé');
     }
 
-    async login(loginData:LoginDto){
-const {email,password}=loginData;
+    return this.usersService.create({
+      ...createStaffDto,
+      createdBy: businessOwnerId
+    });
+  }
 
-  const user= await this.UserModel.findOne({email});
-  //if email is not found in db
-        if(!user){
-            throw new UnauthorizedException("Email not Found");
-        }
-// if the password is wrong 
-        const passwordMatch=await bcrypt.compare(password,user.password);
-        if(!passwordMatch){
-            throw new UnauthorizedException("Invalid Password");
+  async login({ email, password }: { email: string; password: string }) {
+    const user = await this.userModel.findOne({ email });
+    if (!user || !(await user.comparePassword(password))) {
+      throw new UnauthorizedException('Identifiants invalides');
+    }
 
-         }
-         //jwt token
-         Logger.log("id of user is "+user._id);
-        return this.generateUserToken(user._id);      
+    const payload = { 
+      userId: user._id, 
+      email: user.email,
+      role: user.role 
+    };
+    
+    return {
+      accessToken: this.jwtService.sign(payload),
+      user: {
+        id: user._id,
+        email: user.email,
+        role: user.role
+      }
+    };
+  }
+  
 
-        }
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.userModel.findOne({ email }).exec();
+    
+    if (!user) return null;
+  
+    // Utilisation de la méthode du schéma User
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) return null;
+  
+    const { password: _, ...result } = user.toObject();
+    return result;
+  }
 
-            async generateUserToken(userId) {
-                const accessToken=this.jwtservice.sign({userId},{expiresIn:'1d'})
-                return {accessToken,};
+  /*async login(loginDto: LoginDto) {
+    // Normalisation de l'email
+    const email = loginDto.email.toLowerCase().trim();
+    const password = loginDto.password.trim();
+  Logger.log("email"+email);
+  Logger.log("password"+password);
+    const user = await this.validateUser(email, password);
+  
+    if (!user) {
+      throw new UnauthorizedException('Identifiants invalides');
+    }
+  
+    const payload = { 
+      userId: user._id, 
+      email: user.email,
+      role: user.role 
+    };
+    
+    return {
+      accessToken: this.jwtService.sign(payload),
+      user: {
+        id: user._id,
+        email: user.email,
+        role: user.role
+      }
+    };
+  }*/
+  
 
-}
-
-async changePassword(oldPassword:string,newdPassword:string,userId){
-    const user= await this.UserModel.findById(userId);
+  async changePassword(oldPassword:string,newdPassword:string,userId){
+    const user= await this.userModel.findById(userId);
     if(!user){
         throw new NotFoundException("User Not Found");
     }
@@ -78,38 +143,59 @@ async changePassword(oldPassword:string,newdPassword:string,userId){
 
 }
 
-async forgetPassword(email:string){
-const user=await this.UserModel.findOne({email});
-if(!user){
-    throw new NotFoundException("Please verify Your email");
-}
-const expiryDate=new Date();
-expiryDate.setHours(expiryDate.getHours()+1);
-const resetToken=nanoid();
-await this.resetTokenModel.create({
-    token:resetToken,
-    userId:user._id,
-    expiryDate
-});
-this.mailService.sendPasswordResetEmail(email,resetToken);
+  async forgetPassword(forgetPasswordDto: ForgetPasswordDto) {
+    const user = await this.userModel.findOne({ email: forgetPasswordDto.email });
+    if (!user) throw new NotFoundException('User not found');
 
-}
-
-async resetPassword(newPassword:string,resetToken:string){
-    const token=await this.resetTokenModel.findOneAndDelete({token:resetToken,
-        expiryDate:{$gte:new Date()},
+    const resetToken = new this.resetTokenModel({
+      userId: user._id,
+      token: uuidv4(),
+      expiryDate: new Date(Date.now() + 3600000), // 1 heure
     });
-    if(!token){
-        throw new UnauthorizedException("Invalid Link");
-    }
-    const user=await this.UserModel.findById(token.userId);
-    if(!user){
-        throw new NotFoundException("User Not Found");
-    }
-    const hashedPassword=await bcrypt.hash(newPassword,10);
-    user.password=hashedPassword;
-    await user.save();
-    return "password has been changed";
 
-}
-}
+    await resetToken.save();
+    return { 
+      message: 'Reset link sent to email', 
+      token: resetToken.token 
+    };
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    const tokenEntry = await this.resetTokenModel.findOne({ 
+      token: resetPasswordDto.resetToken,
+      expiryDate: { $gt: new Date() }
+    });
+
+    if (!tokenEntry) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+
+    const user = await this.userModel.findById(tokenEntry.userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    user.password = await bcrypt.hash(resetPasswordDto.newPassword, 10);
+    await user.save();
+    await tokenEntry.deleteOne();
+
+    return { message: 'Password reset successfully' };
+  }
+
+  private generateToken(user: UserDocument) {
+    const payload = { 
+      userId: user._id, 
+      email: user.email,
+      role: user.role 
+    };
+    
+    return {
+      accessToken: this.jwtService.sign(payload),  // Utilisation de jwtService pour signer le token
+      user: {  // Les informations sur l'utilisateur à inclure dans la réponse
+        id: user._id,
+        email: user.email,
+        role: user.role
+      }
+    };
+  }
+}  
