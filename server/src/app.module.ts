@@ -8,6 +8,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import config from './config/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { SmsController } from './sms/sms.controller';
+import { SmsService } from './sms/sms.service';
 
 @Module({
   imports: [
@@ -37,7 +39,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     AuthModule,  // Ajoutez AuthModule ici, pas AuthService
     UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, SmsController],
+  providers: [AppService, SmsService],
 })
 export class AppModule {}

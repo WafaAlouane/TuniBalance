@@ -100,7 +100,8 @@ export class User {
   })
   role: UserRole;
 
-  @Prop({ required: true, match: /^[0-9]{10}$/ })
+  @Prop({ required: true, 
+    match: /^[+216]{4}[0-9]{8}$/ })
   phoneNumber: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
@@ -114,19 +115,21 @@ export class User {
 
 export const UserSchema = SchemaFactory.createForClass(User);
 export type UserDocument = User & Document;
+
 UserSchema.pre<UserDocument>('save', async function (next) {
-    if (!this.isModified('password') && !this.isNew) return next();
-  
-    try {
-      const salt = await bcrypt.genSalt(10);
-      this.password = await bcrypt.hash(this.password, salt);
-      console.log('✅ Mot de passe haché avec succès');
-      next();
-    } catch (error) {
-      console.error('❌ Erreur de hachage:', error);
-      next(new Error('Erreur de hachage du mot de passe'));
-    }
-  });
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt); // ✅ Un seul hachage
+    console.log('✅ Mot de passe haché avec succès');
+    next();
+  } catch (error) {
+    next(new Error('Erreur de hachage du mot de passe'));
+  }
+});
   UserSchema.methods.comparePassword = async function (
     enteredPassword: string
   ): Promise<boolean> {

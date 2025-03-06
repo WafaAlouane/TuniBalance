@@ -9,7 +9,7 @@ import { JwtStrategy } from '../auth/Strategies/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { forwardRef } from '@nestjs/common';
 import { UserModule } from '../user/user.module'; // Ajoutez UserModule ici pour les dépendances circulaires
-
+import {SmsService} from '../sms/sms.service';
 @Module({
   imports: [
     ConfigModule,
@@ -25,10 +25,12 @@ import { UserModule } from '../user/user.module'; // Ajoutez UserModule ici pour
       }),
       inject: [ConfigService],
     }),
-    forwardRef(() => UserModule), // Résolvez la dépendance circulaire ici
+    forwardRef(() => UserModule), 
+  // Résolvez la dépendance circulaire ici
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, SmsService], // Ajoutez SmsService ici
   controllers: [AuthController],
-  exports: [AuthService],
+  
+  exports: [AuthService,SmsService],
 })
 export class AuthModule {}
