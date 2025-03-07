@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FiMail, FiLock } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/slices/authSlice';
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleLogin = async () => {
     // Vérification de l'admin avant l'appel à l'API
     if (email === "admin@example.com" && password === "AdminPassword123!") {
@@ -25,15 +27,19 @@ export default function Login() {
         email,
         password,
       });
-
+      dispatch(loginSuccess({
+        user: response.data.user,
+        token: response.data.accessToken
+      }));
       // Enregistrer le token JWT dans le localStorage
-      localStorage.setItem("accessToken", response.data.accessToken);
+      //localStorage.setItem("accessToken", response.data.accessToken);
 
       // Vérifiez le rôle de l'utilisateur et redirigez vers le tableau de bord correspondant
-      if (response.data.user.role === "business_owner") {
+      const role = response.data.user.role.toLowerCase();
+      if (role === "business_owner") {
         navigate("/DashboardBusinessOwner");
-      } else {
-        navigate("/Dashboard"); // ou une autre page selon le rôle
+      } else if (role === "admin") {
+        navigate("/Dashboard");
       }
     } catch (error) {
       setError("Identifiants incorrects !");

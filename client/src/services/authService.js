@@ -41,7 +41,7 @@ export const createStaff = async (staffData, businessOwnerId) => {
   try {
     const response = await axios.post(`${API_URL}/create-staff`, {
       ...staffData,
-      role: staffData.role // Validation backend nécessaire
+      role: staffData.role
     }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`

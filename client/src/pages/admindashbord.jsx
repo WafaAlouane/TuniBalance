@@ -1,12 +1,12 @@
-// Dashboard.js
-
 import React from "react";
 
-export default function Dashboard() {
+const AdminDashboard = () => {
   return (
     <div>
-      <h1>Tableau de bord</h1>
-      <p>Bienvenue sur votre tableau de bord!</p>
+      <h1>Tableau de bord Administrateur</h1>
+      <p>Bienvenue sur votre tableau de bord d'administration!</p>
     </div>
   );
-}
+};
+
+export default AdminDashboard;

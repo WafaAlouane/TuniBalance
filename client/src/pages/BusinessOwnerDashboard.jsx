@@ -1,20 +1,35 @@
 
 import React from 'react';
-import Feature from '../components/Landing/Feature'; // Import du composant Feature
-import Offer from '../components/Landing/Offer'; // Import du composant Offer
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../redux/slices/authSlice';
+import Feature from '../components/Landing/Feature';
+import Offer from '../components/Landing/Offer';
 
 const BusinessOwnerDashboard = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <div className="container-fluid">
-      {/* Section Header */}
       <header className="d-flex justify-content-between align-items-center p-4 bg-primary text-white">
-        <h2>Dashboard - Business Owner</h2>
+        <h2>Dashboard - {user?.name}</h2>
         <div>
-          <button className="btn btn-light">Profile</button>
-          <button className="btn btn-light ms-2">Logout</button>
+          <Link to="/create-staff" className="btn btn-light">
+            Créer un Staff
+          </Link>
+          <Link to="/profile" className="btn btn-light ms-2">
+  Mon Profil
+</Link>
+          <button className="btn btn-light ms-2" onClick={handleLogout}>
+            Déconnexion
+          </button>
         </div>
       </header>
-
       {/* Section d'Introduction */}
       <div className="container my-5">
         <div className="text-center mb-5">

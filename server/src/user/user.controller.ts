@@ -1,16 +1,19 @@
 import { Controller, Get,Delete, Param, UseGuards, NotFoundException } from '@nestjs/common';
+import { Permissions} from '../auth/decorators/permissions.decorator';
 import { UsersService } from './user.service';
 import { AuthGuard } from '../guards/auth.guard';
 import { RolesGuard } from '../guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { UserRole } from '../auth/enums/role.enum';
+import { Permission } from '../auth/enums/permission.enum';
 @Controller('users')
 @UseGuards(AuthGuard, RolesGuard)
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  @Roles(UserRole.ADMIN)
+  @Permissions(Permission.READ_USER)
+ 
   async getAllUsers() {
     return this.usersService.findAll();
   }

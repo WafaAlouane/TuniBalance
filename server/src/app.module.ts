@@ -10,6 +10,9 @@ import config from './config/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SmsController } from './sms/sms.controller';
 import { SmsService } from './sms/sms.service';
+import { ProfileModule } from './profile/profile.module';
+import { ProfileController } from './profile/profile.controller';
+import { ProfileService } from './profile/profile.service';
 
 @Module({
   imports: [
@@ -37,7 +40,7 @@ import { SmsService } from './sms/sms.service';
     }),
 
     AuthModule,  // Ajoutez AuthModule ici, pas AuthService
-    UserModule,
+    UserModule, ProfileModule,
   ],
   controllers: [AppController, SmsController],
   providers: [AppService, SmsService],
