@@ -1,6 +1,6 @@
 import { IsString, IsOptional, IsArray, IsUrl, IsDate } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
+import { Transform } from 'class-transformer';
 export class CreateProfileDto {
   @ApiProperty()
   @IsString()
@@ -26,11 +26,8 @@ export class CreateProfileDto {
 
   @ApiProperty()
   @IsDate()
+  @Transform(({ value }) => new Date(value)) // Conversion de la string en Date
   companyCreationDate: Date;
 
-  @ApiProperty({ required: false })
-  @IsOptional()
-  @IsArray()
-  @IsUrl({}, { each: true })
-  socialLinks?: string[];
+  
 }

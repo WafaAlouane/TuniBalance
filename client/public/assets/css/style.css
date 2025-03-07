@@ -875,26 +875,8 @@
     flex-direction: column;
 }
 /* Style général pour centrer le login et l'inscription */
-.login-container, .register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Prend toute la hauteur de l'écran */
-    background-color: #f8f9fa;
-     /* Optionnel, change la couleur de fond */
-}
 
-.login-box, .register-box {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    
-        width: 500px; /* Ajuste la largeur à ton besoin */
-        max-width: 100%; /* Empêche que ça dépasse l'écran */
-        padding: 40px;
-    /* Ajuste la largeur selon ton design */
-}
+
 
 
 .footer .footer-item a {

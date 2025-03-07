@@ -27,8 +27,7 @@ export class Profile {
   @Prop({ type: Date })
   companyCreationDate: Date;
 
-  @Prop({ type: [String] })
-  socialLinks: string[];
+  
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

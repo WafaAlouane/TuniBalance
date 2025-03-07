@@ -8,6 +8,7 @@ import AdminDashboard from "./pages/admindashbord";
 import  ProtectedRoute from "./routes/ProtectedRoute"
 import CreateStaff from './pages/CreateStaff';
 import Profile from './pages/profile/Profile';
+import InfoProfile from './pages/profile/InfoProfile'; 
 function App() {
   return (
     <Router>
@@ -20,7 +21,8 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={["business_owner"]} />}>
   <Route path="/DashboardBusinessOwner" element={<BusinessOwnerDashboard />} />
   <Route path="/create-staff" element={<CreateStaff />} />
-  <Route path="/profile" element={<Profile />} />
+  <Route path="/profile/edit" element={<Profile />} />
+  <Route path="/profile" element={<InfoProfile />} /> {/* Affichage du profil */}
 </Route>
 
         {/* Admin Routes */}

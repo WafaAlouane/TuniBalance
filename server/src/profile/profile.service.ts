@@ -34,30 +34,39 @@ export class ProfileService {
   async getFullProfile(userId: string) {
     const [user, profile] = await Promise.all([
       this.usersService.findById(userId),
-      this.profileModel.findOne({ userId })
+      this.profileModel.findOne({ userId }).lean().exec()
     ]);
-
+  
     if (!user) throw new NotFoundException('Utilisateur non trouvé');
-
+  
     return {
       userInfo: {
         name: user.name,
         email: user.email,
         phoneNumber: user.phoneNumber,
         role: user.role,
-       
       },
-      businessInfo: profile ? profile.toObject() : null
+      businessInfo: profile || null
     };
   }
-
-  async updateProfile(userId: string, updateProfileDto: UpdateProfileDto) {
-    const updatedProfile = await this.profileModel.findOneAndUpdate(
-      { userId },
-      updateProfileDto,
-      { new: true, upsert: true }
-    );
-
-    return this.getFullProfile(userId);
+  
+// profile/profile.service.ts
+async updateProfile(userId: string, updateProfileDto: UpdateProfileDto) {
+  // Conversion sécurisée de la date
+  if (updateProfileDto.companyCreationDate) {
+    updateProfileDto.companyCreationDate = new Date(updateProfileDto.companyCreationDate);
   }
+
+  const updatedProfile = await this.profileModel.findOneAndUpdate(
+    { userId },
+    updateProfileDto,
+    { 
+      new: true,
+      upsert: true,
+      runValidators: true
+    }
+  ).lean().exec();
+
+  return this.getFullProfile(userId);
+}
 }
