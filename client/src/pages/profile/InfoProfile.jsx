@@ -85,6 +85,12 @@ const InfoProfile = () => {
         <Button variant="success" href="/profile/edit" className="w-100 py-3 fw-bold">
           Modifier Profil
         </Button>
+    
+        <Button variant="danger" href="/BusinessOwner/reset-password" className="w-100  py-3 fw-bold mt-1 ">
+  Réinitialiser le mot de passe
+</Button>
+
+
       </div>
     </Container>
   );

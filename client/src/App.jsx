@@ -10,6 +10,8 @@ import CreateStaff from './pages/CreateStaff';
 import Profile from './pages/profile/Profile';
 import InfoProfile from './pages/profile/InfoProfile'; 
 import BusinessOwner from "./pages/BusinessOwner";
+import ResetPassword from "./pages/ResetPassword";
+import ChangePassword from "./pages/profile/ChangePassword";
 function App() {
   return (
     <Router>
@@ -24,6 +26,9 @@ function App() {
             <Route path="create-staff" element={<CreateStaff />} />
             <Route path="profile/edit" element={<Profile />} />
             <Route path="profile" element={<InfoProfile />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="change-password" element={<ChangePassword />} />
+
           </Route>
         </Route>
 
