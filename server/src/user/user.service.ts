@@ -34,17 +34,32 @@ export class UsersService {
     email: string;
     phoneNumber: string;
     createdBy?: string;
+    isEmailConfirmed?: boolean;
   }): Promise<UserDocument> {
     const newUser = new this.userModel(userData);
   return newUser.save(); // Le middleware hachera le mot de passe
 }
+
+
+async updateUser(userId: string, updateData: Partial<User>): Promise<UserDocument> {
+  const updatedUser = await this.userModel.findByIdAndUpdate(userId, updateData, { new: true }).exec();
+  if (!updatedUser) {
+    throw new NotFoundException('Utilisateur non trouvé');
+  }
+  return updatedUser;
+}
+
+async findByVerificationToken(token: string): Promise<UserDocument | null> {
+  return this.userModel.findOne({ verificationToken: token }).exec();
+}
+
 
   
 async updatePassword(email: string, newPassword: string): Promise<boolean> {
   const user = await this.findByEmail(email);
   if (!user) throw new NotFoundException('Utilisateur non trouvé');
 
-  user.password = newPassword; // ✅ Envoyer le mot de passe en CLAIR
+  user.password = newPassword; //  Envoyer le mot de passe en CLAIR
   await user.save(); // Le middleware hachera automatiquement
   return true;
 }

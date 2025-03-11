@@ -10,8 +10,8 @@ export class MailService {
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
-        user: 'marvin11@ethereal.email',
-        pass: 'ZK8jpBMHHqd9fp414s'
+             user: 'cedrick.murphy95@ethereal.email',
+               pass: 'Z53SKr2ptNnkWRYrQq'
             },
         });
     }
@@ -30,5 +30,19 @@ export class MailService {
         } catch (error) {
             Logger.error('Error sending email:', error);
         }
+    }
+
+    
+    async sendVerificationEmail(to: string, token: string) {
+        const confirmLink = `http://localhost:5173/BusinessOwner/confirm-email?token=${token}`;
+        const mailOptions = {
+            from: 'Auth-backend service',
+            to,
+            subject: 'Email Verification',
+            html: `<p>Click the link below to verify your email:</p>
+                   <p><a href="${confirmLink}">${confirmLink}</a></p>`,
+        };
+
+        await this.transporter.sendMail(mailOptions);
     }
 }

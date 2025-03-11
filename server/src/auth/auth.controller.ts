@@ -1,4 +1,5 @@
-import { Body, Controller, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { UsersService } from './../user/user.service';
+import { BadRequestException, Body, Controller, NotFoundException, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import {Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto } from './dtos/signup.dto';
@@ -14,11 +15,29 @@ import { UserRole } from './enums/role.enum'
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private usersService: UsersService,) {}
 
   @Post('signup')
   async signup(@Body() signupDto: SignupDto) {
     return this.authService.registerBusinessOwner(signupDto);
+  }
+
+
+  @Get('confirm-email')
+  async confirmEmail(@Query('token') token: string) {
+    if (!token) throw new BadRequestException('Token manquant');
+
+    const user = await this.usersService.findByVerificationToken(token);
+    if (!user) throw new NotFoundException('Token invalide ou expiré');
+
+    // Mise à jour de l'utilisateur
+    await this.usersService.updateUser(user._id as string, {
+      isEmailConfirmed: true,
+      verificationToken: null, // Supprimer le token après confirmation
+    });
+
+    return { message: 'Email confirmé avec succès. Vous pouvez maintenant vous connecter.' };
   }
 
   @Post('create-staff')

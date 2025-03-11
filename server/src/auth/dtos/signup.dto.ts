@@ -19,4 +19,8 @@ export class SignupDto {
   @IsEnum(UserRole)
   role?: UserRole;
 
+  @IsOptional() 
+  isEmailConfirmed?: boolean;
+  
+
 }

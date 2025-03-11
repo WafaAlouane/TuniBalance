@@ -35,8 +35,18 @@ export class AuthService {
   
       const newUser = await this.usersService.create({
         ...signupDto,
-        role: UserRole.BUSINESS_OWNER
+        role: UserRole.BUSINESS_OWNER,
+        isEmailConfirmed: false, 
       });
+    // Générer un token de vérification unique
+    const verificationToken = uuidv4();
+
+    // Stocker le token en base (Ajoute un champ verificationToken dans User si nécessaire)
+    await this.usersService.updateUser((newUser._id as string).toString(), { verificationToken });
+
+    // Envoi de l'e-mail de confirmation
+    await this.mailService.sendVerificationEmail(newUser.email, verificationToken);
+      
       let phoneNumber = newUser.phoneNumber;
 
     // Vérification et ajout de l'indicatif si absent
@@ -50,7 +60,7 @@ export class AuthService {
     await this.smsService.sendSMS(phoneNumber, message);
 
       return {
-        message: 'Inscription réussie',
+        message: 'Inscription réussie. Vérifiez votre email pour confirmer votre compte. ',
         user: {
           id: newUser._id,
           email: newUser.email,
@@ -82,6 +92,9 @@ export class AuthService {
     
     if (!user) {
         throw new UnauthorizedException("Email not Found");
+    }
+    if (!user.isEmailConfirmed){
+      throw new UnauthorizedException("verifier votre email");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);

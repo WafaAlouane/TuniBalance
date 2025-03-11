@@ -32,6 +32,6 @@ import { MailService } from 'src/services/mail.service';
   providers: [AuthService, JwtStrategy, SmsService,MailService], // Ajoutez SmsService ici
   controllers: [AuthController],
   
-  exports: [AuthService,SmsService],
+  exports: [AuthService,SmsService,MailService],
 })
 export class AuthModule {}
