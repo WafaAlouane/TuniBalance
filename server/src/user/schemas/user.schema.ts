@@ -33,6 +33,12 @@ export class User {
 
   @Prop({ type: [String], enum: Permission, default: [] })
   permissions: Permission[];
+  
+  @Prop({ default: false })  
+  isEmailConfirmed: boolean;
+
+  @Prop({ type: String, default: null }) 
+  verificationToken?: string | null;
 
   @Prop()  
   twoFactorSecret: string;
