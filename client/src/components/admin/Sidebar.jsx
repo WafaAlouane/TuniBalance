@@ -27,18 +27,18 @@ function Sidebar() {
         {user && (
           <>
             <li className="nav-item">
-              <Link className="nav-link" to="/profile">
-                <i className="bi bi-person" />
-                <span>Mon Profil</span>
-              </Link>
-            </li>
+  <Link className="nav-link" to="/BusinessOwner/profile">
+    <i className="bi bi-person" />
+    <span>Mon Profil</span>
+  </Link>
+</li>
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/create-staff">
-                <i className="bi bi-person-plus" />
-                <span>Créer un Staff</span>
-              </Link>
-            </li>
+<li className="nav-item">
+  <Link className="nav-link" to="/BusinessOwner/create-staff">
+    <i className="bi bi-person-plus" />
+    <span>Créer un Staff</span>
+  </Link>
+</li>
           </>
         )}
 

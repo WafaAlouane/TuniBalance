@@ -18,13 +18,14 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Business Owner Routes */}
         <Route element={<ProtectedRoute allowedRoles={["business_owner"]} />}>
-  <Route path="/BusinessOwner" element={<BusinessOwner />} />
-  <Route path="/create-staff" element={<CreateStaff />} />
-  <Route path="/profile/edit" element={<Profile />} />
-  <Route path="/profile" element={<InfoProfile />} /> {/* Affichage du profil */}
-</Route>
+          <Route path="/BusinessOwner" element={<BusinessOwner />}>
+            <Route index element={<BusinessOwner />} /> {/* Affiche le Dashboard par défaut */}
+            <Route path="create-staff" element={<CreateStaff />} />
+            <Route path="profile/edit" element={<Profile />} />
+            <Route path="profile" element={<InfoProfile />} />
+          </Route>
+        </Route>
 
         {/* Admin Routes */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>

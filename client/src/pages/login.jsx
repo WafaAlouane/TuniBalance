@@ -1,12 +1,10 @@
-// Login.js
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FiMail, FiLock } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/slices/authSlice';
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../redux/slices/authSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,27 +12,26 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleLogin = async () => {
-    // Vérification de l'admin avant l'appel à l'API
     if (email === "admin@example.com" && password === "AdminPassword123!") {
-      navigate("/Dashboard"); 
-      return; // Redirection de l'admin sans appeler l'API backend
+      navigate("/Dashboard");
+      return;
     }
 
     try {
-      // Authentification normale via l'API backend
       const response = await axios.post("http://localhost:3001/auth/login", {
         email,
         password,
       });
-      dispatch(loginSuccess({
-        user: response.data.user,
-        token: response.data.accessToken
-      }));
-      // Enregistrer le token JWT dans le localStorage
-      //localStorage.setItem("accessToken", response.data.accessToken);
 
-      // Vérifiez le rôle de l'utilisateur et redirigez vers le tableau de bord correspondant
+      dispatch(
+        loginSuccess({
+          user: response.data.user,
+          token: response.data.accessToken,
+        })
+      );
+
       const role = response.data.user.role.toLowerCase();
       if (role === "business_owner") {
         navigate("/BusinessOwner");
@@ -46,12 +43,11 @@ export default function Login() {
     }
   };
 
-
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
       <div className="row w-75 shadow-lg rounded p-4 bg-white">
-        {/* Colonne gauche : Texte d'information avec fond vert */}
-        <div className="col-md-7 d-flex flex-column justify-content-center p-4 text-white bg-success rounded-start">
+        {/* Colonne gauche : Texte d'information avec fond bleu */}
+        <div className="col-md-7 d-flex flex-column justify-content-center p-4 text-white bg-primary rounded-start">
           <h2 className="mb-3">Bienvenue de retour !</h2>
           <p>
             Connectez-vous pour accéder à votre tableau de bord et gérer vos finances efficacement.
@@ -60,7 +56,7 @@ export default function Login() {
 
         {/* Colonne droite : Formulaire de connexion */}
         <div className="col-md-5 p-4">
-          <h2 className="text-center text-success mb-4">Connexion</h2>
+          <h2 className="text-center text-primary mb-4">Connexion</h2>
 
           {error && <div className="alert alert-danger">{error}</div>}
 
@@ -97,7 +93,7 @@ export default function Login() {
 
             <button
               type="button"
-              className="btn btn-success w-100 py-2"
+              className="btn btn-primary w-100 py-2"
               onClick={handleLogin}
             >
               Se connecter

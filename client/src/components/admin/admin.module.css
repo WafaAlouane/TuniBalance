@@ -13,6 +13,80 @@
   scroll-behavior: smooth;
 }
 
+/* Ajoutez ces règles à la fin de votre fichier CSS */
+.profile-section {
+  padding: 30px;
+  background: #f6f9ff;
+}
+
+.profile-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.profile-card-header {
+  background: #4154f1;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px 8px 0 0;
+}
+
+.profile-card-body {
+  padding: 25px;
+}
+
+.profile-info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.profile-info-icon {
+  font-size: 20px;
+  margin-right: 15px;
+  color: #4154f1;
+}
+
+.profile-form-label {
+  font-weight: 600;
+  color: #012970;
+  margin-bottom: 8px;
+}
+
+.profile-form-control {
+  border: 2px solid #eef0f7;
+  border-radius: 6px;
+  padding: 12px 15px;
+  transition: all 0.3s;
+}
+
+.profile-form-control:focus {
+  border-color: #4154f1;
+  box-shadow: none;
+}
+
+.profile-save-btn {
+  background: #4154f1;
+  border: none;
+  padding: 12px 30px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.profile-save-btn:hover {
+  background: #2a3ec7;
+}
+.same-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
