@@ -14,6 +14,8 @@ import { SignupDto } from './dtos/signup.dto';
 import { User, UserDocument}from '../user/schemas/user.schema';
 import { SmsService } from '../sms/sms.service'; 
 import { v4 as uuidv4 } from 'uuid';
+import Mail from 'nodemailer/lib/mailer';
+import { MailService } from 'src/services/mail.service';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +25,7 @@ export class AuthService {
     @Inject(forwardRef(() => UsersService)) private usersService: UsersService,
     private jwtService: JwtService,
     private smsService: SmsService,
+    private mailService: MailService
   ) {}
 
   async registerBusinessOwner(signupDto: SignupDto) {
@@ -162,9 +165,8 @@ Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
         throw new UnauthorizedException("Wrong credential");
       }
   
-      // ✅ Modification clé ici
-      user.password = newPassword; // Envoi du mot de passe en clair
-      await user.save(); // Le middleware de hachage fera le travail
+      user.password = newPassword; 
+      await user.save();
   
       return { message: 'Password changed successfully' };
     }
@@ -174,18 +176,30 @@ Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
     const user = await this.userModel.findOne({ email: forgetPasswordDto.email });
     if (!user) throw new NotFoundException('User not found');
 
+    // Generate reset token
     const resetToken = new this.resetTokenModel({
       userId: user._id,
       token: uuidv4(),
-      expiryDate: new Date(Date.now() + 3600000), // 1 heure
+      expiryDate: new Date(Date.now() + 3600000), // 1 hour
     });
 
     await resetToken.save();
+
+    const resetLink = `http://yourapp.com/reset-password?token=${resetToken.token}`;
+
+    try {
+        
+        await this.mailService.sendPasswordResetEmail(user.email, resetToken.token);
+        console.log('Password reset email sent successfully');
+    } catch (error) {
+        console.error('Error sending password reset email:', error);
+    }
+
     return { 
       message: 'Reset link sent to email', 
       token: resetToken.token 
     };
-  }
+}
 
   async resetPassword(resetPasswordDto: ResetPasswordDto) {
     const tokenEntry = await this.resetTokenModel.findOne({ 
@@ -202,13 +216,15 @@ Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
       throw new NotFoundException('User not found');
     }
 
-    // ✅ Modification clé ici
-    user.password = resetPasswordDto.newPassword; // Envoi du mot de passe en clair
-    await user.save(); // Le middleware de hachage fera le travail
+    user.password = resetPasswordDto.newPassword; 
+    await user.save(); 
 
     await tokenEntry.deleteOne();
     return { message: 'Password reset successfully' };
   }
+
+
+
 
   private generateToken(user: UserDocument) {
     const payload = { 

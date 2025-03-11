@@ -1,5 +1,5 @@
 import * as nodemailer from 'nodemailer';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class MailService {
@@ -10,21 +10,25 @@ export class MailService {
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
-               user: 'lew.reilly68@ethereal.email',
-               pass: 'actka1XH3GM5FqZ9Kz'
+        user: 'marvin11@ethereal.email',
+        pass: 'ZK8jpBMHHqd9fp414s'
             },
         });
     }
-
     async sendPasswordResetEmail(to: string, token: string) {
-        const resetLink = `http://yourapp.com/reset-password?token=${token}`;
+        const resetLink = `http://localhost:5173/BusinessOwner/change-password?token=${token}`;
         const mailOptions = {
             from: 'Auth-backend service',
             to,
             subject: 'Password Reset Request',
             html: `<p>You requested a password reset. Click the link below to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`,
         };
-
-        await this.transporter.sendMail(mailOptions);
+    
+        try {
+            const info = await this.transporter.sendMail(mailOptions);
+            Logger.log('Email sent:', info);
+        } catch (error) {
+            Logger.error('Error sending email:', error);
+        }
     }
 }
