@@ -101,7 +101,7 @@ const handleVerifyTwoFactorAuth = async () => {
     <div className="container vh-100 d-flex justify-content-center align-items-center">
       <div className="row w-75 shadow-lg rounded p-4 bg-white">
         {/* Colonne gauche : Texte d'information avec fond vert */}
-        <div className="col-md-7 d-flex flex-column justify-content-center p-4 text-white bg-success rounded-start">
+        <div className="col-md-7 d-flex flex-column justify-content-center p-4 text-white bg-primary rounded-start">
           <h2 className="mb-3">Bienvenue de retour !</h2>
           <p>
             Connectez-vous pour accéder à votre tableau de bord et gérer vos finances efficacement.
@@ -110,7 +110,7 @@ const handleVerifyTwoFactorAuth = async () => {
 
         {/* Colonne droite : Formulaire de connexion */}
         <div className="col-md-5 p-4">
-          <h2 className="text-center text-success mb-4">Connexion</h2>
+          <h2 className="text-center text-primary mb-4">Connexion</h2>
 
           {error && <div className="alert alert-danger">{error}</div>}
 
@@ -150,7 +150,7 @@ const handleVerifyTwoFactorAuth = async () => {
 
                 <button
                   type="button"
-                  className="btn btn-success w-100 py-2"
+                  className="btn btn-primary w-100 py-2"
                   onClick={handleLogin}
                 >
                   Se connecter
@@ -171,7 +171,7 @@ const handleVerifyTwoFactorAuth = async () => {
                 />
                 <button
                   type="button"
-                  className="btn btn-success w-100 py-2 mt-2"
+                  className="btn btn-primary w-100 py-2 mt-2"
                   onClick={handleVerifyTwoFactorAuth}
                 >
                   Vérifier le code 2FA
