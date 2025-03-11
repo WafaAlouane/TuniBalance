@@ -83,7 +83,7 @@ const handleVerifyTwoFactorAuth = async () => {
         if (role === "business_owner") {
           navigate("/BusinessOwner");
         } else if (role === "admin") {
-          navigate("/dashboard");
+          navigate("/Dashboard");
         } else {
           setError("Rôle utilisateur non reconnu !");
         }
