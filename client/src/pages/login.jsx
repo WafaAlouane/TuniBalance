@@ -37,7 +37,7 @@ export default function Login() {
       // Vérifiez le rôle de l'utilisateur et redirigez vers le tableau de bord correspondant
       const role = response.data.user.role.toLowerCase();
       if (role === "business_owner") {
-        navigate("/DashboardBusinessOwner");
+        navigate("/BusinessOwner");
       } else if (role === "admin") {
         navigate("/Dashboard");
       }

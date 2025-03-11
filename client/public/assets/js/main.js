@@ -1,136 +1,166 @@
-(function ($) {
-    "use strict";
+/*
+* Template Name: Arsha
+* Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+* Updated: Feb 22 2025 with Bootstrap v5.3.3
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
 
-    // Spinner
-    var spinner = function () {
-        setTimeout(function () {
-            if ($('#spinner').length > 0) {
-                $('#spinner').removeClass('show');
-            }
-        }, 1);
-    };
-    spinner(0);
-    
-    
-    // Initiate the wowjs
-    new WOW().init();
+(function() {
+  "use strict";
 
-    // Sticky Navbar
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 45) {
-            $('.navbar').addClass('sticky-top shadow-sm');
-        } else {
-            $('.navbar').removeClass('sticky-top shadow-sm');
-        }
-    });
-
-
-    // Hero Header carousel
-    $(".header-carousel").owlCarousel({
-        animateOut: 'fadeOut',
-        items: 1,
-        margin: 0,
-        stagePadding: 0,
-        autoplay: true,
-        smartSpeed: 500,
-        dots: true,
-        loop: true,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-    });
-
-
-    // attractions carousel
-    $(".blog-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        center: false,
-        dots: false,
-        loop: true,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="fa fa-angle-right"></i>',
-            '<i class="fa fa-angle-left"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:1
-            },
-            768:{
-                items:2
-            },
-            992:{
-                items:2
-            },
-            1200:{
-                items:3
-            }
-        }
-    });
-
-
-    // testimonial carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        center: false,
-        dots: true,
-        loop: true,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="fa fa-angle-right"></i>',
-            '<i class="fa fa-angle-left"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:1
-            },
-            768:{
-                items:2
-            },
-            992:{
-                items:2
-            },
-            1200:{
-                items:3
-            }
-        }
-    });
-
-
-    // Facts counter
-    $('[data-toggle="counter-up"]').counterUp({
-        delay: 5,
-        time: 2000
-    });
-
-
-   // Back to top button
-   $(window).scroll(function () {
-    if ($(this).scrollTop() > 300) {
-        $('.back-to-top').fadeIn('slow');
-    } else {
-        $('.back-to-top').fadeOut('slow');
+  document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * Apply .scrolled class to the body as the page is scrolled down
+     */
+    function toggleScrolled() {
+      const selectBody = document.querySelector('body');
+      const selectHeader = document.querySelector('#header');
+      if (!selectHeader || (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top'))) return;
+      window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
     }
+
+    document.addEventListener('scroll', toggleScrolled);
+    toggleScrolled();
+
+    /**
+     * Mobile nav toggle
+     */
+    const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+
+    function mobileNavToogle() {
+      document.body.classList.toggle('mobile-nav-active');
+      mobileNavToggleBtn?.classList.toggle('bi-list');
+      mobileNavToggleBtn?.classList.toggle('bi-x');
+    }
+
+    mobileNavToggleBtn?.addEventListener('click', mobileNavToogle);
+
+    /**
+     * Hide mobile nav on same-page/hash links
+     */
+    document.querySelectorAll('#navmenu a').forEach(navmenu => {
+      navmenu.addEventListener('click', () => {
+        if (document.querySelector('.mobile-nav-active')) {
+          mobileNavToogle();
+        }
+      });
     });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-        return false;
+
+    /**
+     * Toggle mobile nav dropdowns
+     */
+    document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+      navmenu.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.parentNode.classList.toggle('active');
+        this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+        e.stopImmediatePropagation();
+      });
     });
 
+    /**
+     * Preloader
+     */
+    const preloader = document.querySelector('#preloader');
+    preloader?.remove();
 
-})(jQuery);
+    /**
+     * Scroll top button
+     */
+    const scrollTop = document.querySelector('.scroll-top');
 
+    function toggleScrollTop() {
+      if (scrollTop) {
+        window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+      }
+    }
+
+    scrollTop?.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    toggleScrollTop();
+    document.addEventListener('scroll', toggleScrollTop);
+
+    /**
+     * Animation on scroll function and init
+     */
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+
+    /**
+     * Initiate glightbox
+     */
+    const glightbox = GLightbox({ selector: '.glightbox' });
+
+    /**
+     * Init swiper sliders
+     */
+    document.querySelectorAll('.init-swiper').forEach(swiperElement => {
+      const config = JSON.parse(swiperElement.querySelector('.swiper-config')?.textContent?.trim() || '{}');
+      new Swiper(swiperElement, config);
+    });
+
+    /**
+     * Frequently Asked Questions Toggle
+     */
+    document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach(faqItem => {
+      faqItem.addEventListener('click', () => {
+        faqItem.parentNode.classList.toggle('faq-active');
+      });
+    });
+
+    /**
+     * Init isotope layout and filters
+     */
+    document.querySelectorAll('.isotope-layout').forEach(isotopeItem => {
+      const layout = isotopeItem.getAttribute('data-layout') || 'masonry';
+      const filter = isotopeItem.getAttribute('data-default-filter') || '*';
+      const sort = isotopeItem.getAttribute('data-sort') || 'original-order';
+      imagesLoaded(isotopeItem.querySelector('.isotope-container'), () => {
+        const initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
+          itemSelector: '.isotope-item',
+          layoutMode: layout,
+          filter: filter,
+          sortBy: sort
+        });
+
+        isotopeItem.querySelectorAll('.isotope-filters li').forEach(filterBtn => {
+          filterBtn.addEventListener('click', () => {
+            isotopeItem.querySelector('.filter-active')?.classList.remove('filter-active');
+            filterBtn.classList.add('filter-active');
+            initIsotope.arrange({ filter: filterBtn.getAttribute('data-filter') });
+            AOS.refresh();
+          });
+        });
+      });
+    });
+
+    /**
+     * Navmenu Scrollspy
+     */
+    const navmenulinks = document.querySelectorAll('.navmenu a');
+
+    function navmenuScrollspy() {
+      const position = window.scrollY + 200;
+      navmenulinks.forEach(link => {
+        if (!link.hash) return;
+        const section = document.querySelector(link.hash);
+        if (!section) return;
+        if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+          document.querySelector('.navmenu a.active')?.classList.remove('active');
+          link.classList.add('active');
+        }
+      });
+    }
+
+    navmenuScrollspy();
+    document.addEventListener('scroll', navmenuScrollspy);
+  });
+})();

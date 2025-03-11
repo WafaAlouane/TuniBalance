@@ -1,50 +1,32 @@
 // Landing.jsx
 import React from 'react';
-import Navbar from '../components/Landing/Navbar';
-import About from '../components/Landing/About';
-import Feature from '../components/Landing/Feature';
-import Offer from '../components/Landing/Offer';
-import Blog from '../components/Landing/Blog';
-import FAQ from '../components/Landing/FAQ';
-import Team from '../components/Landing/Team';
-import Testimonia from '../components/Landing/Testimonia';
-import Footer from '../components/Landing/Footer';
-import Service from '../components/Landing/Service';
-
-
+import Header from '../components/Home/Header';
+import Skills from '../components/Home/Skills';
+import Clients from '../components/Home/Clients';
+import Team from '../components/Home/Team';
+import WhyUs from '../components/Home/WhyUs';
+import Services from '../components/Home/Services';
+import About from '../components/Home/About';
+import Contact from '../components/Home/Contact';
+import Footer from '../components/Home/Footer';
+import Hero from '../components/Home/Hero';
 function Landing() {
   return (
     <div>
-      
-      <Navbar />
-      <section id="home">
-        {/* Home content here */}
-      </section>
-      <section id="about">
-        <About />
-      </section>
-      <section id="services">
-        <Service />
-      </section>
-      <section id="features">
-        <Feature />
-      </section>
-      <section id="offer">
-        <Offer />
-      </section>
-      <section id="blog">
-        <Blog />
-      </section>
-      <section id="faq">
-        <FAQ />
-      </section>
-      <section id="team">
-        <Team />
-      </section>
-      <section id="testimonial">
-        <Testimonia />
-      </section>
-      <Footer />
+    <Header />    
+    <Hero />
+
+    <Team /> 
+    <About /> 
+    <Services /> 
+    <WhyUs /> 
+    <Clients /> 
+    <Skills />
+    <Contact /> 
+    <Footer /> 
+
+
+   
     </div>
   );
 }
