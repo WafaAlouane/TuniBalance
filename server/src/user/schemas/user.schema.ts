@@ -34,7 +34,9 @@ export class User {
   @Prop({ type: [String], enum: Permission, default: [] })
   permissions: Permission[];
 
-
+  @Prop()  
+  twoFactorSecret: string;
+  
   async comparePassword(plainPassword: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, this.password);
   }
