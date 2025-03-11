@@ -12,7 +12,7 @@ export class SignupDto {
   @MinLength(6)
   password: string;
 
-  @Matches(/^[0-9]{10}$/, { message: 'Phone number must be 10 digits' })
+  @Matches( /^[+216]{4}[0-9]{8}$/, { message: 'Phone number must be 8 digits' })
   phoneNumber: string;
 
   @IsOptional() // Le rôle peut être défini, sinon c'est Business Owner par défaut

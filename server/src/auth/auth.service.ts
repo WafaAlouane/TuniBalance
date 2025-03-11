@@ -12,7 +12,7 @@ import { LoginDto } from './dtos/login.dto';
 import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { SignupDto } from './dtos/signup.dto';
 import { User, UserDocument}from '../user/schemas/user.schema';
-
+import { SmsService } from '../sms/sms.service'; 
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -22,6 +22,7 @@ export class AuthService {
     @InjectModel(ResetToken.name) private resetTokenModel: Model<ResetToken>,
     @Inject(forwardRef(() => UsersService)) private usersService: UsersService,
     private jwtService: JwtService,
+    private smsService: SmsService,
   ) {}
 
   async registerBusinessOwner(signupDto: SignupDto) {
@@ -33,7 +34,18 @@ export class AuthService {
         ...signupDto,
         role: UserRole.BUSINESS_OWNER
       });
-  
+      let phoneNumber = newUser.phoneNumber;
+
+    // Vérification et ajout de l'indicatif si absent
+    if (!phoneNumber.startsWith('+')) {
+      phoneNumber = `+216${phoneNumber}`;
+    }
+
+    const message = `Bienvenue ${newUser.name} ! Votre compte Business Owner a été créé avec succès.`;
+
+    // Envoi du SMS avec le bon numéro
+    await this.smsService.sendSMS(phoneNumber, message);
+
       return {
         message: 'Inscription réussie',
         user: {
@@ -63,24 +75,35 @@ export class AuthService {
   }
 
   async login({ email, password }: { email: string; password: string }) {
-    const user = await this.userModel.findOne({ email });
-    if (!user || !(await user.comparePassword(password))) {
-      throw new UnauthorizedException('Identifiants invalides');
+    const user = await this.userModel.findOne({ email }).select('+password');
+    
+    if (!user) {
+        throw new UnauthorizedException("Email not Found");
     }
 
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    Logger.log(`Mot de passe stocké: ${user.password}`);
+Logger.log(`Mot de passe entré: ${password}`);
+Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
+    if (!passwordMatch) {
+        throw new UnauthorizedException("Invalid Password");
+    }
+
+    Logger.log("id of user is " + user._id);
+
     const payload = { 
-      userId: user._id, 
-      email: user.email,
-      role: user.role 
+        userId: user._id, 
+        email: user.email,
+        role: user.role 
     };
     
     return {
-      accessToken: this.jwtService.sign(payload),
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role
-      }
+        accessToken: this.jwtService.sign(payload),
+        user: {
+            id: user._id,
+            email: user.email,
+            role: user.role
+        }
     };
   }
   
@@ -127,21 +150,25 @@ export class AuthService {
   }*/
   
 
-  async changePassword(oldPassword:string,newdPassword:string,userId){
-    const user= await this.userModel.findById(userId);
-    if(!user){
+    async changePassword(oldPassword: string, newPassword: string, userId: string) {
+      const user = await this.userModel.findById(userId);
+      
+      if (!user) {
         throw new NotFoundException("User Not Found");
-    }
-    const passwordMatch=await bcrypt.compare(oldPassword,user.password);
-    if(!passwordMatch){
+      }
+  
+      const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!passwordMatch) {
         throw new UnauthorizedException("Wrong credential");
+      }
+  
+      // ✅ Modification clé ici
+      user.password = newPassword; // Envoi du mot de passe en clair
+      await user.save(); // Le middleware de hachage fera le travail
+  
+      return { message: 'Password changed successfully' };
     }
-    const newHashedPassword=await bcrypt.hash(newdPassword,10);
-    user.password=newHashedPassword;
-    await user.save();
-
-
-}
+  
 
   async forgetPassword(forgetPasswordDto: ForgetPasswordDto) {
     const user = await this.userModel.findOne({ email: forgetPasswordDto.email });
@@ -175,10 +202,11 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
 
-    user.password = await bcrypt.hash(resetPasswordDto.newPassword, 10);
-    await user.save();
-    await tokenEntry.deleteOne();
+    // ✅ Modification clé ici
+    user.password = resetPasswordDto.newPassword; // Envoi du mot de passe en clair
+    await user.save(); // Le middleware de hachage fera le travail
 
+    await tokenEntry.deleteOne();
     return { message: 'Password reset successfully' };
   }
 

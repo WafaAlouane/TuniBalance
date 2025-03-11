@@ -36,8 +36,21 @@ export class UsersService {
     createdBy?: string;
   }): Promise<UserDocument> {
     const newUser = new this.userModel(userData);
-    return newUser.save();
-  }
+  return newUser.save(); // Le middleware hachera le mot de passe
+}
+
+  
+async updatePassword(email: string, newPassword: string): Promise<boolean> {
+  const user = await this.findByEmail(email);
+  if (!user) throw new NotFoundException('Utilisateur non trouvé');
+
+  user.password = newPassword; // ✅ Envoyer le mot de passe en CLAIR
+  await user.save(); // Le middleware hachera automatiquement
+  return true;
+}
+
+
+
 
   async findAll(): Promise<UserDocument[]> {
     return this.userModel.find().exec();
@@ -61,4 +74,6 @@ export class UsersService {
   async findByEmail(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email }).exec(); // Ne plus lancer d'exception
   }
+  
 }
+
