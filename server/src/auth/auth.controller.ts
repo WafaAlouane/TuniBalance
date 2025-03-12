@@ -11,12 +11,13 @@ import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
 import { UserRole } from './enums/role.enum'
+import { TwoFactorService } from 'src/services/twofactor.service';
 
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService,
-    private usersService: UsersService,) {}
+    private usersService: UsersService,private readonly twoFactorService: TwoFactorService) {}
 
   @Post('signup')
   async signup(@Body() signupDto: SignupDto) {
@@ -78,6 +79,35 @@ export class AuthController {
     @Put("reset-password")
     async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
         return this.authService.resetPassword(resetPasswordDto);
+    }
+
+    @Post('2fa-setup')
+    @UseGuards(AuthGuard)
+    async setupTwoFactorAuth(@Req() req) {
+      const userId = req.user.userId;  // Assurez-vous que req.user contient l'utilisateur authentifié via le token
+      const { qrCodeImage, secret } = await this.twoFactorService.generateTwoFactorSecret(userId);
+      return { qrCodeImage, secret };
+    }
+    
+
+    @Post('2fa-verify')
+    @UseGuards(AuthGuard)  // Authentification préalable
+    async verifyTwoFactorAuth(@Req() req) {
+      try {
+        const userId = req.user.userId;  // Récupérer l'ID utilisateur à partir du token d'authentification
+        const { token } = req.body;  // Récupérer le token 2FA envoyé par l'utilisateur
+  
+        // Appeler le service pour vérifier le code 2FA
+        const result = await this.twoFactorService.verifyTwoFactorAuth(userId, token);
+  
+        if (result.isValid) {
+          return { message: 'Vérification réussie.', user: result.user };
+        } else {
+          return { message: 'Code 2FA invalide.' };
+        }
+      } catch (error) {
+        return { message: error.message || 'Erreur lors de la vérification du code 2FA.' };
+      }
     }
 }
 

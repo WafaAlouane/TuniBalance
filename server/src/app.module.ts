@@ -13,6 +13,7 @@ import { SmsService } from './sms/sms.service';
 import { ProfileModule } from './profile/profile.module';
 import { ProfileController } from './profile/profile.controller';
 import { ProfileService } from './profile/profile.service';
+import { TwoFactorService } from './services/twofactor.service';
 
 @Module({
   imports: [
@@ -43,6 +44,6 @@ import { ProfileService } from './profile/profile.service';
     UserModule, ProfileModule,
   ],
   controllers: [AppController, SmsController],
-  providers: [AppService, SmsService],
+  providers: [AppService, SmsService,TwoFactorService],
 })
 export class AppModule {}

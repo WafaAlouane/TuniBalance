@@ -39,13 +39,13 @@ export class AuthService {
         isEmailConfirmed: false, 
       });
     // Générer un token de vérification unique
-    const verificationToken = uuidv4();
+   // const verificationToken = uuidv4();
 
     // Stocker le token en base (Ajoute un champ verificationToken dans User si nécessaire)
-    await this.usersService.updateUser((newUser._id as string).toString(), { verificationToken });
+   // await this.usersService.updateUser((newUser._id as string).toString(), { verificationToken });
 
     // Envoi de l'e-mail de confirmation
-    await this.mailService.sendVerificationEmail(newUser.email, verificationToken);
+   // await this.mailService.sendVerificationEmail(newUser.email, verificationToken);
       
       let phoneNumber = newUser.phoneNumber;
 

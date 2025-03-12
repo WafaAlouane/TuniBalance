@@ -52,3 +52,16 @@ export const createStaff = async (staffData, businessOwnerId) => {
     throw new Error(error.response?.data?.message || "Erreur de création");
   }
 };
+
+export const setup2FA = (token) => {
+  return axios.post(`${API_URL}/2fa-setup`, {}, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+};
+
+export const verify2FA = (token, twoFactorToken) => {
+  console.log("Données envoyées :", { token: twoFactorToken });
+  return axios.post(`${API_URL}/2fa-verify`, { token: twoFactorToken }, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+};

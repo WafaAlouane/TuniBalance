@@ -41,7 +41,9 @@ export class User {
   @Prop({ type: String, default: null }) 
   verificationToken?: string | null;
 
-
+  @Prop()  
+  twoFactorSecret: string;
+  
   async comparePassword(plainPassword: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, this.password);
   }

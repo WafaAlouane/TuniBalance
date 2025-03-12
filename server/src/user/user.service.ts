@@ -90,5 +90,8 @@ async updatePassword(email: string, newPassword: string): Promise<boolean> {
     return this.userModel.findOne({ email }).exec(); // Ne plus lancer d'exception
   }
   
+  async update(userId: string, updateData: Partial<UserDocument>): Promise<UserDocument | null> {
+    return this.userModel.findByIdAndUpdate(userId, updateData, { new: true }).exec();
+  }
 }
 

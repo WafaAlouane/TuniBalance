@@ -10,6 +10,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { forwardRef } from '@nestjs/common';
 import { UserModule } from '../user/user.module'; // Ajoutez UserModule ici pour les dépendances circulaires
 import {SmsService} from '../sms/sms.service';
+import { TwoFactorService } from 'src/services/twofactor.service';
+
 import { MailService } from 'src/services/mail.service';
 @Module({
   imports: [
@@ -29,7 +31,7 @@ import { MailService } from 'src/services/mail.service';
     forwardRef(() => UserModule), 
   // Résolvez la dépendance circulaire ici
   ],
-  providers: [AuthService, JwtStrategy, SmsService,MailService], // Ajoutez SmsService ici
+  providers: [AuthService, JwtStrategy, SmsService,MailService,TwoFactorService], // Ajoutez SmsService ici
   controllers: [AuthController],
   
   exports: [AuthService,SmsService,MailService],
