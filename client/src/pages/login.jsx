@@ -100,8 +100,10 @@ export default function Login() {
             </button>
 
             <p className="mt-3 text-center">
-              Pas encore de compte ? <a href="/register">Créer un compte</a>
-            </p>
+  Pas encore de compte ? <a href="/register">Créer un compte</a> 
+</p>
+<p className="mt-3 text-center">  <a href="/forget-password" className="ms-2">Mot de passe oublié ?</a>
+</p>
           </form>
         </div>
       </div>

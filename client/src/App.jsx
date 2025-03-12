@@ -12,6 +12,7 @@ import InfoProfile from './pages/profile/InfoProfile';
 import BusinessOwner from "./pages/BusinessOwner";
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/profile/ChangePassword";
+import ForgetPassword from "./pages/ForgetPassword";
 function App() {
   return (
     <Router>
@@ -19,6 +20,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="forget-password" element={<ForgetPassword />} />
+
 
         <Route element={<ProtectedRoute allowedRoles={["business_owner"]} />}>
           <Route path="/BusinessOwner" element={<BusinessOwner />}>
@@ -28,6 +31,8 @@ function App() {
             <Route path="profile" element={<InfoProfile />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
+
 
           </Route>
         </Route>

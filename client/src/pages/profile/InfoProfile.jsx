@@ -86,8 +86,8 @@ const InfoProfile = () => {
           Modifier Profil
         </Button>
     
-        <Button variant="danger" href="/BusinessOwner/reset-password" className="w-100  py-3 fw-bold mt-1 ">
-  Réinitialiser le mot de passe
+        <Button variant="danger" href="/BusinessOwner/change-password" className="w-100  py-3 fw-bold mt-1 ">
+  Changer le mot de passe
 </Button>
 
 

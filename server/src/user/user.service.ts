@@ -21,7 +21,7 @@ export class UsersService {
         email: 'admin@example.com',
         password: await bcrypt.hash('AdminPassword123!', 10),
         role: UserRole.ADMIN,
-        phoneNumber: '0000000000'
+        phoneNumber: '+21622000000'
       });
       await admin.save();
     }
