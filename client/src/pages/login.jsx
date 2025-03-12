@@ -1,3 +1,5 @@
+// Login.js
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -16,18 +18,25 @@ export default function Login() {
   const [showTwoFactorInput, setShowTwoFactorInput] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleLogin = async () => {
+    // Vérification de l'admin avant l'appel à l'API
     if (email === "admin@example.com" && password === "AdminPassword123!") {
-      navigate("/Dashboard");
-      return;
+      navigate("/Dashboard"); 
+      return; // Redirection de l'admin sans appeler l'API backend
     }
 
     try {
+      // Authentification normale via l'API backend
       const response = await axios.post("http://localhost:3001/auth/login", {
         email,
         password,
       });
+      dispatch(loginSuccess({
+        user: response.data.user,
+        token: response.data.accessToken
+      }));
+      // Enregistrer le token JWT dans le localStorage
+      //localStorage.setItem("accessToken", response.data.accessToken);
 
 
       const setupResponse = await axios.post(
