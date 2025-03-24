@@ -42,6 +42,34 @@ function Sidebar() {
           </>
         )}
 
+        {/* Navigation pour les composants */}
+        <li className="nav-item">
+          <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <i className="bi bi-menu-button-wide" />
+            <span>Transaction</span>
+            <i className="bi bi-chevron-down ms-auto" />
+          </a>
+          <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <Link to="/components-alerts">
+                <i className="bi bi-circle" />
+                <span>dépense</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/components-buttons">
+                <i className="bi bi-circle" />
+                <span>revenu</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/components-cards">
+                <i className="bi bi-circle" />
+                <span> transfert</span>
+              </Link>
+            </li>
+          </ul>
+        </li>
 
         {/* Déconnexion */}
         {user && (

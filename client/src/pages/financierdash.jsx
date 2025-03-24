@@ -7,7 +7,6 @@ import Sidebar from '../components/admin/sidebarfinancier';
 import Footer from '../components/admin/Footer';
 
 
-
 function FinancierDash() {
     const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth); // Récupère l'utilisateur connecté
