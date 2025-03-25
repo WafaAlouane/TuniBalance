@@ -181,6 +181,7 @@ Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
   
 
     async changePassword(oldPassword: string, newPassword: string, userId: string) {
+      console.log(`Change password for user: ${userId}`);
       const user = await this.userModel.findById(userId);
       
       if (!user) {
@@ -249,6 +250,7 @@ Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
     await tokenEntry.deleteOne();
     return { message: 'Password reset successfully' };
   }
+
 
 
 

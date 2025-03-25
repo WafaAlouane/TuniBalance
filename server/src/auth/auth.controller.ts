@@ -65,22 +65,23 @@ async createStaff(
   async protectedRoute() {
     return { message: 'Authorized access' };
   }
-        @UseGuards(AuthGuard)
-        @Put('change-password')
-        async changePassword(@Body() changePasswordDto:ChangePasswordDto,@Req() req){
-          return this.authService.changePassword(changePasswordDto.oldPassword,changePasswordDto.newPassword,req.userId);
-      
-      }
+  @UseGuards(AuthGuard)
+@Put('change-password')
+async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Req() req) {
+    console.log('Request received for change-password', req.userId);
+    return this.authService.changePassword(changePasswordDto.oldPassword, changePasswordDto.newPassword, req.userId);
+}
 
-    @Post("forget-password")
-    async forgetPassword(@Body() forgetPasswordDto: ForgetPasswordDto) {
-        return this.authService.forgetPassword(forgetPasswordDto);
-    }
 
-    @Put("reset-password")
-    async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
-        return this.authService.resetPassword(resetPasswordDto);
-    }
+@Post("forget-password")
+async forgetPassword(@Body() forgetPasswordDto: ForgetPasswordDto) {
+  return this.authService.forgetPassword(forgetPasswordDto);
+}
+
+@Put("reset-password")
+async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+  return this.authService.resetPassword(resetPasswordDto);
+}
 
     @Post('2fa-setup')
     @UseGuards(AuthGuard)

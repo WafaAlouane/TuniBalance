@@ -28,8 +28,11 @@ function App() {
 <Route element={<ProtectedRoute allowedRoles={["accountant"]} />}>
           <Route path="/comptable" element={<ComptDash />}>
             <Route index element={<InfoProfile />} />
+            <Route path="profile/edit" element={<Profile />} />
             <Route path="profile" element={<InfoProfile />} />
+            <Route path="reset-password" element={<ResetPassword />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
           </Route>
         </Route>
 
@@ -37,8 +40,11 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={["financier"]} />}>
           <Route path="/financier" element={<FinancierDash />}>
             <Route index element={<InfoProfile />} />
+            <Route path="profile/edit" element={<Profile />} />
             <Route path="profile" element={<InfoProfile />} />
+            <Route path="reset-password" element={<ResetPassword />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
           </Route>
         </Route>
 
