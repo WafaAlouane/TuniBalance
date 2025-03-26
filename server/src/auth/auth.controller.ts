@@ -1,5 +1,5 @@
 import { UsersService } from './../user/user.service';
-import { BadRequestException, Body, Controller, NotFoundException, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, NotFoundException, Post, Put, Query, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import {Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto } from './dtos/signup.dto';
@@ -65,12 +65,17 @@ async createStaff(
   async protectedRoute() {
     return { message: 'Authorized access' };
   }
-  @UseGuards(AuthGuard)
-@Put('change-password')
-async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Req() req) {
-    console.log('Request received for change-password', req.userId);
-    return this.authService.changePassword(changePasswordDto.oldPassword, changePasswordDto.newPassword, req.userId);
-}
+  @UseGuards(AuthGuard)  // Ensure the AuthGuard is applied
+  @Put('change-password')
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Req() req) {
+      console.log('Request received for change-password:', req.user); // Debugging
+      return this.authService.changePassword(
+          changePasswordDto.oldPassword,
+          changePasswordDto.newPassword,
+          req.user?.userId  // Use req.user.userId instead of req.userId
+      );
+  }
+  
 
 
 @Post("forget-password")

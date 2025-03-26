@@ -18,7 +18,8 @@ export default function ResetPassword() {
       const response = await axios.put(
         "http://localhost:3001/auth/change-password",
         { oldPassword, newPassword },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
+        { headers: { Authorization: `Bearer ${token}` }
+      }
       );
 
       setSuccess("Mot de passe changé avec succès !");

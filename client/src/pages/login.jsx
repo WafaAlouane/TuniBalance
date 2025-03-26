@@ -89,6 +89,7 @@ const handleVerifyTwoFactorAuth = async () => {
           user: response.data.user,
           token: token 
         }));
+        
         let redirectPath = '/';
       switch(role) {
         case 'business_owner':
