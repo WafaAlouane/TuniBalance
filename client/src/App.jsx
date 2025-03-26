@@ -19,11 +19,22 @@ import ForgetPassword from "./pages/ForgetPassword"; // Ajouter
 function App() {
   return (
     <Router>
+
+
+
+
+
+
+
+
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="forget-password" element={<ForgetPassword />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="change-password" element={<ChangePassword />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
+        
 {/* Routes pour Comptable */}
 <Route element={<ProtectedRoute allowedRoles={["accountant"]} />}>
           <Route path="/comptable" element={<ComptDash />}>
