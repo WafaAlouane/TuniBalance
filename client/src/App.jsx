@@ -16,27 +16,34 @@ import ViewBO from "./pages/viewBO";
 import ComptDash from "./pages/comptdash"; // Ajouter
 import FinancierDash from "./pages/financierdash";
 import ForgetPassword from "./pages/ForgetPassword"; // Ajouter
-import TransactionForm from "./pages/Transaction/AddTransaction"
 function App() {
   return (
     <Router>
+
+
+
+
+
+
+
+
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="forget-password" element={<ForgetPassword />} />
-        <Route path="profile/edit" element={<Profile />} />
-            <Route path="profile" element={<InfoProfile />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="change-password" element={<ChangePassword />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
+        
 {/* Routes pour Comptable */}
 <Route element={<ProtectedRoute allowedRoles={["accountant"]} />}>
           <Route path="/comptable" element={<ComptDash />}>
             <Route index element={<InfoProfile />} />
-            
-
+            <Route path="profile/edit" element={<Profile />} />
+            <Route path="profile" element={<InfoProfile />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="forget-password" element={<ForgetPassword />} />
-            <Route path="add-transaction" element={<TransactionForm />} />
           </Route>
         </Route>
 
@@ -44,7 +51,8 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={["financier"]} />}>
           <Route path="/financier" element={<FinancierDash />}>
             <Route index element={<InfoProfile />} />
-           
+            <Route path="profile/edit" element={<Profile />} />
+            <Route path="profile" element={<InfoProfile />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="forget-password" element={<ForgetPassword />} />
@@ -56,7 +64,8 @@ function App() {
           <Route path="/BusinessOwner" element={<BusinessOwner />}>
             <Route index element={<BusinessOwner />} /> {/* Affiche le Dashboard par défaut */}
             <Route path="create-staff" element={<CreateStaff />} />
-            
+            <Route path="profile/edit" element={<Profile />} />
+            <Route path="profile" element={<InfoProfile />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="forget-password" element={<ForgetPassword />} />

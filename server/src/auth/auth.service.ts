@@ -213,7 +213,7 @@ Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
 
     await resetToken.save();
 
-    const resetLink = `http://yourapp.com/reset-password?token=${resetToken.token}`;
+    const resetLink = `http://localhost:5173/reset-password?token${resetToken.token}`;
 
     try {
         

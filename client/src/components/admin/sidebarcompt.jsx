@@ -32,6 +32,22 @@ function Sidebar() {
     <span>Mon Profil</span>
   </Link>
 </li>
+ <li className="nav-item">
+          <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <i className="bi bi-menu-button-wide" />
+            <span>Transaction</span>
+            <i className="bi bi-chevron-down ms-auto" />
+          </a>
+          <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <Link to="/comptable/add-transaction">
+                <i className="bi bi-circle" />
+                <span>ajouter une transactions</span>
+              </Link>
+            </li>
+           
+          </ul>
+        </li>
 
 
           </>

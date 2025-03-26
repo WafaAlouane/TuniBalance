@@ -10,13 +10,13 @@ export class MailService {
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
-               user: 'giovanni.renner81@ethereal.email',
-        pass: 'heBv7rcbVbAaq61nbZ'
+                user: 'eve89@ethereal.email',
+        pass: 'bfwkXQKCqPcYE8QVKR'
             },
         });
     }
     async sendPasswordResetEmail(to: string, token: string) {
-        const resetLink = `http://localhost:5173/BusinessOwner/reset-password?token=${token}`;
+        const resetLink = `http://localhost:5173/reset-password?token=${token}`;
         const mailOptions = {
             from: 'Auth-backend service',
             to,
