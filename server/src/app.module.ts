@@ -14,7 +14,8 @@ import { ProfileModule } from './profile/profile.module';
 import { ProfileController } from './profile/profile.controller';
 import { ProfileService } from './profile/profile.service';
 import { TwoFactorService } from './services/twofactor.service';
-import { TransactionsModule } from './transactions/transactions.module';
+import { TransactionModule } from './transactions/transactions.module';
+import { FactureModule } from './facture/facture.module';
 
 @Module({
   imports: [
@@ -42,7 +43,7 @@ import { TransactionsModule } from './transactions/transactions.module';
     }),
 
     AuthModule,  // Ajoutez AuthModule ici, pas AuthService
-    UserModule, ProfileModule, TransactionsModule,
+    UserModule, ProfileModule, TransactionModule, FactureModule,
   ],
   controllers: [AppController, SmsController],
   providers: [AppService, SmsService,TwoFactorService],

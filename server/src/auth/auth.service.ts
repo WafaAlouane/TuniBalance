@@ -151,33 +151,6 @@ Logger.log(`Résultat de bcrypt.compare: ${passwordMatch}`);
     return result;
   }
 
-  /*async login(loginDto: LoginDto) {
-    // Normalisation de l'email
-    const email = loginDto.email.toLowerCase().trim();
-    const password = loginDto.password.trim();
-  Logger.log("email"+email);
-  Logger.log("password"+password);
-    const user = await this.validateUser(email, password);
-  
-    if (!user) {
-      throw new UnauthorizedException('Identifiants invalides');
-    }
-  
-    const payload = { 
-      userId: user._id, 
-      email: user.email,
-      role: user.role 
-    };
-    
-    return {
-      accessToken: this.jwtService.sign(payload),
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role
-      }
-    };
-  }*/
   
 
     async changePassword(oldPassword: string, newPassword: string, userId: string) {

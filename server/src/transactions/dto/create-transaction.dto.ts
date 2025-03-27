@@ -37,14 +37,15 @@ export class CreateTransactionDto {
   @IsMongoId()
   compte_credite_id: string;
 
-  @IsString()
-  @IsOptional()
-  justificatif_url?: string;
-
+  
   @IsMongoId()
   cree_par_user_id: string;
 
   @IsNumber()
   @IsOptional()
   taux_tva?: number;
+
+  @IsMongoId()
+  @IsOptional()
+  facture_id?: string; // Référence à la facture
 }
