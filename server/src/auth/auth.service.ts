@@ -58,11 +58,13 @@ export class AuthService {
         }
       };
     } catch (error) {
+      if (error instanceof ConflictException) {
+        throw error; 
+      }
       console.error('Erreur lors de l\'inscription:', error);
       throw new InternalServerErrorException('Erreur technique lors de l\'inscription');
     }
   }
-  
   async registerStaff(
     userData: SignupDto & { role: UserRole.FINANCIER | UserRole.ACCOUNTANT },
     businessOwnerId: string
@@ -83,12 +85,49 @@ export class AuthService {
         createdBy: businessOwnerId,
       });
   
+      // Envoi de l'email au nouveau staff
+      await this.mailService.sendStaffCreationEmail(
+        newUser.email,
+        newUser.name,
+        userData.password, // Assurez-vous que le mot de passe n'est pas haché avant cet envoi
+        newUser.role,
+        businessOwner.name
+      );
+  
       return newUser;
     } catch (error) {
       console.error("Erreur DB:", error);
       throw new InternalServerErrorException("Erreur technique");
     }
   }
+  
+  
+  // async registerStaff(
+  //   userData: SignupDto & { role: UserRole.FINANCIER | UserRole.ACCOUNTANT },
+  //   businessOwnerId: string
+  // ): Promise<UserDocument> {
+  //   try {
+  //     const businessOwner = await this.usersService.findById(businessOwnerId);
+  //     if (!businessOwner || businessOwner.role !== UserRole.BUSINESS_OWNER) {
+  //       throw new UnauthorizedException("Seul un Business Owner peut créer du staff.");
+  //     }
+  
+  //     if (![UserRole.FINANCIER, UserRole.ACCOUNTANT].includes(userData.role)) {
+  //       throw new BadRequestException('Rôle invalide pour le staff');
+  //     }
+  
+  //     const newUser = await this.usersService.create({
+  //       ...userData,
+  //       role: userData.role.toLowerCase() as UserRole,
+  //       createdBy: businessOwnerId,
+  //     });
+  
+  //     return newUser;
+  //   } catch (error) {
+  //     console.error("Erreur DB:", error);
+  //     throw new InternalServerErrorException("Erreur technique");
+  //   }
+  // }
   
   async login({ email, password }: { email: string; password: string }) {
     const user = await this.userModel.findOne({ email }).select('+password');
