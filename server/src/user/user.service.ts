@@ -21,7 +21,11 @@ export class UsersService {
         email: 'admin@example.com',
         password: await bcrypt.hash('AdminPassword123!', 10),
         role: UserRole.ADMIN,
+<<<<<<< HEAD
         phoneNumber: '0000000000'
+=======
+        phoneNumber: '00000000'
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
       });
       await admin.save();
     }
@@ -90,5 +94,11 @@ async updatePassword(email: string, newPassword: string): Promise<boolean> {
     return this.userModel.findOne({ email }).exec(); // Ne plus lancer d'exception
   }
   
+<<<<<<< HEAD
+=======
+  async update(userId: string, updateData: Partial<UserDocument>): Promise<UserDocument | null> {
+    return this.userModel.findByIdAndUpdate(userId, updateData, { new: true }).exec();
+  }
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 }
 

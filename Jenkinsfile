@@ -53,6 +53,35 @@ pipeline {
                 }
             }
         }
+<<<<<<< HEAD
+=======
+         // Stage SonarQube pour le projet Client (React)
+        stage('SonarQube Analysis - Client') {
+            steps {
+                script {
+                    def scannerHome = tool 'scanner'  // Nom de l'outil SonarQube configuré dans Jenkins
+                    withSonarQubeEnv('SonarQube') { 
+                         withCredentials([string(credentialsId: 'scanner', variable: 'SONAR_TOKEN')]) {
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.token=${env.SONAR_TOKEN} -Dproject.settings=client/sonar-project.properties"
+                        }
+                }
+            }
+        }
+    }
+        // Stage SonarQube pour le projet Server (NestJS)
+        stage('SonarQube Analysis - Server') {
+            steps {
+                script {
+                    def scannerHome = tool 'scanner'  // Nom de l'outil SonarQube configuré dans Jenkins
+                    withSonarQubeEnv('SonarQube') { 
+                         withCredentials([string(credentialsId: 'scanner', variable: 'SONAR_TOKEN')]) {
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.token=${env.SONAR_TOKEN} -Dproject.settings=server/sonar-project.properties"
+                        }
+                }
+                }
+            }
+        }
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     }
 
   

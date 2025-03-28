@@ -53,6 +53,7 @@ function Header() {
                 </button>
               </li>
               <li><hr className="dropdown-divider" /></li>
+<<<<<<< HEAD
               <li className="notification-item">
                 <i className="bi bi-exclamation-circle text-warning" />
                 <div>
@@ -61,6 +62,9 @@ function Header() {
                   <p>30 min. ago</p>
                 </div>
               </li>
+=======
+              
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
             </ul>
           </li>
 

@@ -28,6 +28,7 @@ const InfoProfile = () => {
   if (loading) return <div>Chargement...</div>;
 
   return (
+<<<<<<< HEAD
     <Container className="my-5 vh-100 d-flex justify-content-center align-items-center">
       <div className="row w-100 shadow-lg rounded p-4 bg-white">
         {error && <Alert variant="danger">{error}</Alert>}
@@ -37,6 +38,17 @@ const InfoProfile = () => {
           <Col md={8} lg={6} className="mb-5">
             <Card className="shadow-sm">
               <Card.Header as="h5" className="bg-success text-white rounded-top p-4">
+=======
+    <div className="container vh-100 d-flex justify-content-center align-items-center">
+            <div className="row w-75 shadow-lg rounded p-4 bg-white">
+        {/* Informations Utilisateur */}
+        {error && <Alert variant="danger">{error}</Alert>}
+        
+        <Row className="w-100 gx-5">
+          <Col md={8} lg={6} className="mb-5">
+            <Card className="shadow-sm">
+              <Card.Header as="h5" className="bg-primary text-white rounded-top p-4">
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
                 Informations Personnelles
               </Card.Header>
               <Card.Body className="p-5">
@@ -59,7 +71,11 @@ const InfoProfile = () => {
           {/* Informations Entreprise */}
           <Col md={8} lg={6} className="mb-5">
             <Card className="shadow-sm">
+<<<<<<< HEAD
               <Card.Header as="h5" className="bg-success text-white rounded-top p-4">
+=======
+              <Card.Header as="h5" className="bg-primary text-white rounded-top p-4">
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
                 Informations de l'Entreprise
               </Card.Header>
               <Card.Body className="p-5">
@@ -82,6 +98,7 @@ const InfoProfile = () => {
           </Col>
         </Row>
 
+<<<<<<< HEAD
         <Button variant="success" href="/profile/edit" className="w-100 py-3 fw-bold">
           Modifier Profil
         </Button>
@@ -93,6 +110,17 @@ const InfoProfile = () => {
 
       </div>
     </Container>
+=======
+        <Button variant="primary" href="profile/edit" className="w-100 py-3 fw-bold">
+          Modifier Profil
+        </Button>
+        <Button variant="danger" href="/BusinessOwner/change-password" className="w-100  py-3 fw-bold mt-1 ">
+  Changer le mot de passe
+</Button>
+
+      </div>
+    </div>
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
   );
 };
 

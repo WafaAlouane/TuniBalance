@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,6 +31,49 @@ export default function ResetPassword() {
     } catch (error) {
       setError("Erreur lors du changement de mot de passe !");
       setSuccess("");
+=======
+import React, { useState } from 'react';
+
+const ChangePassword = () => {
+  const [newPassword, setNewPassword] = useState('');
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handlePasswordChange = async (event) => {
+    event.preventDefault();
+
+    const resetToken = new URLSearchParams(window.location.search).get('token');
+    console.log("handlePasswordChange is triggered!");
+
+    if (!resetToken) {
+      setError('Invalid reset link');
+      return;
+    } else {
+      console.log("Your reset token is: ", resetToken);
+    }
+
+    console.log("Sending request with:", { resetToken, newPassword });
+
+    try {
+      const response = await fetch('http://localhost:3001/auth/reset-password', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resetToken, newPassword }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(data.message);  // success message from backend
+        setError('');
+      } else {
+        setError(data.message);  // error message from backend
+        setMessage('');
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again later.');
+      setMessage('');
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     }
   };
 
@@ -47,6 +91,7 @@ export default function ResetPassword() {
           <h2 className="text-center text-primary mb-4">Changer le mot de passe</h2>
 
           {error && <div className="alert alert-danger">{error}</div>}
+<<<<<<< HEAD
           {success && <div className="alert alert-success">{success}</div>}
 
           <form>
@@ -74,12 +119,23 @@ export default function ResetPassword() {
                 type="password"
                 className="form-control form-control-lg"
                 placeholder="Entrez votre nouveau mot de passe"
+=======
+          {message && <div className="alert alert-success">{message}</div>}
+
+          <form onSubmit={handlePasswordChange}>
+            <div>
+              <label htmlFor="newPassword">New Password:</label>
+              <input
+                type="password"
+                id="newPassword"
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
               />
             </div>
 
+<<<<<<< HEAD
             <button
               type="button"
               className="btn btn-primary w-100 py-2"
@@ -87,9 +143,18 @@ export default function ResetPassword() {
             >
               Changer le mot de passe
             </button>
+=======
+            <button type="submit" className="btn btn-primary mt-3">Change Password</button>
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
           </form>
         </div>
       </div>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+};
+
+export default ChangePassword;
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245

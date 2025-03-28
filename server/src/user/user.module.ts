@@ -11,6 +11,10 @@ import { AuthModule } from '../auth/auth.module'; // Importez AuthModule ici
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     forwardRef(() => AuthModule), // Ajoutez AuthModule ici
   ],
+<<<<<<< HEAD
+=======
+  controllers: [UsersController],
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
   // Ajoute AuthModule ici
   providers: [UsersService],
   exports: [UsersService],

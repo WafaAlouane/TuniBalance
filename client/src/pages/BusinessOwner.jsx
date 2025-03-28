@@ -11,7 +11,13 @@ function BusinessOwner() {
   const { user } = useSelector((state) => state.auth); // Récupère l'utilisateur connecté
 
   const handleLogout = () => {
+<<<<<<< HEAD
     dispatch(logout());
+=======
+    
+    dispatch(logout());
+    
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
   };
 
   return (

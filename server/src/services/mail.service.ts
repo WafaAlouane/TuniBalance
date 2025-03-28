@@ -10,13 +10,22 @@ export class MailService {
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
+<<<<<<< HEAD
              user: 'cedrick.murphy95@ethereal.email',
                pass: 'Z53SKr2ptNnkWRYrQq'
+=======
+                user: 'eve89@ethereal.email',
+        pass: 'bfwkXQKCqPcYE8QVKR'
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
             },
         });
     }
     async sendPasswordResetEmail(to: string, token: string) {
+<<<<<<< HEAD
         const resetLink = `http://localhost:5173/BusinessOwner/change-password?token=${token}`;
+=======
+        const resetLink = `http://localhost:5173/reset-password?token=${token}`;
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
         const mailOptions = {
             from: 'Auth-backend service',
             to,
@@ -45,4 +54,8 @@ export class MailService {
 
         await this.transporter.sendMail(mailOptions);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245

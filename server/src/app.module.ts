@@ -13,6 +13,11 @@ import { SmsService } from './sms/sms.service';
 import { ProfileModule } from './profile/profile.module';
 import { ProfileController } from './profile/profile.controller';
 import { ProfileService } from './profile/profile.service';
+<<<<<<< HEAD
+=======
+import { TwoFactorService } from './services/twofactor.service';
+import { TransactionsModule } from './transactions/transactions.module';
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 
 @Module({
   imports: [
@@ -40,9 +45,16 @@ import { ProfileService } from './profile/profile.service';
     }),
 
     AuthModule,  // Ajoutez AuthModule ici, pas AuthService
+<<<<<<< HEAD
     UserModule, ProfileModule,
   ],
   controllers: [AppController, SmsController],
   providers: [AppService, SmsService],
+=======
+    UserModule, ProfileModule, TransactionsModule,
+  ],
+  controllers: [AppController, SmsController],
+  providers: [AppService, SmsService,TwoFactorService],
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 })
 export class AppModule {}

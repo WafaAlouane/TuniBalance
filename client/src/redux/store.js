@@ -20,9 +20,16 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
+<<<<<<< HEAD
 export const store = configureStore({
   reducer: {
     auth: persistedReducer
+=======
+// store.js
+export const store = configureStore({
+  reducer: {
+    auth: persistedReducer,
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

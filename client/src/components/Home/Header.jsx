@@ -7,7 +7,11 @@ function Header() {
         <a href="index.html" className="logo d-flex align-items-center me-auto">
           {/* You can uncomment the img tag if you want to use a logo image instead of text */}
           {/* <img src="path/to/logo.png" alt="Logo" /> */}
+<<<<<<< HEAD
           <h1 className="sitename">Arsha</h1>
+=======
+          <h1 className="sitename">TunisBalance</h1>
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
         </a>
         <nav id="navmenu" className="navmenu">
           <ul>

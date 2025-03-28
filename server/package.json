@@ -28,10 +28,17 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^11.0.1",
     "@nestjs/passport": "^11.0.5",
+<<<<<<< HEAD
     "@nestjs/platform-express": "^11.0.10",
     "@nestjs/swagger": "^11.0.6",
     "@types/bcrypt": "^5.0.2",
     "axios": "^1.8.1",
+=======
+    "@nestjs/platform-express": "^11.0.11",
+    "@nestjs/swagger": "^11.0.6",
+    "@types/bcrypt": "^5.0.2",
+    "axios": "^1.8.4",
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
@@ -39,9 +46,18 @@
     "mongoose": "^8.10.1",
     "nanoid": "^3.3.7",
     "nodemailer": "^6.10.0",
+<<<<<<< HEAD
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+=======
+    "passport-2fa-totp": "^0.0.1",
+    "passport-jwt": "^4.0.1",
+    "qrcode": "^1.5.4",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "speakeasy": "^2.0.0",
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     "uuid": "^11.1.0"
   },
   "devDependencies": {

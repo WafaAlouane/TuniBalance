@@ -17,7 +17,12 @@ const authSlice = createSlice({
         // Stocker les données dans localStorage
         localStorage.setItem("accessToken", action.payload.token);
         localStorage.setItem("user", JSON.stringify(action.payload.user));
+<<<<<<< HEAD
       },
+=======
+      }
+      ,
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
       logout: (state) => {
         state.user = null;
         state.token = null;
@@ -25,7 +30,12 @@ const authSlice = createSlice({
         // Nettoyer le localStorage
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
+<<<<<<< HEAD
       },
+=======
+      }
+      ,
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     },
   });
 

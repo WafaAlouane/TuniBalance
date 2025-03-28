@@ -17,6 +17,7 @@ export class User {
   @Prop({ required: true })
   password: string;
 
+<<<<<<< HEAD
   @Prop({ 
     required: true, 
     enum: UserRole, 
@@ -30,6 +31,24 @@ export class User {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   createdBy: string; // Pour tracer le créateur
+=======
+  // Supprimer le setter qui convertit en majuscules
+@Prop({
+  enum: UserRole,
+  default: UserRole.BUSINESS_OWNER
+})
+role: UserRole;
+
+
+  @Prop({ 
+    match: /^(\+216)?[0-9]{8}$/,
+    message: 'Le numéro doit contenir 8 chiffres, optionnellement précédés de +216' 
+  })
+  phoneNumber: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  createdBy?: string;
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 
   @Prop({ type: [String], enum: Permission, default: [] })
   permissions: Permission[];
@@ -40,7 +59,13 @@ export class User {
   @Prop({ type: String, default: null }) 
   verificationToken?: string | null;
 
+<<<<<<< HEAD
 
+=======
+  @Prop()  
+  twoFactorSecret: string;
+  
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
   async comparePassword(plainPassword: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, this.password);
   }

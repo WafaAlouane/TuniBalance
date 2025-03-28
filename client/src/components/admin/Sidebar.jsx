@@ -17,7 +17,11 @@ function Sidebar() {
       <ul className="sidebar-nav" id="sidebar-nav">
         {/* Dashboard */}
         <li className="nav-item">
+<<<<<<< HEAD
           <Link className="nav-link" to="/dashboard">
+=======
+          <Link className="nav-link" to="/BusinessOwner">
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
             <i className="bi bi-grid" />
             <span>Dashboard</span>
           </Link>
@@ -43,6 +47,7 @@ function Sidebar() {
         )}
 
         {/* Navigation pour les composants */}
+<<<<<<< HEAD
         <li className="nav-item">
           <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i className="bi bi-menu-button-wide" />
@@ -70,6 +75,9 @@ function Sidebar() {
             </li>
           </ul>
         </li>
+=======
+       
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 
         {/* Déconnexion */}
         {user && (
@@ -85,4 +93,8 @@ function Sidebar() {
   );
 }
 
+<<<<<<< HEAD
 export default Sidebar;
+=======
+export default Sidebar;
+>>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
