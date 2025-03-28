@@ -1,9 +1,6 @@
 import { UsersService } from './../user/user.service';
-<<<<<<< HEAD
-import { BadRequestException, Body, Controller, NotFoundException, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
-=======
-import { BadRequestException, Body, Controller, NotFoundException, Post, Put, Query, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
+import { BadRequestException, Body, Controller, NotFoundException, Post, Put, Query, Req,Res,UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Response } from 'express';
 import {Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto } from './dtos/signup.dto';
@@ -15,57 +12,42 @@ import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
 import { UserRole } from './enums/role.enum'
-<<<<<<< HEAD
-=======
 import { TwoFactorService } from 'src/services/twofactor.service';
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService,
-<<<<<<< HEAD
-    private usersService: UsersService,) {}
-=======
     private usersService: UsersService,private readonly twoFactorService: TwoFactorService) {}
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 
-  @Post('signup')
-  async signup(@Body() signupDto: SignupDto) {
-    return this.authService.registerBusinessOwner(signupDto);
-  }
-
-
-  @Get('confirm-email')
-  async confirmEmail(@Query('token') token: string) {
-    if (!token) throw new BadRequestException('Token manquant');
-
-    const user = await this.usersService.findByVerificationToken(token);
-    if (!user) throw new NotFoundException('Token invalide ou expiré');
-
-    // Mise à jour de l'utilisateur
-    await this.usersService.updateUser(user._id as string, {
-      isEmailConfirmed: true,
-      verificationToken: null, // Supprimer le token après confirmation
-    });
-
-    return { message: 'Email confirmé avec succès. Vous pouvez maintenant vous connecter.' };
-  }
-
+    @Post('signup')
+    async signup(@Body() signupDto: SignupDto) {
+      await this.authService.registerBusinessOwner(signupDto);
+      return { message: 'Email sent successfully' };
+  
+    }
+  
+  
+  
+    @Get('confirm-email')
+    async confirmEmail(@Query('token') token: string, @Res() res: Response) {
+      if (!token) throw new BadRequestException('Token manquant');
+  
+      const user = await this.usersService.findByVerificationToken(token);
+      if (!user) throw new NotFoundException('Token invalide ou expiré');
+  
+      // Mise à jour de l'utilisateur
+      await this.usersService.updateUser(user._id as string, {
+        isEmailConfirmed: true,
+        verificationToken: null, // Supprimer le token après confirmation
+      });
+  
+     return res.redirect('http://localhost:5173/login');
+     //return { message: 'Email confirmé avec succès. Vous pouvez maintenant vous connecter.' };
+  
+    } 
   @Post('create-staff')
   @Roles(UserRole.BUSINESS_OWNER)
-<<<<<<< HEAD
-  @UseGuards(AuthGuard, RolesGuard)
-  async createStaff(
-    @Body() body: SignupDto & { role: UserRole.FINANCIER | UserRole.ACCOUNTANT },
-    @Req() req
-  ) {
-    return this.authService.registerStaff(
-      body,
-      req.user.userId
-    );
-  }
-=======
 @UseGuards(AuthGuard, RolesGuard)
 async createStaff(
   @Body() body: SignupDto & { role: UserRole.FINANCIER | UserRole.ACCOUNTANT },
@@ -77,7 +59,6 @@ async createStaff(
   );
 }
 
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 
   @Post('login')
   async login(@Body() body: { email: string; password: string }) {
@@ -89,23 +70,6 @@ async createStaff(
   async protectedRoute() {
     return { message: 'Authorized access' };
   }
-<<<<<<< HEAD
-        @UseGuards(AuthGuard)
-        @Put('change-password')
-        async changePassword(@Body() changePasswordDto:ChangePasswordDto,@Req() req){
-          return this.authService.changePassword(changePasswordDto.oldPassword,changePasswordDto.newPassword,req.userId);
-      
-      }
-
-    @Post("forget-password")
-    async forgetPassword(@Body() forgetPasswordDto: ForgetPasswordDto) {
-        return this.authService.forgetPassword(forgetPasswordDto);
-    }
-
-    @Put("reset-password")
-    async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
-        return this.authService.resetPassword(resetPasswordDto);
-=======
   @UseGuards(AuthGuard)  // Ensure the AuthGuard is applied
   @Put('change-password')
   async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Req() req) {
@@ -156,10 +120,5 @@ async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
       } catch (error) {
         return { message: error.message || 'Erreur lors de la vérification du code 2FA.' };
       }
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     }
 }
-
-
-
-
