@@ -1,5 +1,3 @@
-// Login.js
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/slices/authSlice';
 import { verify2FA } from "../services/authService";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -16,9 +15,13 @@ export default function Login() {
   const [twoFactorToken, setTwoFactorToken] = useState('');
   const [qrCodeImage, setQrCodeImage] = useState(null);
   const [showTwoFactorInput, setShowTwoFactorInput] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(""); // Store reCAPTCHA token
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaToken(value); // Set the reCAPTCHA token when the user completes the challenge
+  };
 
   const handleLogin = async () => {
     // Vérification de l'admin avant l'appel à l'API
@@ -27,10 +30,14 @@ export default function Login() {
         email,
         role: "admin"
       };
-     // Dans la vérification de l'admin :
-localStorage.setItem("accessToken", "fake_admin_token"); // Clé corrigée
-dispatch(loginSuccess({ user: adminUser, token: "fake_admin_token" }));
+      localStorage.setItem("accessToken", "fake_admin_token"); // Clé corrigée
+      dispatch(loginSuccess({ user: adminUser, token: "fake_admin_token" }));
       navigate("/AdminDashboard");
+      return;
+    }
+
+    if (!recaptchaToken) {
+      setError("Veuillez compléter le reCAPTCHA !");
       return;
     }
 
@@ -39,22 +46,22 @@ dispatch(loginSuccess({ user: adminUser, token: "fake_admin_token" }));
       const response = await axios.post("http://localhost:3001/auth/login", {
         email,
         password,
+        recaptchaToken,  // Send reCAPTCHA token to backend for verification
       });
+      
       dispatch(loginSuccess({
         user: response.data.user,
         token: response.data.accessToken
       }));
-      //Enregistrer le token JWT dans le localStorage
       localStorage.setItem("accessToken", response.data.accessToken); 
-    console.log("Token enregistré :", localStorage.getItem("accessToken"));
-
+      console.log("Token enregistré :", localStorage.getItem("accessToken"));
 
       const setupResponse = await axios.post(
         "http://localhost:3001/auth/2fa-setup",  // Vérifiez que l'URL correspond à la route dans votre backend
-        {},  // Corps de la requête (vide ici, si votre API n'attend pas de données autres que le token)
+        {},
         {
           headers: {
-            Authorization: `Bearer ${response.data.accessToken}`, // Passez l'accessToken dans les en-têtes pour l'authentification
+            Authorization: `Bearer ${response.data.accessToken}`,
           },
         }
       );
@@ -64,14 +71,12 @@ dispatch(loginSuccess({ user: adminUser, token: "fake_admin_token" }));
       setShowTwoFactorInput(true);
       localStorage.setItem("accessToken", response.data.accessToken);
       console.log("Token enregistré :", localStorage.getItem("accessToken"));
-  
-
-      
     } catch (error) {
       setError("Identifiants incorrects !");
     }
   };
-const handleVerifyTwoFactorAuth = async () => {
+
+  const handleVerifyTwoFactorAuth = async () => {
     try {
       const token = localStorage.getItem("accessToken");
 
@@ -91,29 +96,28 @@ const handleVerifyTwoFactorAuth = async () => {
         }));
         
         let redirectPath = '/';
-      switch(role) {
-        case 'business_owner':
-          redirectPath = "/BusinessOwner";
-          break;
-        case 'admin':
-          redirectPath = "/AdminDashboard";
-          break;
-        case 'accountant':
-          redirectPath = "/comptable";
-          break;
-        case 'financier':
-          redirectPath = "/financier";
-          break;
-        default:
-          setError("Rôle utilisateur non reconnu !");
-          return;
-      }
-      
-      navigate(redirectPath);
-        } else {
-          setError("Échec de la vérification du code 2FA !");
+        switch(role) {
+          case 'business_owner':
+            redirectPath = "/BusinessOwner";
+            break;
+          case 'admin':
+            redirectPath = "/AdminDashboard";
+            break;
+          case 'accountant':
+            redirectPath = "/comptable";
+            break;
+          case 'financier':
+            redirectPath = "/financier";
+            break;
+          default:
+            setError("Rôle utilisateur non reconnu !");
+            return;
         }
-      
+        
+        navigate(redirectPath);
+      } else {
+        setError("Échec de la vérification du code 2FA !");
+      }
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Erreur lors de la vérification du code 2FA !";
       setError(errorMessage);
@@ -124,7 +128,6 @@ const handleVerifyTwoFactorAuth = async () => {
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
       <div className="row w-75 shadow-lg rounded p-4 bg-white">
-        {/* Colonne gauche : Texte d'information avec fond vert */}
         <div className="col-md-7 d-flex flex-column justify-content-center p-4 text-white bg-primary rounded-start">
           <h2 className="mb-3">Bienvenue de retour !</h2>
           <p>
@@ -132,15 +135,13 @@ const handleVerifyTwoFactorAuth = async () => {
           </p>
         </div>
 
-        {/* Colonne droite : Formulaire de connexion */}
         <div className="col-md-5 p-4">
           <h2 className="text-center text-primary mb-4">Connexion</h2>
 
           {error && <div className="alert alert-danger">{error}</div>}
 
           <form>
-             {/* Si l'utilisateur est en train de saisir le code 2FA, on cache les champs d'email et mot de passe */}
-             {!showTwoFactorInput ? (
+            {!showTwoFactorInput ? (
               <>
                 <div className="mb-3">
                   <label className="form-label fw-bold">
@@ -169,6 +170,13 @@ const handleVerifyTwoFactorAuth = async () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <ReCAPTCHA
+                    sitekey="6LcoRwErAAAAAIauP2SPQe1fvh5je4o4RwuvDy0V" // Replace with your site key
+                    onChange={handleRecaptchaChange}
                   />
                 </div>
 
@@ -214,9 +222,7 @@ const handleVerifyTwoFactorAuth = async () => {
             <p className="mt-3 text-center">
               <a href="/forget-password" className="ms-2">Mot de passe oublié ?</a>
             </p>
-
-           </form>
-          
+          </form>
         </div>
       </div>
     </div>
