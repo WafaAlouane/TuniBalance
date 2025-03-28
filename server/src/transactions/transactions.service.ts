@@ -13,7 +13,7 @@ export class TransactionService {
     @InjectModel(Facture.name) private factureModel: Model<FactureDocument>  // Injecter le modèle de Facture
   ) {}
 
-  async create(createTransactionDto: CreateTransactionDto): Promise<Transaction> {
+  async create(createTransactionDto: CreateTransactionDto, userId: string): Promise<Transaction> {
     // Calcul du montant final avec TVA
     let montantFinal = createTransactionDto.montant;
     if (createTransactionDto.taux_tva) {
@@ -32,15 +32,18 @@ export class TransactionService {
     const newTransaction = new this.transactionModel({
       ...createTransactionDto,
       montant: montantFinal,  // Met à jour le montant avec le montant final
+      cree_par_user_id: userId,  // Enregistre l'ID de l'utilisateur qui a créé la transaction
     });
 
     return newTransaction.save();
   }
 
-
   async findAll(): Promise<Transaction[]> {
-    return this.transactionModel.find().populate('compte_debite_id compte_credite_id cree_par_user_id').exec();
+    const transactions = await this.transactionModel.find().populate('compte_debite_id compte_credite_id cree_par_user_id').exec();
+    console.log(transactions);  // Ajout d'un log pour vérifier les données
+    return transactions;
   }
+  
 
   async findOne(id: string): Promise<Transaction> {
     const transaction = await this.transactionModel.findById(id).populate('compte_debite_id compte_credite_id cree_par_user_id').exec();

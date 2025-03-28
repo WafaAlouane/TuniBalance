@@ -33,13 +33,12 @@ export class Transaction {
   @Prop({ type: String, enum: ['En attente', 'Validée', 'Refusée'], required: true })
   statut: string;
 
-  @Prop({ type: Types.ObjectId, ref: 'Compte', required: true })
-  compte_debite_id: Types.ObjectId;
+  @Prop({ type: String, required: true })
+  compte_debite_id: string;  // Par exemple, un identifiant de compte
 
-  @Prop({ type: Types.ObjectId, ref: 'Compte', required: true })
-  compte_credite_id: Types.ObjectId;
-
-
+  @Prop({ type: String, required: true })
+  compte_credite_id: string; // Par exemple, un identifiant de compte
+  
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   cree_par_user_id: Types.ObjectId;
 

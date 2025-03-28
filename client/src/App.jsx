@@ -15,7 +15,9 @@ import ChangePassword from "./pages/profile/ChangePassword";
 import ViewBO from "./pages/viewBO";
 import ComptDash from "./pages/comptdash"; // Ajouter
 import FinancierDash from "./pages/financierdash";
-import ForgetPassword from "./pages/ForgetPassword"; // Ajouter
+import ForgetPassword from "./pages/ForgetPassword";
+import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la page AffTransaction
+ // Ajouter
 function App() {
   return (
     <Router>
@@ -69,7 +71,7 @@ function App() {
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="forget-password" element={<ForgetPassword />} />
-
+            <Route path="transactions" element={<AffTransaction />}/>
           </Route>
         </Route>
 

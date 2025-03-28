@@ -31,11 +31,13 @@ export class CreateTransactionDto {
   @IsEnum(['En attente', 'Validée', 'Refusée'])
   statut: string;
 
-  @IsMongoId()
-  compte_debite_id: string;
+  @IsString()
+  @IsNotEmpty()
+  compte_debite: string; // Identifiant ou numéro du compte débité
 
-  @IsMongoId()
-  compte_credite_id: string;
+  @IsString()
+  @IsNotEmpty()
+  compte_credite: string; // Identifiant ou numéro du compte crédité
 
   
   @IsMongoId()

@@ -39,6 +39,13 @@ function Sidebar() {
     <span>Créer un Staff</span>
   </Link>
 </li>
+<li className="nav-item">
+  <Link className="nav-link" to="/BusinessOwner/transactions">
+    <i className="bi bi-person-plus" />
+    <span>Afficher transactions</span>
+  </Link>
+</li>
+
           </>
         )}
 
