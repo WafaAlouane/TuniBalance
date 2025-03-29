@@ -25,8 +25,10 @@ client: { nom: string; adresse: string; email: string };
 
 @Prop({ required: true, type: Object })
 fournisseur: { nom: string; adresse: string; email: string };
+
 @Prop({ type: Number })
 taux_tva?: number;
+
   @Prop({ required: false })
   specifications?: string;
   @Prop({ type: [Transaction], default: [] })

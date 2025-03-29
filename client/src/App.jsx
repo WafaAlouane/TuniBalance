@@ -21,7 +21,7 @@ import ComptDash from "./pages/comptdash";
 import FinancierDash from "./pages/financierdash";
 import ForgetPassword from "./pages/ForgetPassword";
 import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la page AffTransaction
-import Addfacture from "./pages/facture/AddFacture";
+
 
 
 
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
       element: <ForgetPassword />,
   },
   
-  // Routes protégées par rôle
+ 
   {
       path: "/comptable",
       element: <ProtectedRoute allowedRoles={["accountant"]}><Layout  /></ProtectedRoute>,
@@ -87,7 +87,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // Routes pour Financier
+  
   {
       path: "/financier",
       element: <ProtectedRoute allowedRoles={["financier"]}><Layout /></ProtectedRoute>,
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // Routes pour Business Owner
+ 
   {
       path: "/BusinessOwner",
       element: <ProtectedRoute allowedRoles={["business_owner"]}><BusinessOwner /></ProtectedRoute>,
@@ -117,11 +117,11 @@ const router = createBrowserRouter([
           { path: "reset-password", element: <ResetPassword /> },
           { path: "change-password", element: <ChangePassword /> },
           { path: "forget-password", element: <ForgetPassword /> },
-          { path: "transactions", element: <AffTransaction /> },
+          
       ],
   },
 
-  // Admin Routes
+ 
   {
       path: "/AdminDashboard",
       element: <ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>,

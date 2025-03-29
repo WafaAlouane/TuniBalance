@@ -9,10 +9,10 @@ export class TransactionsController {
 
   @Post()
   create(@Body() createTransactionDto: CreateTransactionDto, @Req() req) {
-    //Récupération de l'ID de l'utilisateur
+    
     const userId = req.user.userId;
 
-    // Passer l'ID de l'utilisateur à la méthode du service
+   
     return this.transactionsService.create(createTransactionDto, userId);
   }
 
