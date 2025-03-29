@@ -15,6 +15,7 @@ import { ProfileController } from './profile/profile.controller';
 import { ProfileService } from './profile/profile.service';
 import { TwoFactorService } from './services/twofactor.service';
 import { TransactionsModule } from './transactions/transactions.module';
+import { FactureModule } from './facture/facture.module'; // Import FactureModule here
 
 @Module({
   imports: [
@@ -41,10 +42,13 @@ import { TransactionsModule } from './transactions/transactions.module';
       inject: [ConfigService],
     }),
 
-    AuthModule,  // Ajoutez AuthModule ici, pas AuthService
-    UserModule, ProfileModule, TransactionsModule,
+    AuthModule,  // Keep AuthModule here
+    UserModule, 
+    ProfileModule, 
+    TransactionsModule, 
+    FactureModule, // FactureModule is already imported here
   ],
-  controllers: [AppController, SmsController],
-  providers: [AppService, SmsService,TwoFactorService],
+  controllers: [AppController, SmsController],  // No need to manually add FactureController
+  providers: [AppService, SmsService, TwoFactorService],  // No need to manually add FactureService
 })
 export class AppModule {}

@@ -18,7 +18,7 @@ import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/profile/ChangePassword";
 import ViewBO from "./pages/viewBO";
 import ForgetPassword from "./pages/ForgetPassword";
-
+import LayoutFacture from "./routes/layoutFacture"; 
 
 const router = createBrowserRouter([
     {
@@ -88,7 +88,8 @@ const router = createBrowserRouter([
       children: [
         { index: true, element: <Layout /> },
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
-        { path: "reports", element: <h1 className="title">Reports</h1> },
+        { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
+        
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },
         { path: "verified-customers", element: <h1 className="title">Verified Customers</h1> },

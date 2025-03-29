@@ -1,52 +1,24 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { Types } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import { Prop, Schema as NestSchema, SchemaFactory } from '@nestjs/mongoose';
+import { v4 as uuidv4 } from 'uuid'; 
 
-export type TransactionDocument = Transaction & Document;
-
-@Schema({ timestamps: true })
+@NestSchema()
 export class Transaction {
-  @Prop({ type: String, required: true, unique: true })
+  @Prop({ required: true, unique: true, default: () => uuidv4() }) 
   transaction_id: string;
 
-  @Prop({ type: Date, required: true })
-  date: Date;
-
-  @Prop({ type: String, enum: ['Dépense', 'Recette', 'Transfert'], required: true })
-  type: string;
-
-  @Prop({ type: Number, required: true })
+  @Prop()
   montant: number;
 
-  @Prop({ type: String, enum: ['TND', 'EUR', 'USD'], required: true })
-  devise: string;
+  @Prop()
+  date_transaction: Date;
 
-  @Prop({ type: String })
-  description: string;
-
-  @Prop({ type: String, required: true })
-  categorie: string;
-
-  @Prop({ type: String, enum: ['Espèces', 'Virement', 'Chèque', 'Carte bancaire'], required: true })
+  @Prop()
   mode_paiement: string;
 
-  @Prop({ type: String, enum: ['En attente', 'Validée', 'Refusée'], required: true })
+  @Prop()
   statut: string;
-
-  @Prop({ type: Types.ObjectId, ref: 'Compte', required: true })
-  compte_debite_id: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId, ref: 'Compte', required: true })
-  compte_credite_id: Types.ObjectId;
-
-  @Prop({ type: String })
-  justificatif_url: string;
-
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  cree_par_user_id: Types.ObjectId;
-
-  @Prop({ type: Number })
-  taux_tva?: number;
 }
 
+export type TransactionDocument = Transaction & Document;
 export const TransactionSchema = SchemaFactory.createForClass(Transaction);
