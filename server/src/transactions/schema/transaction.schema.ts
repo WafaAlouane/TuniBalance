@@ -12,7 +12,7 @@ export class Transaction {
   @Prop({ type: Date, required: true })
   date: Date;
 
-  @Prop({ type: String, enum: ['Dépense', 'Recette', 'Transfert'], required: true })
+  @Prop({ type: String, enum: ['Dépense', 'Recette'], required: true })
   type: string;
 
   @Prop({ type: Number, required: true })
@@ -33,11 +33,13 @@ export class Transaction {
   @Prop({ type: String, enum: ['En attente', 'Validée', 'Refusée'], required: true })
   statut: string;
 
+  @Prop({ type: String, enum: ['credit', 'debit'], required: true })
+  compte: string; // Par exemple, un identifiant de compte
   @Prop({ type: String, required: true })
-  compte_debite_id: string;  // Par exemple, un identifiant de compte
-
+  compte_source: string;
   @Prop({ type: String, required: true })
-  compte_credite_id: string; // Par exemple, un identifiant de compte
+  compte_dest: string;
+   
   
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   cree_par_user_id: Types.ObjectId;

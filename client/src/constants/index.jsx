@@ -15,7 +15,7 @@ export const navbarLinks = [
             {
                 label: "Analytics",
                 icon: ChartColumn,
-                path: "/financier/analytics",
+                path: "/analytics",
             },
             {
                 label: "Reports",

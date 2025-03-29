@@ -21,7 +21,7 @@ import ComptDash from "./pages/comptdash";
 import FinancierDash from "./pages/financierdash";
 import ForgetPassword from "./pages/ForgetPassword";
 import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la page AffTransaction
-
+import Addfacture from "./pages/facture/AddFacture";
 
 
 
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     
       children: [
         { index: true, element: <Layoutcomptable /> },
-        { path: "analytics", element: <h1 className="title">Analytics</h1> },
+        { path: "analytics", element: <Addfacture />  },
         { path: "reports", element: <h1 className="title">Reports</h1> },
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },
@@ -83,6 +83,7 @@ const router = createBrowserRouter([
         { path: "new-product", element: <h1 className="title">New Product</h1> },
         { path: "inventory", element: <h1 className="title">Inventory</h1> },
         { path: "settings", element: <h1 className="title">Settings</h1> },
+       
     ],
   },
 
@@ -92,7 +93,7 @@ const router = createBrowserRouter([
       element: <ProtectedRoute allowedRoles={["financier"]}><Layout /></ProtectedRoute>,
       children: [
         { index: true, element: <Layout /> },
-        { path: "analytics", element: <h1 className="title">Analytics</h1> },
+        { path: "analytics", element: <div><h1 className="title">Analytics</h1><CreateStaff /></div> },
         { path: "reports", element: <h1 className="title">Reports</h1> },
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },
