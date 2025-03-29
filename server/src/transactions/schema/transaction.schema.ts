@@ -44,8 +44,7 @@ export class Transaction {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   cree_par_user_id: Types.ObjectId;
 
-  @Prop({ type: Number })
-  taux_tva?: number;
+
 
   @Prop({ type: Types.ObjectId, ref: 'Facture' })
   facture_id?: Types.ObjectId; // Référence à la facture

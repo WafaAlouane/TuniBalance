@@ -15,6 +15,14 @@ export class CreateFactureDto {
   montant: number;
 
   @IsNotEmpty()
+  @IsNumber()
+    montant_total: number;
+  
+    @IsNotEmpty()
+  @IsNumber()
+    montant_paye: number;
+  
+  @IsNotEmpty()
 @Type(() => Date) // Convertit la chaîne en Date
 @IsDate()
 date: Date;
@@ -34,6 +42,10 @@ date: Date;
     email: string;
   };
 
+  @IsNumber()
+    @IsOptional()
+    taux_tva?: number;
+    
   @IsOptional()
   @IsString()
   specifications?: string;
