@@ -122,6 +122,7 @@ export class AuthService {
         ...userData,
         role: userData.role.toLowerCase() as UserRole, // Conversion explicite
         createdBy: businessOwnerId,
+        isEmailConfirmed: true,
       });
   
       await this.mailService.sendStaffCreationEmail(

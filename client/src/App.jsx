@@ -4,7 +4,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
-
+import Layoutcomptable from "@/routes/layoutcomptable";
 import Landing from "./pages/Landing";
 import Register from "./pages/Registrer";
 import Login from "./pages/login";
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
       element: <ProtectedRoute allowedRoles={["accountant"]}><Layout  /></ProtectedRoute>,
     
       children: [
-        { index: true, element: <DashboardPage /> },
+        { index: true, element: <Layoutcomptable /> },
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
         { path: "reports", element: <h1 className="title">Reports</h1> },
         { path: "customers", element: <h1 className="title">Customers</h1> },
