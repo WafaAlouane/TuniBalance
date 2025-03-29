@@ -24,7 +24,7 @@ import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la 
 
 
 const router = createBrowserRouter([
-    {
+    /*{
         path: "/dashboard",
         element: <Layout />,
         children: [
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             { path: "inventory", element: <h1 className="title">Inventory</h1> },
             { path: "settings", element: <h1 className="title">Settings</h1> },
         ],
-    },
+    },*/
     {
       path: "/",
       element: <Landing />,

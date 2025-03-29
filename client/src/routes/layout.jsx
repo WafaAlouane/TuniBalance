@@ -9,7 +9,7 @@ import { useTheme } from "@/hooks/use-theme"; // Import the useTheme hook
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"; // Import chart components
 import { overviewData, recentSalesData, topProducts } from "@/constants"; // Import data
 import { CreditCard, DollarSign, Package, PencilLine, Star, Trash, TrendingUp, Users } from "lucide-react"; // Import icons
-
+import { Outlet } from "react-router-dom";
 const Layout = () => {
     const isDesktopDevice = useMediaQuery("(min-width: 768px)");
     const [collapsed, setCollapsed] = useState(!isDesktopDevice);
@@ -34,11 +34,11 @@ const Layout = () => {
                     !collapsed && "max-md:pointer-events-auto max-md:z-50 max-md:opacity-30",
                 )}
             />
-            <Sidebar ref={sidebarRef} collapsed={collapsed} />
+             <Sidebar ref={sidebarRef} collapsed={collapsed} />
             <div className={cn("transition-[margin] duration-300", collapsed ? "md:ml-[70px]" : "md:ml-[240px]")}>
                 <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-                <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden p-6 bg-slate-900"> {/* Dark background for content */}
-                    {/* Dashboard Content */}
+                <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden p-6 bg-slate-900">
+                    <Outlet />
                     <div className="flex flex-col gap-y-4">
                         <h1 className="title text-white">Dashboard</h1> {/* White text for title */}
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
