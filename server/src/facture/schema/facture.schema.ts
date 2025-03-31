@@ -1,20 +1,7 @@
-import { Schema, Document } from 'mongoose';
 import { Prop, Schema as NestSchema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { Transaction } from 'src/transactions/schema/transaction.schema';
 
-@NestSchema()
-export class Transaction {
-  @Prop()
-  montant: number;
-
-  @Prop()
-  date_transaction: Date;
-
-  @Prop()
-  mode_paiement: string;
-
-  @Prop()
-  statut: string;
-}
 
 @NestSchema()
 export class Facture {
@@ -42,9 +29,14 @@ export class Facture {
   @Prop({ required: true })
   mode_paiement: string;
 
-  @Prop({ type: [Transaction], default: [] })
-  transactions: Transaction[];
+  @Prop({ type: [String], default: [] }) // Stocke les transaction_id au lieu des _id
+  transactions: string[];
+
+  @Prop({ required: true })
+type_facture: string; // or another appropriate type
+
 }
 
 export type FactureDocument = Facture & Document;
 export const FactureSchema = SchemaFactory.createForClass(Facture);
+

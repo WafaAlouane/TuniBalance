@@ -47,4 +47,7 @@ export class CreateTransactionDto {
   @IsNumber()
   @IsOptional()
   taux_tva?: number;
+  @IsEnum(['Débit', 'Crédit'])
+  @IsNotEmpty()
+  compte: string; // Ajouté
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { Sidebar } from "@/layouts/sidebar";
@@ -8,6 +8,7 @@ import { cn } from "@/utils/cn";
 import { useTheme } from "@/hooks/use-theme";
 import { CreditCard, DollarSign, Package, TrendingUp, Users } from "lucide-react";
 import FactureClientForm from "./dashboard/FactureClientForm";
+import { getAllTransactions } from '@services/transactionService';
 
 const Layout = () => {
     const isDesktopDevice = useMediaQuery("(min-width: 768px)");
@@ -17,35 +18,37 @@ const Layout = () => {
     const [showFactureForm, setShowFactureForm] = useState(false);
     const [savedFactures, setSavedFactures] = useState([]);
     const [currentFactureId, setCurrentFactureId] = useState(null);
-
-    const handleSaveFacture = (factureId, transactions) => {
-        const newFacture = {
-            id: factureId,
-            transactions,
-            total: transactions.reduce((acc, curr) => acc + curr.montant, 0),
-        };
-        setSavedFactures([...savedFactures, newFacture]);
-        setShowFactureForm(false);
-    };
-
-    const handleFactureClick = (factureId) => {
-        setCurrentFactureId(factureId);
-        setShowFactureForm(true);
-    };
+    const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        setCollapsed(!isDesktopDevice);
-    }, [isDesktopDevice]);
+        const fetchTransactions = async () => {
+            try {
+                const data = await getAllTransactions();
+                setTransactions(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTransactions();
+    }, []);
 
-    useClickOutside([sidebarRef], () => {
-        if (!isDesktopDevice && !collapsed) {
-            setCollapsed(true);
-        }
-    });
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
+    const totalDebit = transactions
+        .filter(transaction => transaction.compte === "Débit")
+        .reduce((sum, transaction) => sum + transaction.montant, 0);
+
+    const totalCredit = transactions
+        .filter(transaction => transaction.compte === "Crédit")
+        .reduce((sum, transaction) => sum + transaction.montant, 0);
 
     return (
-        <div className="min-h-screen bg-slate-950 transition-colors">
-            <div className="pointer-events-none fixed inset-0 -z-10 bg-black opacity-0 transition-opacity {!collapsed && 'max-md:pointer-events-auto max-md:z-50 max-md:opacity-30'}" />
+        <div className="min-h-screen bg-slate-950 text-white transition-colors">
             <Sidebar ref={sidebarRef} collapsed={collapsed} />
             <div className={cn("transition-[margin] duration-300", collapsed ? "md:ml-[70px]" : "md:ml-[240px]")}>
                 <Header collapsed={collapsed} setCollapsed={setCollapsed} onFactureClientClick={() => setShowFactureForm(true)} />
@@ -53,74 +56,44 @@ const Layout = () => {
                     {showFactureForm ? (
                         <FactureClientForm
                             onClose={() => setShowFactureForm(false)}
-                            onSave={handleSaveFacture}
-                            factureId={currentFactureId || savedFactures.length + 1} // Generate new factureId
+                            factureId={currentFactureId || savedFactures.length + 1}
                         />
                     ) : (
-                        <div className="flex flex-col gap-y-4">
-                            <h1 className="title text-white">Dashboard</h1>
-                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                                {[{
-                                    icon: Package,
-                                    title: "Total Products",
-                                    value: "25,154",
-                                    trend: "25%",
-                                }, {
-                                    icon: DollarSign,
-                                    title: "Total Paid Orders",
-                                    value: "$16,000",
-                                    trend: "12%",
-                                }, {
-                                    icon: Users,
-                                    title: "Total Customers",
-                                    value: "15,400k",
-                                    trend: "15%",
-                                }, {
-                                    icon: CreditCard,
-                                    title: "Sales",
-                                    value: "12,340",
-                                    trend: "19%",
-                                }].map(({ icon: Icon, title, value, trend }, index) => (
-                                    <div key={index} className="card bg-slate-800">
-                                        <div className="card-header">
-                                            <div className="rounded-lg bg-blue-500/20 p-2 text-blue-500">
-                                                <Icon size={26} />
-                                            </div>
-                                            <p className="card-title text-white">{title}</p>
-                                        </div>
-                                        <div className="card-body bg-slate-700">
-                                            <p className="text-3xl font-bold text-white">{value}</p>
-                                            <span className="flex w-fit items-center gap-x-2 rounded-full border border-blue-500 px-2 py-1 font-medium text-blue-500">
-                                                <TrendingUp size={18} />
-                                                {trend}
-                                            </span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                        <div className="flex flex-col gap-y-6">
+                            <h1 className="text-3xl font-semibold">Dashboard</h1>
 
-                            {/* Display Factures with their transactions */}
-                            <div className="mt-8">
-                                <h2 className="text-white text-xl font-semibold">Saved Factures</h2>
-                                <div className="mt-4">
-                                    {savedFactures.map((facture) => (
-                                        <div key={facture.id} className="mb-4 bg-slate-800 p-4 rounded-md">
-                                            <h3 className="text-white font-semibold" onClick={() => handleFactureClick(facture.id)}>
-                                                Facture ID: {facture.id} - Total: {facture.total.toFixed(2)} TND
-                                            </h3>
-                                            <div className="mt-2 text-white">
-                                                <strong>Transactions:</strong>
-                                                <ul>
-                                                    {facture.transactions.map((transaction, index) => (
-                                                        <li key={index}>
-                                                            {transaction.description} - {transaction.montant.toFixed(2)} TND
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                            {/* Transactions Table */}
+                            <div className="overflow-x-auto bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                            <h2 className="text-xl font-semibold text-blue-500 mb-4 text-center">Journal Comptable</h2>
+                            <table className="min-w-full table-auto">
+                                    <thead className="bg-blue-600 text-white">
+                                        <tr>
+                                            <th className="px-4 py-2 text-left">Date Transaction</th>
+                                            <th className="px-4 py-2 text-left">Description</th>
+                                            <th className="px-4 py-2 text-left">Montant</th>
+                                            <th className="px-4 py-2 text-left">Débit</th>
+                                            <th className="px-4 py-2 text-left">Crédit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-slate-300">
+                                        {transactions.map((transaction) => (
+                                            <tr key={transaction.transaction_id} className="hover:bg-slate-700">
+                                                <td className="px-4 py-2">{transaction.date_transaction}</td>
+                                                <td className="px-4 py-2">{transaction.description}</td>
+                                                <td className="px-4 py-2">{transaction.montant}</td>
+                                                <td className="px-4 py-2">{transaction.compte === "Débit" ? transaction.montant : ""}</td>
+                                                <td className="px-4 py-2">{transaction.compte === "Crédit" ? transaction.montant : ""}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                    <tfoot className="bg-green-700 text-white font-bold">
+                                    <tr>
+                                            <td colSpan="3" className="px-4 py-2 font-bold text-right">Total</td>
+                                            <td className="px-4 py-2 font-bold">{totalDebit}</td>
+                                            <td className="px-4 py-2 font-bold">{totalCredit}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     )}

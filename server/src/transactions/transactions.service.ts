@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Transaction, TransactionDocument } from './schema/transaction.schema';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+
 @Injectable()
 export class TransactionsService {
   constructor(@InjectModel(Transaction.name) private transactionModel: Model<TransactionDocument>) {}
@@ -13,12 +14,14 @@ export class TransactionsService {
     return transaction.save();
   }
 
+  // Remove the populate and return just the raw transaction data
   async findAll(): Promise<Transaction[]> {
-    return this.transactionModel.find().populate('compte_debite_id compte_credite_id cree_par_user_id').exec();
+    return this.transactionModel.find().exec(); // No population
   }
 
+  // Remove the populate here as well, just return the transaction object
   async findOne(id: string): Promise<Transaction> {
-    const transaction = await this.transactionModel.findById(id).populate('compte_debite_id compte_credite_id cree_par_user_id').exec();
+    const transaction = await this.transactionModel.findById(id).exec();
     if (!transaction) throw new NotFoundException('Transaction non trouvée');
     return transaction;
   }
