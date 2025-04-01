@@ -35,3 +35,41 @@ export const getAllFactures = async () => {
     throw new Error(errorMessage);
   }
 };
+
+// Function to get factures for clients
+export const getFacturesForClient = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/client`); // Send GET request to fetch factures for client
+
+    if (response.status === 200) {
+      return response.data; // Return the list of client factures
+    } else {
+      throw new Error('Failed to fetch client factures');
+    }
+  } catch (error) {
+    const errorMessage = error.response
+      ? error.response?.data?.message || error.response?.statusText || 'Error while fetching client factures'
+      : error.message || 'Network error';
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};
+
+// Function to get factures for suppliers (fournisseurs)
+export const getFacturesForFournisseur = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/fournisseur`); // Send GET request to fetch factures for supplier
+
+    if (response.status === 200) {
+      return response.data; // Return the list of fournisseur factures
+    } else {
+      throw new Error('Failed to fetch fournisseur factures');
+    }
+  } catch (error) {
+    const errorMessage = error.response
+      ? error.response?.data?.message || error.response?.statusText || 'Error while fetching fournisseur factures'
+      : error.message || 'Network error';
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};

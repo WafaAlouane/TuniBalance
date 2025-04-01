@@ -49,10 +49,10 @@ export const Header = ({ collapsed, setCollapsed, onFactureClientClick }) => {
                                     setDropdownOpen(false); // Ferme le menu
                                 }}
                             >
-                                Facture Client
+                                Add Facture
                             </button>
                             <button className="block w-full px-4 py-2 text-left hover:bg-gray-700">
-                                Facture Fournisseur
+                                Scan Facture
                             </button>
                         </div>
                     )}
