@@ -109,6 +109,16 @@ const FactureClientForm = ({ onClose, onSave }) => {
             <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg w-[800px] max-h-[80vh] overflow-y-auto">
                 <h2 className="text-xl font-semibold mb-4">Créer une Facture</h2>
                 <div className="mb-4">
+
+                <select
+    value={factureDetails.type_facture}
+    onChange={(e) => handleFactureChange("type_facture", e.target.value)}
+    className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+>
+    <option value="client">Facture Client</option>
+    <option value="fournisseur">Facture Fournisseur</option>
+</select>
+
                     <input
                         type="text"
                         placeholder="Numéro de Facture"
