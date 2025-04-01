@@ -20,7 +20,7 @@ const Layout = () => {
     const { theme } = useTheme();
     const [showFactureForm, setShowFactureForm] = useState(false);
     const [savedFactures, setSavedFactures] = useState([]);
-    const [currentFactureId, setCurrentFactureId] = useState(null);
+    const [currentFactureId, setCurrentFactureId] = useState(null); // ID de la facture sélectionnée
     const [transactions, setTransactions] = useState([]);
     const [facturesClient, setFacturesClient] = useState([]);
     const [facturesFournisseur, setFacturesFournisseur] = useState([]);
@@ -93,6 +93,16 @@ const Layout = () => {
         ]
     };
 
+    const handleFactureClick = (factureId) => {
+        setCurrentFactureId(factureId);
+        setShowFactureForm(true);
+    };
+
+    const handleFormClose = () => {
+        setShowFactureForm(false);
+        setCurrentFactureId(null);
+    };
+
     return (
         <div className="min-h-screen bg-slate-950 text-white transition-colors">
             <Sidebar ref={sidebarRef} collapsed={collapsed} />
@@ -101,8 +111,8 @@ const Layout = () => {
                 <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden p-6 bg-slate-900">
                     {showFactureForm ? (
                         <FactureClientForm
-                            onClose={() => setShowFactureForm(false)}
-                            factureId={currentFactureId || savedFactures.length + 1}
+                            onClose={handleFormClose}
+                            factureId={currentFactureId || savedFactures.length + 1} // Si aucun ID, crée une nouvelle facture
                         />
                     ) : (
                         <div className="flex flex-col gap-y-6">
@@ -153,20 +163,22 @@ const Layout = () => {
                                             <th className="px-4 py-2 text-left">Date Emission</th>
                                             <th className="px-4 py-2 text-left">Date Echéance</th>
                                             <th className="px-4 py-2 text-left">Montant Total</th>
-                                            <th className="px-4 py-2 text-left">Montant Payé</th>
                                             <th className="px-4 py-2 text-left">Statut</th>
                                             <th className="px-4 py-2 text-left">Mode Paiement</th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-slate-300">
                                         {facturesClient.map((facture) => (
-                                            <tr key={facture._id} className="hover:bg-slate-700">
+                                            <tr
+                                                key={facture._id}
+                                                className="hover:bg-slate-700 cursor-pointer"
+                                                onClick={() => handleFactureClick(facture._id)} // Sélectionne la facture pour modification
+                                            >
                                                 <td className="px-4 py-2">{facture.numero_facture}</td>
                                                 <td className="px-4 py-2">{facture.nom_client}</td>
                                                 <td className="px-4 py-2">{facture.date_emission}</td>
                                                 <td className="px-4 py-2">{facture.date_echeance}</td>
                                                 <td className="px-4 py-2">{facture.montant_total}</td>
-                                                <td className="px-4 py-2">{facture.montant_paye}</td>
                                                 <td className="px-4 py-2">{facture.statut}</td>
                                                 <td className="px-4 py-2">{facture.mode_paiement}</td>
                                             </tr>
@@ -186,20 +198,22 @@ const Layout = () => {
                                             <th className="px-4 py-2 text-left">Date Emission</th>
                                             <th className="px-4 py-2 text-left">Date Echéance</th>
                                             <th className="px-4 py-2 text-left">Montant Total</th>
-                                            <th className="px-4 py-2 text-left">Montant Payé</th>
                                             <th className="px-4 py-2 text-left">Statut</th>
                                             <th className="px-4 py-2 text-left">Mode Paiement</th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-slate-300">
                                         {facturesFournisseur.map((facture) => (
-                                            <tr key={facture._id} className="hover:bg-slate-700">
+                                            <tr
+                                                key={facture._id}
+                                                className="hover:bg-slate-700 cursor-pointer"
+                                                onClick={() => handleFactureClick(facture._id)} // Sélectionne la facture pour modification
+                                            >
                                                 <td className="px-4 py-2">{facture.numero_facture}</td>
                                                 <td className="px-4 py-2">{facture.nom_client}</td>
                                                 <td className="px-4 py-2">{facture.date_emission}</td>
                                                 <td className="px-4 py-2">{facture.date_echeance}</td>
                                                 <td className="px-4 py-2">{facture.montant_total}</td>
-                                                <td className="px-4 py-2">{facture.montant_paye}</td>
                                                 <td className="px-4 py-2">{facture.statut}</td>
                                                 <td className="px-4 py-2">{facture.mode_paiement}</td>
                                             </tr>

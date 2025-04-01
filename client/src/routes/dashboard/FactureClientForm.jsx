@@ -1,64 +1,85 @@
 import React, { useState, useEffect } from "react";
-import { createFacture } from '../../services/factureService'; 
+import { createFacture } from '../../services/factureService';
 
-const FactureClientForm = ({ onClose, onSave, factureId }) => {
+const FactureClientForm = ({ onClose, onSave }) => {
     const [factureDetails, setFactureDetails] = useState({
         numero_facture: "",
         nom_client: "",
         date_emission: "",
         date_echeance: "",
-        montant_total: 0,
+        montant_total: 0, // Montant HT
+        montant_tva: 0,
+        montant_ttc: 0,
         montant_paye: 0,
         statut: "Non payé",
         mode_paiement: "Espèces",
         type_facture: "client",
+        taux_tva: 0.19 // Par défaut 19%
     });
 
     const [transactions, setTransactions] = useState([{
         montant: 0,
         date_transaction: "",
         mode_paiement: "Espèces", 
-        compte: "Débit",  // Champ Compte ajouté ici
+        compte: "Débit",
         statut: "Validée",
         description: "",
     }]);
 
+    // Calcul du montant total HT, TVA et TTC à chaque changement de transactions ou du taux de TVA
     useEffect(() => {
-        const totalAmount = calculateTotalAmount();
-        setFactureDetails(prevDetails => ({
-            ...prevDetails,
-            montant_total: totalAmount
-        }));
-    }, [transactions]);
+        const totalHT = calculateTotalAmount();
 
+        if (isNaN(totalHT) || totalHT === 0) {
+            setFactureDetails(prevDetails => ({
+                ...prevDetails,
+                montant_total: 0,
+                montant_tva: 0,
+                montant_ttc: 0
+            }));
+        } else {
+            const tva = parseFloat((totalHT * factureDetails.taux_tva).toFixed(2));  // Assurer la précision décimale
+            const ttc = parseFloat((totalHT + tva).toFixed(2));  // Assurer la précision décimale
+
+            setFactureDetails(prevDetails => ({
+                ...prevDetails,
+                montant_total: totalHT,
+                montant_tva: isNaN(tva) ? 0 : tva,  // Si NaN, fallback à 0
+                montant_ttc: isNaN(ttc) ? 0 : ttc  // Si NaN, fallback à 0
+            }));
+        }
+    }, [transactions, factureDetails.taux_tva]);
+
+    // Gérer les changements des champs de la facture
     const handleFactureChange = (field, value) => {
         setFactureDetails({ ...factureDetails, [field]: value });
     };
 
+    // Ajouter une nouvelle transaction
     const handleAddTransaction = () => {
         setTransactions([...transactions, {
             montant: 0,
             date_transaction: "",
             mode_paiement: "Espèces",
-            compte: "Débit",  // Valeur par défaut pour le champ Compte
+            compte: "Débit",
             statut: "Validée",
             description: "",
         }]);
     };
 
+    // Gérer les changements dans les transactions
     const handleTransactionChange = (index, field, value) => {
         const newTransactions = [...transactions];
         newTransactions[index][field] = value;
         setTransactions(newTransactions);
     };
 
+    // Calculer le montant total HT des transactions
     const calculateTotalAmount = () => {
-        return transactions.reduce((acc, curr) => {
-            const montant = parseFloat(curr.montant);
-            return acc + (isNaN(montant) ? 0 : montant);
-        }, 0);
+        return transactions.reduce((acc, curr) => acc + (parseFloat(curr.montant) || 0), 0);
     };
 
+    // Sauvegarder la facture avec les nouvelles valeurs
     const handleSave = async () => {
         try {
             const factureData = {
@@ -70,20 +91,15 @@ const FactureClientForm = ({ onClose, onSave, factureId }) => {
             };
 
             const newFacture = await createFacture(factureData);
-            console.log('Facture saved:', newFacture);
-
-            if (onSave) {
-                onSave(newFacture);
-            }
-
+            if (onSave) onSave(newFacture);
             onClose();
         } catch (error) {
             console.error('Error saving facture:', error.message);
-            alert('Votre facture a été enregistrée avec succès');
-            onClose();
+            alert('Erreur lors de l\'enregistrement de la facture');
         }
     };
 
+    // Vérifier si le bouton de sauvegarde doit être désactivé
     const isSaveDisabled = !factureDetails.numero_facture || !factureDetails.nom_client || 
         !factureDetails.date_emission || !factureDetails.date_echeance || 
         isNaN(factureDetails.montant_paye) || factureDetails.montant_paye === "";
@@ -119,6 +135,18 @@ const FactureClientForm = ({ onClose, onSave, factureId }) => {
                         onChange={(e) => handleFactureChange("date_echeance", e.target.value)}
                         className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
                     />
+                    
+                    <select
+                        value={factureDetails.taux_tva}
+                        onChange={(e) => handleFactureChange("taux_tva", parseFloat(e.target.value))}
+                        className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+                    >
+                        <option value={0}>0%</option>
+                        <option value={0.07}>7%</option>
+                        <option value={0.13}>13%</option>
+                        <option value={0.19}>19%</option>
+                    </select>
+
                     <input
                         type="number"
                         value={factureDetails.montant_total}
@@ -127,30 +155,16 @@ const FactureClientForm = ({ onClose, onSave, factureId }) => {
                     />
                     <input
                         type="number"
-                        value={factureDetails.montant_paye}
-                        onChange={(e) => handleFactureChange("montant_paye", e.target.value)}
+                        value={factureDetails.montant_tva}
                         className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+                        disabled
                     />
-                    <div className="mb-4">
-    <select
-        value={factureDetails.type_facture}
-        onChange={(e) => handleFactureChange("type_facture", e.target.value)}
-        className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-    >
-        <option value="client">Client</option>
-        <option value="fournisseur">Fournisseur</option>
-    </select>
-</div>
-
-                    <select
-                        value={factureDetails.statut}
-                        onChange={(e) => handleFactureChange("statut", e.target.value)}
+                    <input
+                        type="number"
+                        value={factureDetails.montant_ttc}
                         className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-                    >
-                        <option value="Non payé">Non payé</option>
-                        <option value="Payé">Payé</option>
-                        <option value="Partiellement payé">Partiellement payé</option>
-                    </select>
+                        disabled
+                    />
                 </div>
 
                 <h3 className="text-lg font-semibold mb-2">Ajouter Transactions</h3>
@@ -178,7 +192,7 @@ const FactureClientForm = ({ onClose, onSave, factureId }) => {
                             <option value="Virement">Virement</option>
                             <option value="Chèque">Chèque</option>
                         </select>
-                        
+
                         <select
                             value={transaction.compte}
                             onChange={(e) => handleTransactionChange(index, "compte", e.target.value)}
@@ -187,6 +201,7 @@ const FactureClientForm = ({ onClose, onSave, factureId }) => {
                             <option value="Débit">Débit</option>
                             <option value="Crédit">Crédit</option>
                         </select>
+
                         <input
                             type="text"
                             placeholder="Description"
@@ -202,7 +217,11 @@ const FactureClientForm = ({ onClose, onSave, factureId }) => {
                 </button>
 
                 <div className="flex justify-end">
-                    <button onClick={handleSave} className={`p-2 rounded ${isSaveDisabled ? 'bg-gray-600' : 'bg-green-600'} text-white`} disabled={isSaveDisabled}>
+                    <button 
+                        onClick={handleSave} 
+                        className={`p-2 rounded ${isSaveDisabled ? 'bg-gray-600' : 'bg-green-600'} text-white`} 
+                        disabled={isSaveDisabled}
+                    >
                         Sauvegarder la Facture
                     </button>
                 </div>

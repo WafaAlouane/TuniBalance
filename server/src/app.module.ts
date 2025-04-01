@@ -46,7 +46,6 @@ import { FactureModule } from './facture/facture.module'; // Import FactureModul
     UserModule, 
     ProfileModule, 
     TransactionsModule, 
-    FactureModule, // FactureModule is already imported here
   ],
   controllers: [AppController, SmsController],  // No need to manually add FactureController
   providers: [AppService, SmsService, TwoFactorService],  // No need to manually add FactureService

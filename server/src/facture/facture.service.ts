@@ -3,8 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Facture, FactureDocument } from './schema/facture.schema';
 import { Transaction, TransactionDocument } from '../transactions/schema/transaction.schema';
-import * as pdfParse from 'pdf-parse';
-import * as fs from 'fs';
+
 @Injectable()
 export class FactureService {
   constructor(
@@ -14,14 +13,37 @@ export class FactureService {
 
   async createFacture(factureData: any): Promise<FactureDocument> {
     try {
-      const { transactions, type_facture, ...factureDetails } = factureData;
-
+      const { transactions, taux_tva, type_facture, ...factureDetails } = factureData;
+  
+      // Vérification de la présence des transactions
       if (!transactions || transactions.length === 0) {
         throw new BadRequestException('Une facture doit contenir au moins une transaction.');
       }
 
-      console.log("Transactions reçues :", transactions);
-
+      // Vérification et conversion du montant total
+      const montantTotal = parseFloat(factureDetails.montant_total.toString());
+      if (isNaN(montantTotal) || montantTotal <= 0) {
+        throw new BadRequestException('Le montant total est invalide.');
+      }
+  
+      // Vérification de la TVA (assurez-vous qu'elle est un pourcentage valide)
+      if (isNaN(taux_tva) || taux_tva < 0) {
+        throw new BadRequestException('Le taux de TVA est invalide.');
+      }
+  
+      // Calcul du montant TVA
+      const montantTva = parseFloat((montantTotal * taux_tva).toFixed(2)); // Assurez-vous que la TVA est bien calculée
+      if (isNaN(montantTva) || montantTva < 0) {
+        throw new BadRequestException('Le montant de la TVA est invalide.');
+      }
+  
+      // Calcul du montant TTC
+      const montantTtc = parseFloat((montantTotal + montantTva).toFixed(2)); // Assurez-vous que la TVA est bien ajoutée au montant total
+      if (isNaN(montantTtc) || montantTtc <= 0) {
+        throw new BadRequestException('Le montant TTC est invalide.');
+      }
+  
+      // Insertion des transactions
       const createdTransactions = await this.transactionModel.insertMany(
         transactions.map((transaction: any) => ({
           ...transaction,
@@ -29,15 +51,17 @@ export class FactureService {
           description: transaction.description,
         })),
       );
-
-      console.log("Transactions créées :", createdTransactions);
-
+  
+      // Création de la facture
       const facture = new this.factureModel({
         ...factureDetails,
         type_facture,
         transactions: createdTransactions,
+        tva: montantTva,
+        montant_ttc: montantTtc,
       });
-
+  
+      // Enregistrement de la facture
       return await facture.save();
     } catch (error) {
       console.error("Erreur lors de la création de la facture :", error.message);
@@ -45,6 +69,7 @@ export class FactureService {
     }
   }
 
+  // Récupérer toutes les factures
   async findAllFactures(): Promise<FactureDocument[]> {
     try {
       return await this.factureModel.find().populate('transactions').exec();
@@ -54,6 +79,7 @@ export class FactureService {
     }
   }
 
+  // Récupérer toutes les factures clients
   async findAllFacturesForClient(): Promise<FactureDocument[]> {
     try {
       return await this.factureModel
@@ -66,6 +92,7 @@ export class FactureService {
     }
   }
 
+  // Récupérer toutes les factures fournisseurs
   async findAllFacturesForFournisseur(): Promise<FactureDocument[]> {
     try {
       return await this.factureModel
@@ -77,8 +104,4 @@ export class FactureService {
       throw new InternalServerErrorException('Erreur lors de la récupération des factures fournisseurs.');
     }
   }
-
-  
-
-
 }
