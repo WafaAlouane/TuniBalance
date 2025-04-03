@@ -31,20 +31,27 @@ export class CreateTransactionDto {
   @IsEnum(['En attente', 'Validée', 'Refusée'])
   statut: string;
 
-  @IsEnum(['credit', 'debit'])
-    compte: string; 
-    @IsString()
-  @IsNotEmpty()
-    compte_source: string;
-    @IsString()
-  @IsNotEmpty()
-    compte_dest: string;
+  @IsMongoId()
+  compte_debite_id: string;
+
+  @IsMongoId()
+  compte_credite_id: string;
+
+  @IsString()
+  @IsOptional()
+  justificatif_url?: string;
+
   @IsMongoId()
   cree_par_user_id: string;
 
-  
-
-  @IsMongoId()
+  @IsNumber()
   @IsOptional()
-  facture_id?: string; // Référence à la facture
+  taux_tva?: number;
+  @IsEnum(['Débit', 'Crédit'])
+  @IsNotEmpty()
+  compte: string; // Ajouté
+
+  @IsEnum(['Exploitation', 'Financière','Exceptionnelle'])
+  @IsNotEmpty()
+  type_CResultat: string;
 }

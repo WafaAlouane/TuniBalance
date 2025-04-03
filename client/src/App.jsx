@@ -24,6 +24,7 @@ import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la 
 
 
 
+import LayoutFacture from "./routes/layoutFacture"; 
 
 const router = createBrowserRouter([
     {
@@ -93,8 +94,10 @@ const router = createBrowserRouter([
       element: <ProtectedRoute allowedRoles={["financier"]}><Layout /></ProtectedRoute>,
       children: [
         { index: true, element: <Layout /> },
-        { path: "analytics", element: <div><h1 className="title">Analytics</h1><CreateStaff /></div> },
-        { path: "reports", element: <h1 className="title">Reports</h1> },
+        
+        { path: "analytics", element: <h1 className="title">Analytics</h1> },
+        { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
+        
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },
         { path: "verified-customers", element: <h1 className="title">Verified Customers</h1> },

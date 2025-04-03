@@ -1,15 +1,20 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema as NestSchema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Transaction } from '../../transactions/schema/transaction.schema';
-export type FactureDocument = Facture & Document;
+import { Transaction } from 'src/transactions/schema/transaction.schema';
 
-@Schema()
+@NestSchema()
 export class Facture {
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   numero_facture: string;
 
-  @Prop({ required: true, enum: ['vente', 'achat'] })
-  type: string;
+  @Prop({ required: true })
+  nom_client: string;
+
+  @Prop({ required: true })
+  date_emission: Date;
+
+  @Prop({ required: true })
+  date_echeance: Date;
 
   @Prop({ required: true })
   montant_total: number;
@@ -18,22 +23,23 @@ export class Facture {
   montant_paye: number;
 
   @Prop({ required: true })
-  date: Date;
+  statut: string;
 
-  @Prop({ required: true, type: Object })
-client: { nom: string; adresse: string; email: string };
+  @Prop({ required: true })
+  mode_paiement: string;
 
-@Prop({ required: true, type: Object })
-fournisseur: { nom: string; adresse: string; email: string };
-
-@Prop({ type: Number })
-taux_tva?: number;
-
-  @Prop({ required: false })
-  specifications?: string;
   @Prop({ type: [Transaction], default: [] })
   transactions: Transaction[];
+
+  @Prop({ required: true })
+  type_facture: string;
+
+  @Prop({ required: true })
+  tva: number; // TVA applied to the total amount
+
+  @Prop({ required: true })
+  montant_ttc: number; // Total amount including TVA (montant_total + tva)
 }
 
-
+export type FactureDocument = Facture & Document;
 export const FactureSchema = SchemaFactory.createForClass(Facture);

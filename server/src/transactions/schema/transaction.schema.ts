@@ -1,53 +1,30 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { Types } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import { Prop, Schema as NestSchema, SchemaFactory } from '@nestjs/mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
-export type TransactionDocument = Transaction & Document;
-
-@Schema({ timestamps: true })
+@NestSchema()
 export class Transaction {
-  @Prop({ type: String, required: true, unique: true })
+  @Prop({ required: true, unique: true, default: () => uuidv4() })
   transaction_id: string;
 
-  @Prop({ type: Date, required: true })
-  date: Date;
-
-  @Prop({ type: String, enum: ['Dépense', 'Recette'], required: true })
-  type: string;
-
-  @Prop({ type: Number, required: true })
+  @Prop({ required: true })
   montant: number;
 
-  @Prop({ type: String, enum: ['TND', 'EUR', 'USD'], required: true })
-  devise: string;
+  @Prop({ required: true })
+  date_transaction: Date;
 
-  @Prop({ type: String })
-  description: string;
-
-  @Prop({ type: String, required: true })
-  categorie: string;
-
-  @Prop({ type: String, enum: ['Espèces', 'Virement', 'Chèque', 'Carte bancaire'], required: true })
+  @Prop({ required: true })
   mode_paiement: string;
 
-  @Prop({ type: String, enum: ['En attente', 'Validée', 'Refusée'], required: true })
+  @Prop({ required: true })
   statut: string;
 
-  @Prop({ type: String, enum: ['credit', 'debit'], required: true })
-  compte: string; // Par exemple, un identifiant de compte
-  @Prop({ type: String, required: true })
-  compte_source: string;
-  @Prop({ type: String, required: true })
-  compte_dest: string;
-   
+  @Prop()
+  description?: string;
   
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  cree_par_user_id: Types.ObjectId;
-
-
-
-  @Prop({ type: Types.ObjectId, ref: 'Facture' })
-  facture_id?: Types.ObjectId; // Référence à la facture
+  @Prop({ required: true, enum: ['Débit', 'Crédit'] }) // Correction: Ajout required
+  compte: string;
 }
 
+export type TransactionDocument = Transaction & Document;
 export const TransactionSchema = SchemaFactory.createForClass(Transaction);
