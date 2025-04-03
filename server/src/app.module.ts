@@ -42,10 +42,12 @@ import { FactureModule } from './facture/facture.module'; // Import FactureModul
       inject: [ConfigService],
     }),
 
+    AuthModule,  // Ajoutez AuthModule ici, pas AuthService
+    UserModule, ProfileModule, TransactionsModule, FactureModule,
     AuthModule,  // Keep AuthModule here
     UserModule, 
     ProfileModule, 
-    TransactionsModule, 
+
     FactureModule
   ],
   controllers: [AppController, SmsController],  // No need to manually add FactureController

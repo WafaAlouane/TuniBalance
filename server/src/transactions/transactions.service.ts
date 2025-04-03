@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Transaction, TransactionDocument } from './schema/transaction.schema';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { UpdateTransactionDto } from './dto/UpdateTransactionDto';
 
 @Injectable()
 export class TransactionsService {
@@ -36,6 +36,7 @@ export class TransactionsService {
     const deletedTransaction = await this.transactionModel.findByIdAndDelete(id);
     if (!deletedTransaction) throw new NotFoundException('Transaction non trouvée');
   }
+<<<<<<< HEAD
   async getCompteResultat(): Promise<any> {
     const result = await this.transactionModel.aggregate([
         {
@@ -66,3 +67,6 @@ export class TransactionsService {
 }
 
 }
+=======
+}
+>>>>>>> d0c5e5d5800e28ed728221b648e9d533228c8fa6

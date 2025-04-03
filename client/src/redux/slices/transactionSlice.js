@@ -1,37 +1,34 @@
-// redux/slices/transactionSlice.js
+// redux/transactionSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-export const transactionSlice = createSlice({
-  name: 'transaction',
-  initialState: {
-    transactionData: null,
-    error: null,
-    loading: false,
-  },
+const initialState = {
+  transactions: [], // Liste des transactions
+  loading: false,    // Indicateur de chargement
+  error: null,       // Erreur possible
+};
+
+const transactionSlice = createSlice({
+  name: 'transactions',
+  initialState,
   reducers: {
-    addTransactionRequest: (state) => {
+    fetchTransactionsStart: (state) => {
       state.loading = true;
     },
-    addTransactionSuccess: (state, action) => {
-      state.transactionData = action.payload;
+    fetchTransactionsSuccess: (state, action) => {
+      state.transactions = action.payload;
       state.loading = false;
     },
-    addTransactionFailure: (state, action) => {
+    fetchTransactionsFailure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
-    createTransaction: (state, action) => {
-        // Traitement de la transaction si nécessaire
-        state.transactionData = action.payload; // ou tout autre traitement
-      },
   },
 });
 
 export const {
-  addTransactionRequest,
-  addTransactionSuccess,
-  createTransaction,
-  addTransactionFailure,
+  fetchTransactionsStart,
+  fetchTransactionsSuccess,
+  fetchTransactionsFailure,
 } = transactionSlice.actions;
 
 export default transactionSlice.reducer;

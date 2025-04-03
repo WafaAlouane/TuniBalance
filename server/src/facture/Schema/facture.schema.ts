@@ -28,8 +28,8 @@ export class Facture {
   @Prop({ required: true })
   mode_paiement: string;
 
-  @Prop({ type: [String], default: [] })
-  transactions: string[];
+  @Prop({ type: [Transaction], default: [] })
+  transactions: Transaction[];
 
   @Prop({ required: true })
   type_facture: string;
