@@ -18,6 +18,10 @@ export class TransactionsController {
   findAll() {
     return this.transactionsService.findAll();
   }
+  @Get('compte-resultat')
+  getCompteResultat() {
+      return this.transactionsService.getCompteResultat();
+  }
 
   // Endpoint to get a specific transaction by its ID
   @Get(':id')
@@ -36,4 +40,7 @@ export class TransactionsController {
   remove(@Param('id') id: string) {
     return this.transactionsService.remove(id);
   }
+  
+  
+
 }

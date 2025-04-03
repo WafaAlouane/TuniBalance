@@ -50,4 +50,8 @@ export class CreateTransactionDto {
   @IsEnum(['Débit', 'Crédit'])
   @IsNotEmpty()
   compte: string; // Ajouté
+
+  @IsEnum(['Exploitation', 'Financière','Exceptionnelle'])
+  @IsNotEmpty()
+  type_CResultat: string;
 }

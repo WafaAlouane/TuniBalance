@@ -36,4 +36,33 @@ export class TransactionsService {
     const deletedTransaction = await this.transactionModel.findByIdAndDelete(id);
     if (!deletedTransaction) throw new NotFoundException('Transaction non trouvée');
   }
+  async getCompteResultat(): Promise<any> {
+    const result = await this.transactionModel.aggregate([
+        {
+            $group: {
+                _id: "$type_CResultat",
+                total_debit: {
+                    $sum: {
+                        $cond: [{ $eq: ["$compte", "Débit"] }, "$montant", 0]
+                    }
+                },
+                total_credit: {
+                    $sum: {
+                        $cond: [{ $eq: ["$compte", "Crédit"] }, "$montant", 0]
+                    }
+                },
+                details: {
+                    $push: {
+                        description: "$description",
+                        montant: "$montant",
+                        compte: "$compte"
+                    }
+                }
+            }
+        },
+        { $sort: { _id: 1 } }
+    ]);
+    return result;
+}
+
 }

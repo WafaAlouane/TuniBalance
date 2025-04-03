@@ -10,6 +10,7 @@ import { getAllTransactions } from '@services/transactionService';
 import { getFacturesForClient, getFacturesForFournisseur } from '@services/factureService';
 import { Pie, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement } from "chart.js";
+import LayoutCompteRes from "./LayoutCompteRes";
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement);
 
@@ -151,7 +152,12 @@ const Layout = () => {
                                     </tfoot>
                                 </table>
                             </div>
+                            {/* Compte Resultat */}
 
+                            <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                                <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Compte Résultat</h2>
+                                <LayoutCompteRes />
+                            </div>
                             {/* Factures Client Table */}
                             <div className="overflow-x-auto bg-slate-800 p-6 rounded-lg shadow-md mt-6">
                                 <h2 className="text-xl font-semibold text-green-500 mb-4 text-center">Factures Client</h2>

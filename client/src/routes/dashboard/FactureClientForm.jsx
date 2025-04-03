@@ -22,6 +22,7 @@ const FactureClientForm = ({ onClose, onSave }) => {
         date_transaction: "",
         mode_paiement: "Espèces", 
         compte: "Débit",
+        type_CResultat:"Exploitation",
         statut: "Validée",
         description: "",
     }]);
@@ -62,6 +63,7 @@ const FactureClientForm = ({ onClose, onSave }) => {
             date_transaction: "",
             mode_paiement: "Espèces",
             compte: "Débit",
+            type_CResultat:"Exploitation",
             statut: "Validée",
             description: "",
         }]);
@@ -210,6 +212,16 @@ const FactureClientForm = ({ onClose, onSave }) => {
                         >
                             <option value="Débit">Débit</option>
                             <option value="Crédit">Crédit</option>
+                        </select>
+                        <select
+                            value={transaction.type_CResultat}
+                            onChange={(e) => handleTransactionChange(index, "type_CResultat", e.target.value)}
+                            className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+                        >
+                            <option value="Exploitation">Exploitation</option>
+                            <option value="Financière">Financière</option>
+                            <option value="Exceptionnelle">Exceptionnelle</option>
+
                         </select>
 
                         <input
