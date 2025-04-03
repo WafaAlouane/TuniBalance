@@ -41,11 +41,10 @@ export class TransactionsController {
   remove(@Param('id') id: string) {
     return this.transactionsService.remove(id);
   }
-<<<<<<< HEAD
+
   
   
 
 }
-=======
-}
->>>>>>> d0c5e5d5800e28ed728221b648e9d533228c8fa6
+
+

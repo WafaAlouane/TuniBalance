@@ -54,8 +54,4 @@ export class CreateTransactionDto {
   @IsEnum(['Exploitation', 'Financière','Exceptionnelle'])
   @IsNotEmpty()
   type_CResultat: string;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d0c5e5d5800e28ed728221b648e9d533228c8fa6

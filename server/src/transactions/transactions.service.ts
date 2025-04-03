@@ -36,7 +36,7 @@ export class TransactionsService {
     const deletedTransaction = await this.transactionModel.findByIdAndDelete(id);
     if (!deletedTransaction) throw new NotFoundException('Transaction non trouvée');
   }
-<<<<<<< HEAD
+
   async getCompteResultat(): Promise<any> {
     const result = await this.transactionModel.aggregate([
         {
@@ -67,6 +67,3 @@ export class TransactionsService {
 }
 
 }
-=======
-}
->>>>>>> d0c5e5d5800e28ed728221b648e9d533228c8fa6
