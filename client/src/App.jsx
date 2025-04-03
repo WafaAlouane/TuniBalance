@@ -4,7 +4,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
-import Layoutcomptable from "@/routes/layoutcomptable";
+import Layoutfinancier from "@/routes/layoutfinancier";
 import Landing from "./pages/Landing";
 import Register from "./pages/Registrer";
 import Login from "./pages/login";
@@ -17,8 +17,7 @@ import BusinessOwner from "./pages/BusinessOwner";
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/profile/ChangePassword";
 import ViewBO from "./pages/viewBO";
-import ComptDash from "./pages/comptdash";
-import FinancierDash from "./pages/financierdash";
+
 import ForgetPassword from "./pages/ForgetPassword";
 import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la page AffTransaction
 
@@ -74,9 +73,10 @@ const router = createBrowserRouter([
       element: <ProtectedRoute allowedRoles={["accountant"]}><Layout  /></ProtectedRoute>,
     
       children: [
-        { index: true, element: <Layoutcomptable /> },
-        { path: "analytics", element: <Addfacture />  },
-        { path: "reports", element: <h1 className="title">Reports</h1> },
+        { index: true, element: <Layout /> },
+        { path: "analytics", element: <h1 className="title">Analytics</h1> },
+        { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
+        
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },
         { path: "verified-customers", element: <h1 className="title">Verified Customers</h1> },
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
       path: "/financier",
       element: <ProtectedRoute allowedRoles={["financier"]}><Layout /></ProtectedRoute>,
       children: [
-        { index: true, element: <Layout /> },
+        { index: true, element: <Layoutfinancier /> },
         
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
         { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
@@ -120,7 +120,9 @@ const router = createBrowserRouter([
           { path: "reset-password", element: <ResetPassword /> },
           { path: "change-password", element: <ChangePassword /> },
           { path: "forget-password", element: <ForgetPassword /> },
-          
+          { path: "transactions", element: <AffTransaction /> },
+         
+
       ],
   },
 

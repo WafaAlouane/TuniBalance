@@ -24,6 +24,9 @@ export class Transaction {
   
   @Prop({ required: true, enum: ['Débit', 'Crédit'] }) // Correction: Ajout required
   compte: string;
+  
+  @Prop({ required: true, enum: ['Exploitation', 'Financière','Exceptionnelle'] }) 
+  type_CResultat: string;
 }
 
 export type TransactionDocument = Transaction & Document;
