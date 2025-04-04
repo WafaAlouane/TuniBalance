@@ -16,6 +16,7 @@ import { ProfileService } from './profile/profile.service';
 import { TwoFactorService } from './services/twofactor.service';
 import { TransactionsModule } from './transactions/transactions.module';
 import { FactureModule } from './facture/facture.module'; // Import FactureModule here
+import { BilanModule } from './bilan/bilan.module';
 
 @Module({
   imports: [
@@ -48,7 +49,7 @@ import { FactureModule } from './facture/facture.module'; // Import FactureModul
     UserModule, 
     ProfileModule, 
 
-    FactureModule
+    FactureModule, BilanModule
   ],
   controllers: [AppController, SmsController],  // No need to manually add FactureController
   providers: [AppService, SmsService, TwoFactorService],  // No need to manually add FactureService
