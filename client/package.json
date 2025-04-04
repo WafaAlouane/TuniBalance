@@ -12,63 +12,44 @@
   "dependencies": {
     "@nestjs/common": "^11.0.11",
     "@reduxjs/toolkit": "^2.6.0",
-<<<<<<< HEAD
-=======
     "@tailwindcss/vite": "^4.0.17",
     "@uidotdev/usehooks": "^2.4.1",
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     "axios": "^1.7.9",
     "bootstrap": "^5.3.0-alpha1",
     "dotenv": "^16.4.7",
     "jquery": "^3.7.1",
-<<<<<<< HEAD
-=======
     "lucide-react": "^0.484.0",
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     "owl.carousel": "^2.3.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-datepicker": "^8.1.0",
     "react-dom": "^19.0.0",
-<<<<<<< HEAD
-=======
     "react-google-recaptcha": "^3.1.0",
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.29.0",
     "recharts": "^2.15.1",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
-<<<<<<< HEAD
-    "swiper": "^11.2.4"
-=======
     "swiper": "^11.2.4",
     "tailwind-merge": "^3.0.2",
     "uuid": "^11.1.0"
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
-<<<<<<< HEAD
-=======
     "auto": "^11.3.0",
     "autoprefixer": "^10.4.21",
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     "eslint": "^9.19.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
-<<<<<<< HEAD
-=======
     "postcss": "^8.5.3",
     "prefixer": "^0.0.3",
     "tailwindcss": "^3.4.17",
->>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
     "vite": "^6.1.0"
   }
 }

@@ -14,78 +14,48 @@ export class BilanService {
   ) {}
 
   async calculerBilan(): Promise<BilanDocument> {
-    const date_bilan = new Date();
+    const date_bilan = new Date(); // Date actuelle du bilan
+    const anneeCalcul = date_bilan.getFullYear(); // Extraction de l'année automatiquement
 
-    // Actif Immobilisé (Immobilisations)
-    // Investissements à long terme
+    const dateDebut = new Date(`${anneeCalcul}-01-01`);
+    const dateFin = new Date(`${anneeCalcul}-12-31`);
+
+    console.log(`Calcul du bilan pour l'année : ${anneeCalcul}`);
+
+    // Actif Immobilisé
     const actif_immobilise = await this.transactionModel.aggregate([
-      { $match: { type_CResultat: { $in: ['Financière', 'Exceptionnelle'] }, compte: 'Débit' } },
-      { $group: { 
-        _id: null, 
-        total: { $sum: "$montant" }, 
-        descriptions: { $push: "$description" } 
-      } }
+      { $match: { type_CResultat: { $in: ['Financière', 'Exceptionnelle'] }, compte: 'Débit', date: { $gte: dateDebut, $lte: dateFin } } },
+      { $group: { _id: null, total: { $sum: "$montant" }, descriptions: { $push: "$description" } } }
     ]);
 
     // Actif Circulant (Stocks, Créances Clients)
-    // Factures non encore payées par les clients
     const creances_clients = await this.factureModel.aggregate([
-      { $match: { statut: { $eq: "non payée" } } },
-      { $group: { 
-        _id: null, 
-        total: { $sum: "$montant_total" }, 
-        descriptions: { $push: "$description" } 
-      } }
+      { $match: { statut: "non payée", date_emission: { $gte: dateDebut, $lte: dateFin } } },
+      { $group: { _id: null, total: { $sum: "$montant_total" }, descriptions: { $push: "$description" } } }
     ]);
 
-    // Transactions avec description « Marchandise » ou « Stock »
     const stocks = await this.transactionModel.aggregate([
-      { $match: { description: { $in: ["Marchandise", "Stock"] } } },
-      { $group: { 
-        _id: null, 
-        total: { $sum: "$montant" }, 
-        descriptions: { $push: "$description" } 
-      } }
+      { $match: { description: { $in: ["Marchandise", "Stock"] }, date: { $gte: dateDebut, $lte: dateFin } } },
+      { $group: { _id: null, total: { $sum: "$montant" }, descriptions: { $push: "$description" } } }
     ]);
 
     const actif_circulant = (creances_clients[0]?.total || 0) + (stocks[0]?.total || 0);
 
-    // Capitaux Propres (Résultat Net)
+    // Capitaux Propres
     const capitaux_propres = await this.transactionModel.aggregate([
-      { $match: { type_CResultat: "Exploitation" } },
-      { $group: { 
-        _id: null, 
-        total: { 
-          $sum: { 
-            $cond: { 
-              if: { $eq: ["$compte", "Crédit"] }, 
-              then: "$montant", 
-              else: { $multiply: ["$montant", -1] } 
-            }
-          } 
-        }
-      }}
+      { $match: { type_CResultat: "Exploitation", date: { $gte: dateDebut, $lte: dateFin } } },
+      { $group: { _id: null, total: { $sum: { $cond: { if: { $eq: ["$compte", "Crédit"] }, then: "$montant", else: { $multiply: ["$montant", -1] } } } } } }
     ]);
 
     // Dettes (Factures Fournisseurs et Emprunts)
-    // Dettes fournisseurs
     const dettes_fournisseurs = await this.factureModel.aggregate([
-      { $match: { type_facture: "fournisseur", statut: { $eq: "non payée" } } },
-      { $group: { 
-        _id: null, 
-        total: { $sum: "$montant_total" }, 
-        descriptions: { $push: "$description" } 
-      } }
+      { $match: { type_facture: "fournisseur", statut: "non payée", date_emission: { $gte: dateDebut, $lte: dateFin } } },
+      { $group: { _id: null, total: { $sum: "$montant_total" }, descriptions: { $push: "$description" } } }
     ]);
 
-    // Emprunts
     const dettes_financieres = await this.transactionModel.aggregate([
-      { $match: { type_CResultat: "Financière", compte: "Crédit" } },
-      { $group: { 
-        _id: null, 
-        total: { $sum: "$montant" }, 
-        descriptions: { $push: "$description" } 
-      } }
+      { $match: { type_CResultat: "Financière", compte: "Crédit", date: { $gte: dateDebut, $lte: dateFin } } },
+      { $group: { _id: null, total: { $sum: "$montant" }, descriptions: { $push: "$description" } } }
     ]);
 
     const dettes = (dettes_fournisseurs[0]?.total || 0) + (dettes_financieres[0]?.total || 0);
@@ -97,6 +67,7 @@ export class BilanService {
     // Enregistrement du bilan
     const bilan = new this.bilanModel({
       date_bilan,
+      annee: anneeCalcul, // Ajout de l'année calculée
       actif_immobilise: actif_immobilise[0]?.total || 0,
       actif_immobilise_descriptions: actif_immobilise[0]?.descriptions || [],
       actif_circulant,
