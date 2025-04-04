@@ -17,6 +17,7 @@ import { ProfileService } from './profile/profile.service';
 =======
 import { TwoFactorService } from './services/twofactor.service';
 import { TransactionsModule } from './transactions/transactions.module';
+import { BilanModule } from './bilan/bilan.module';
 >>>>>>> edbe1ea70015acf12bbd826e6d9117bf1c818245
 
 @Module({
@@ -46,7 +47,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 
     AuthModule,  // Ajoutez AuthModule ici, pas AuthService
 <<<<<<< HEAD
-    UserModule, ProfileModule,
+    UserModule, ProfileModule, BilanModule,
   ],
   controllers: [AppController, SmsController],
   providers: [AppService, SmsService],
