@@ -20,81 +20,36 @@ const LayoutCompteRes = () => {
     benefice: 0,
   });
 
+  const formatMontant = (montant) => 
+    new Intl.NumberFormat('fr-FR').format(montant) + ' DT';
+
+  const renderLignes = (charges, produits) => {
+    const maxLines = Math.max(charges.length, produits.length);
+    return Array.from({ length: maxLines }).map((_, index) => (
+      <tr key={index}>
+        <td className="border border-gray-400 p-2">
+          {charges[index]?.sous_categorie || '\u00A0'}
+          {charges[index] && ` : ${formatMontant(charges[index].montant)}`}
+        </td>
+        <td className="border border-gray-400 p-2">
+          {produits[index]?.sous_categorie || '\u00A0'}
+          {produits[index] && ` : ${formatMontant(produits[index].montant)}`}
+        </td>
+      </tr>
+    ));
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getCompteResultat();
-        console.log("Données brutes de l'API :", data);
-  
-        const formattedData = {
-          chargesExploitation: [],
-          produitsExploitation: [],
-          chargesFinancieres: [],
-          produitsFinanciers: [],
-          chargesExceptionnelles: [],
-          produitsExceptionnels: [],
-          totalChargesExploitation: 0,
-          totalProduitsExploitation: 0,
-          totalChargesFinancieres: 0,
-          totalProduitsFinanciers: 0,
-          totalChargesExceptionnelles: 0,
-          totalProduitsExceptionnels: 0,
-          totalCharges: 0,
-          totalProduits: 0,
-          benefice: 0,
-        };
-  
-        data.forEach((item) => {
-          switch (item._id) {
-            case "chargesExploitation":
-              formattedData.chargesExploitation = item.details ?? []; // Vérification
-              formattedData.totalChargesExploitation = item.total_debit || 0;
-              break;
-            case "produitsExploitation":
-              formattedData.produitsExploitation = item.details ?? [];
-              formattedData.totalProduitsExploitation = item.total_credit || 0;
-              break;
-            case "chargesFinancieres":
-              formattedData.chargesFinancieres = item.details ?? [];
-              formattedData.totalChargesFinancieres = item.total_debit || 0;
-              break;
-            case "produitsFinanciers":
-              formattedData.produitsFinanciers = item.details ?? [];
-              formattedData.totalProduitsFinanciers = item.total_credit || 0;
-              break;
-            case "chargesExceptionnelles":
-              formattedData.chargesExceptionnelles = item.details ?? [];
-              formattedData.totalChargesExceptionnelles = item.total_debit || 0;
-              break;
-            case "produitsExceptionnels":
-              formattedData.produitsExceptionnels = item.details ?? [];
-              formattedData.totalProduitsExceptionnels = item.total_credit || 0;
-              break;
-          }
-        });
-  
-        formattedData.totalCharges =
-          formattedData.totalChargesExploitation +
-          formattedData.totalChargesFinancieres +
-          formattedData.totalChargesExceptionnelles;
-  
-        formattedData.totalProduits =
-          formattedData.totalProduitsExploitation +
-          formattedData.totalProduitsFinanciers +
-          formattedData.totalProduitsExceptionnels;
-  
-        formattedData.benefice = formattedData.totalProduits - formattedData.totalCharges;
-  
-        console.log("Données formatées :", formattedData);
-        setCompteResultat(formattedData);
+        setCompteResultat(data);
       } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
       }
     };
-  
     fetchData();
   }, []);
-  
 
   return (
     <div className="bg-slate-800 p-6 rounded-lg shadow-md w-full max-w-4xl mx-auto">
@@ -106,80 +61,85 @@ const LayoutCompteRes = () => {
           </tr>
         </thead>
         <tbody>
-          {/* Charges et produits d'exploitation */}
+          {/* Section Exploitation */}
           <tr>
             <td className="border border-gray-400 p-2 font-bold">Charges d'exploitation :</td>
             <td className="border border-gray-400 p-2 font-bold">Produits d'exploitation :</td>
           </tr>
-          {compteResultat.chargesExploitation.map((charge, index) => (
-            <tr key={`charge-${index}`}>
-              <td className="border border-gray-400 p-2">{charge.description} - {charge.montant}</td>
-              <td className="border border-gray-400 p-2"></td>
-            </tr>
-          ))}
-          {compteResultat.produitsExploitation.map((produit, index) => (
-            <tr key={`produit-${index}`}>
-              <td className="border border-gray-400 p-2"></td>
-              <td className="border border-gray-400 p-2">{produit.description} - {produit.montant}</td>
-            </tr>
-          ))}
-
-          {/* Affichage du total après les transactions */}
+          {renderLignes(
+            compteResultat.chargesExploitation, 
+            compteResultat.produitsExploitation
+          )}
           <tr>
             <td className="border border-gray-400 p-2 font-bold">
-              Total Charges d'exploitation : {compteResultat.totalChargesExploitation}
+              Total Charges d'exploitation : {formatMontant(compteResultat.totalChargesExploitation)}
             </td>
             <td className="border border-gray-400 p-2 font-bold">
-              Total Produits d'exploitation : {compteResultat.totalProduitsExploitation}
+              Total Produits d'exploitation : {formatMontant(compteResultat.totalProduitsExploitation)}
             </td>
           </tr>
 
-          {/* Charges et produits financières */}
+          {/* Section Financière */}
           <tr>
             <td className="border border-gray-400 p-2 font-bold">Charges financières :</td>
             <td className="border border-gray-400 p-2 font-bold">Produits financiers :</td>
           </tr>
+          {renderLignes(
+            compteResultat.chargesFinancieres, 
+            compteResultat.produitsFinanciers
+          )}
           <tr>
-            <td className="border border-gray-400 p-2">{compteResultat.totalChargesFinancieres}</td>
-            <td className="border border-gray-400 p-2">{compteResultat.totalProduitsFinanciers}</td>
+            <td className="border border-gray-400 p-2">
+              Total : {formatMontant(compteResultat.totalChargesFinancieres)}
+            </td>
+            <td className="border border-gray-400 p-2">
+              Total : {formatMontant(compteResultat.totalProduitsFinanciers)}
+            </td>
           </tr>
 
-          {/* Charges et produits exceptionnelles */}
-
-          
+          {/* Section Exceptionnelle */}
           <tr>
             <td className="border border-gray-400 p-2 font-bold">Charges exceptionnelles :</td>
             <td className="border border-gray-400 p-2 font-bold">Produits exceptionnels :</td>
           </tr>
+          {renderLignes(
+            compteResultat.chargesExceptionnelles, 
+            compteResultat.produitsExceptionnels
+          )}
           <tr>
-            <td className="border border-gray-400 p-2">{compteResultat.totalChargesExceptionnelles}</td>
-            <td className="border border-gray-400 p-2">{compteResultat.totalProduitsExceptionnels}</td>
-          </tr>
-
-          {/* Totaux */}
-          <tr>
-            <td className="border border-gray-400 p-2 font-bold bg-yellow-500">
-              TOTAL DES CHARGES : {compteResultat.totalCharges}
+            <td className="border border-gray-400 p-2">
+              Total : {formatMontant(compteResultat.totalChargesExceptionnelles)}
             </td>
-            <td className="border border-gray-400 p-2 font-bold bg-yellow-500">
-              TOTAL DES PRODUITS : {compteResultat.totalProduits}
+            <td className="border border-gray-400 p-2">
+              Total : {formatMontant(compteResultat.totalProduitsExceptionnels)}
             </td>
           </tr>
 
-          {/* Bénéfice ou perte */}
+          {/* Totaux généraux */}
+          <tr className="bg-red-100"> {/* Version plus claire que bg-blue-100 */}
+  <td className="border border-gray-400 p-2 text-black">
+    TOTAL DES CHARGES : {formatMontant(compteResultat.totalCharges)}
+  </td>
+  <td className="border border-gray-400 p-2  text-black">
+    TOTAL DES PRODUITS : {formatMontant(compteResultat.totalProduits)}
+  </td>
+</tr>
+
+          {/* Bénéfice/Perte */}
           <tr>
-            <td className="border border-gray-400 p-2 font-bold">
-              {compteResultat.benefice >= 0 ? "Bénéfice" : "Perte"} : {Math.abs(compteResultat.benefice)}
+            <td colSpan={2} className="border border-gray-400 p-2 font-bold text-center">
+              {compteResultat.benefice >= 0 ? "BÉNÉFICE" : "PERTE"} : 
+              {formatMontant(Math.abs(compteResultat.benefice))}
             </td>
           </tr>
 
           {/* Total général */}
-          <tr>
-            <td className="border border-gray-400 p-2 font-bold bg-green-200">
-              TOTAL GÉNÉRAL : {compteResultat.totalCharges}
+          <tr className="bg-green-100">
+            <td className="border border-gray-400 p-2 font-bold">
+              TOTAL GÉNÉRAL : {formatMontant(compteResultat.totalCharges)}
             </td>
-            <td className="border border-gray-400 p-2 font-bold bg-green-200">
-              TOTAL GÉNÉRAL : {compteResultat.totalProduits}
+            <td className="border border-gray-400 p-2 font-bold">
+              TOTAL GÉNÉRAL : {formatMontant(compteResultat.totalProduits)}
             </td>
           </tr>
         </tbody>

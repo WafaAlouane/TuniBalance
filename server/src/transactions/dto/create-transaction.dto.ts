@@ -1,57 +1,39 @@
 import { IsString, IsNotEmpty, IsEnum, IsNumber, IsOptional, IsMongoId } from 'class-validator';
+import { TypeTransaction, TypeCompteResultat, SousCategorieCharge, SousCategorieProduit } from '../schema/transaction.schema';
 
 export class CreateTransactionDto {
-  @IsString()
-  @IsNotEmpty()
-  transaction_id: string;
-
-  @IsNotEmpty()
-  date: Date;
-
-  @IsEnum(['Dépense', 'Recette', 'Transfert'])
-  type: string;
-
   @IsNumber()
   @IsNotEmpty()
   montant: number;
 
-  @IsEnum(['TND', 'EUR', 'USD'])
-  devise: string;
+  @IsNotEmpty()
+  date_transaction: Date;
+
+  @IsString()
+  @IsNotEmpty()
+  mode_paiement: string;
+
+  @IsString()
+  @IsNotEmpty()
+  statut: string;
 
   @IsString()
   @IsOptional()
   description?: string;
 
-  @IsString()
-  categorie: string;
+  @IsEnum(TypeTransaction)
+  @IsNotEmpty()
+  categorie: TypeTransaction;
 
-  @IsEnum(['Espèces', 'Virement', 'Chèque', 'Carte bancaire'])
-  mode_paiement: string;
-
-  @IsEnum(['En attente', 'Validée', 'Refusée'])
-  statut: string;
-
-  @IsMongoId()
-  compte_debite_id: string;
-
-  @IsMongoId()
-  compte_credite_id: string;
+  @IsEnum(TypeCompteResultat)
+  @IsNotEmpty()
+  type_CResultat: TypeCompteResultat;
 
   @IsString()
-  @IsOptional()
-  justificatif_url?: string;
-
-  @IsMongoId()
-  cree_par_user_id: string;
-
-  @IsNumber()
-  @IsOptional()
-  taux_tva?: number;
-  @IsEnum(['Débit', 'Crédit'])
   @IsNotEmpty()
-  compte: string; // Ajouté
+  sous_categorie: string;
 
-  @IsEnum(['Exploitation', 'Financière','Exceptionnelle'])
+  @IsString()
   @IsNotEmpty()
-  type_CResultat: string;
+  compte: string;
 }

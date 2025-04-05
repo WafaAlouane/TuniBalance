@@ -25,7 +25,28 @@ const FactureClientForm = ({ onClose, onSave }) => {
         type_CResultat:"Exploitation",
         statut: "Validée",
         description: "",
+        categorie: "Charge", // Par défaut
+        sous_categorie: "Achats de marchandises", // Valeur par défaut
+       
     }]);
+    const categories = ["Charge", "Produit"];
+
+const typesCResultat = ["Exploitation", "Financière", "Exceptionnelle"];
+const sousCategoriesCharge = [
+    "Achats de marchandises",
+    "Variation des stocks de marchandises",
+    "Loyer",
+    "Publicité",
+    "Impôts et taxes",
+    "Salaires et charges sociales",
+    "Intérêts des emprunts",
+    "Amendes",
+    "Frais remplacement matériel productif",
+    "Impôt sur les bénéfices"
+];
+const sousCategoriesProduit = [
+    "Ventes de marchandises"
+];
 
     // Calcul du montant total HT, TVA et TTC à chaque changement de transactions ou du taux de TVA
     useEffect(() => {
@@ -66,7 +87,14 @@ const FactureClientForm = ({ onClose, onSave }) => {
             type_CResultat:"Exploitation",
             statut: "Validée",
             description: "",
+            categorie: "Charge",
+            sous_categorie: "Achats de marchandises",
+            type_CResultat: "Exploitation",
         }]);
+    };
+    const removeTransaction = (index) => {
+        const updatedTransactions = transactions.filter((_, i) => i !== index);
+        setTransactions(updatedTransactions);
     };
 
     // Gérer les changements dans les transactions
@@ -214,16 +242,26 @@ const FactureClientForm = ({ onClose, onSave }) => {
                             <option value="Crédit">Crédit</option>
                         </select>
                         <select
-                            value={transaction.type_CResultat}
-                            onChange={(e) => handleTransactionChange(index, "type_CResultat", e.target.value)}
-                            className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-                        >
-                            <option value="Exploitation">Exploitation</option>
-                            <option value="Financière">Financière</option>
-                            <option value="Exceptionnelle">Exceptionnelle</option>
+  value={transaction.categorie}
+  onChange={(e) => handleTransactionChange(index, "categorie", e.target.value)}
+  className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+>
+  {categories.map(cat => (
+    <option key={cat} value={cat}>{cat}</option>
+  ))}
+</select>
 
-                        </select>
+<select
+  value={transaction.sous_categorie}
+  onChange={(e) => handleTransactionChange(index, "sous_categorie", e.target.value)}
+  className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+>
+  {(transaction.categorie === "Charge" ? sousCategoriesCharge : sousCategoriesProduit).map(sub => (
+    <option key={sub} value={sub}>{sub}</option>
+  ))}
+</select>
 
+                        
                         <input
                             type="text"
                             placeholder="Description"
@@ -237,7 +275,7 @@ const FactureClientForm = ({ onClose, onSave }) => {
                 <button onClick={handleAddTransaction} className="mb-4 p-2 rounded bg-blue-600 text-white">
                     Ajouter une Transaction
                 </button>
-
+                <button type="button" onClick={() => removeTransaction(index)}>Supprimer</button>
                 <div className="flex justify-end">
                     <button 
                         onClick={handleSave} 

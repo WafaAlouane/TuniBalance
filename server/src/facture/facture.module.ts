@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FactureService } from './facture.service';
 import { FactureController } from './facture.controller';
-import { Facture, FactureSchema } from './schema/facture.schema';
+import { Facture, FactureSchema } from './Schema/facture.schema';
 import { TransactionsModule } from '../transactions/transactions.module'; // Import the TransactionsModule
 
 @Module({

@@ -96,7 +96,7 @@ const router = createBrowserRouter([
         { index: true, element: <Layoutfinancier /> },
         
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
-        { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
+        { path: "reports", element: <LayoutFacture /> }, 
         
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },

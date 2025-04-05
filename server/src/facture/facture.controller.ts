@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FactureService } from './facture.service';
-import { FactureDocument } from './schema/facture.schema';
+import { FactureDocument } from './Schema/facture.schema';
 
 @Controller('factures')
 export class FactureController {
