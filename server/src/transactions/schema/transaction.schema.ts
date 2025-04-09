@@ -1,52 +1,70 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { Types } from 'mongoose';
-
-export type TransactionDocument = Transaction & Document;
-
-@Schema({ timestamps: true })
-export class Transaction {
-  @Prop({ type: String, required: true, unique: true })
-  transaction_id: string;
-
-  @Prop({ type: Date, required: true })
-  date: Date;
-
-  @Prop({ type: String, enum: ['Dépense', 'Recette', 'Transfert'], required: true })
-  type: string;
-
-  @Prop({ type: Number, required: true })
-  montant: number;
-
-  @Prop({ type: String, enum: ['TND', 'EUR', 'USD'], required: true })
-  devise: string;
-
-  @Prop({ type: String })
-  description: string;
-
-  @Prop({ type: String, required: true })
-  categorie: string;
-
-  @Prop({ type: String, enum: ['Espèces', 'Virement', 'Chèque', 'Carte bancaire'], required: true })
-  mode_paiement: string;
-
-  @Prop({ type: String, enum: ['En attente', 'Validée', 'Refusée'], required: true })
-  statut: string;
-
-  @Prop({ type: Types.ObjectId, ref: 'Compte', required: true })
-  compte_debite_id: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId, ref: 'Compte', required: true })
-  compte_credite_id: Types.ObjectId;
-
-  @Prop({ type: String })
-  justificatif_url: string;
-
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  cree_par_user_id: Types.ObjectId;
-
-  @Prop({ type: Number })
-  taux_tva?: number;
+import { Schema, Document } from 'mongoose';
+import { Prop, Schema as NestSchema, SchemaFactory } from '@nestjs/mongoose';
+import { v4 as uuidv4 } from 'uuid';
+export enum TypeTransaction {
+  CHARGE = 'Charge',
+  PRODUIT = 'Produit',
 }
 
+export enum TypeCompteResultat {
+  EXPLOITATION = 'Exploitation',
+  FINANCIERE = 'Financière',
+  EXCEPTIONNELLE = 'Exceptionnelle',
+}
+
+export enum SousCategorieCharge {
+  ACHAT_MARCHANDISES = 'Achats de marchandises',
+  VARIATION_STOCKS = 'Variation des stocks de marchandises',
+  LOYER = 'Loyer',
+  PUBLICITE = 'Publicité',
+  IMPOTS_TAXES = 'Impôts et taxes',
+  SALAIRES = 'Salaires et charges sociales',
+  INTERETS_EMPRUNTS = 'Intérêts des emprunts',
+  AMENDES = 'Amendes',
+  REMPLACEMENT_MATERIEL = 'Frais remplacement matériel productif',
+  IMPOT_BENEFICE = 'Impôt sur les bénéfices',
+}
+
+export enum SousCategorieProduit {
+  VENTE_MARCHANDISES = 'Ventes de marchandises',
+}
+interface TransactionLine {
+  sous_categorie: string;
+  montant: number;
+}
+@NestSchema()
+export class Transaction {
+  @Prop({ required: true, unique: true, default: () => uuidv4() })
+  transaction_id: string;
+
+  @Prop({ required: true })
+  montant: number;
+
+  @Prop({ required: true })
+  date_transaction: Date;
+
+  @Prop({ required: true })
+  mode_paiement: string;
+
+  @Prop({ required: true })
+  statut: string;
+
+  @Prop()
+  description?: string;
+  @Prop({ required: true, enum: TypeTransaction })
+  categorie: TypeTransaction;
+
+  @Prop({ required: true, enum: TypeCompteResultat })
+  type_CResultat: TypeCompteResultat;
+
+  @Prop({ required: true, enum: [...Object.values(SousCategorieCharge), ...Object.values(SousCategorieProduit)] })
+  sous_categorie: string;
+
+  @Prop({ required: true, enum: ['Débit', 'Crédit'] }) // Correction: Ajout required
+  compte: string;
+  
+  
+}
+
+export type TransactionDocument = Transaction & Document;
 export const TransactionSchema = SchemaFactory.createForClass(Transaction);

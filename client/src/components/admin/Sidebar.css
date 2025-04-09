@@ -67,6 +67,41 @@
     color: #012970;
   }
   
+  .transaction-card {
+    background-color: #3b08e2;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .transaction-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .transaction-card-header {
+    background-color: #007bff;
+    color: rgb(23, 2, 59);
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .transaction-card-body {
+    padding: 20px;
+  }
+  
+  .transaction-card p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #f5f4f7;
+  }
+  
+  .transaction-card strong {
+    font-weight: bold;
+  }
+  
   /*--------------------------------------------------------------
   # Back to top button
   --------------------------------------------------------------*/
