@@ -11,6 +11,9 @@ import { getFacturesForClient, getFacturesForFournisseur } from '@services/factu
 import { Pie, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement } from "chart.js";
 import LayoutCompteRes from "./LayoutCompteRes";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import html2canvas from "html2canvas";
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement);
 
@@ -94,6 +97,7 @@ const Layout = () => {
         ]
     };
 
+   
     const handleFactureClick = (factureId) => {
         setCurrentFactureId(factureId);
         setShowFactureForm(true);
@@ -103,6 +107,20 @@ const Layout = () => {
         setShowFactureForm(false);
         setCurrentFactureId(null);
     };
+    const tableRef = useRef();
+    const exportToPDF = () => {
+        const input = tableRef.current;
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL("image/png");
+            const pdf = new jsPDF("p", "mm", "a4");
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+            pdf.save("factures-client.pdf");
+        });
+    };
+
 
     return (
         <div className="min-h-screen bg-slate-950 text-white transition-colors">
@@ -158,8 +176,21 @@ const Layout = () => {
                                 <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Compte Résultat</h2>
                                 <LayoutCompteRes />
                             </div>
+                            
                             {/* Factures Client Table */}
-                            <div className="overflow-x-auto bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                          
+                            <div className="flex justify-center mt-4">
+                                <button
+                                    onClick={exportToPDF}
+                                    className="bg-green-600 text-white px-4 py-2 rounded-md"
+                                >
+                                    Exporter Tous les Factures en PDF
+                                </button>
+                            </div>
+
+                            <div ref={tableRef}  className="overflow-x-auto bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                               
+ 
                                 <h2 className="text-xl font-semibold text-green-500 mb-4 text-center">Factures Client</h2>
                                 <table className="min-w-full table-auto">
                                     <thead className="bg-green-600 text-white">
@@ -191,6 +222,7 @@ const Layout = () => {
                                         ))}
                                     </tbody>
                                 </table>
+
                             </div>
 
                             {/* Factures Fournisseur Table */}

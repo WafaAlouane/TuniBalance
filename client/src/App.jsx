@@ -73,6 +73,7 @@ const router = createBrowserRouter([
       element: <ProtectedRoute allowedRoles={["accountant"]}><Layout  /></ProtectedRoute>,
     
       children: [
+     
         { index: true, element: <Layout /> },
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
         { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
@@ -84,6 +85,8 @@ const router = createBrowserRouter([
         { path: "new-product", element: <h1 className="title">New Product</h1> },
         { path: "inventory", element: <h1 className="title">Inventory</h1> },
         { path: "settings", element: <h1 className="title">Settings</h1> },
+        
+
        
     ],
   },
