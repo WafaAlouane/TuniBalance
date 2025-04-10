@@ -16,6 +16,7 @@ import { ProfileService } from './profile/profile.service';
 import { TwoFactorService } from './services/twofactor.service';
 import { TransactionsModule } from './transactions/transactions.module';
 import { FactureModule } from './facture/facture.module'; // Import FactureModule here
+import { JournalModule } from './journal/journal.module';  // Assure-toi que l'importation est correcte
 
 @Module({
   imports: [
@@ -43,11 +44,11 @@ import { FactureModule } from './facture/facture.module'; // Import FactureModul
     }),
 
     AuthModule,  // Ajoutez AuthModule ici, pas AuthService
-    UserModule, ProfileModule, TransactionsModule, FactureModule,
+    UserModule,
     AuthModule,  // Keep AuthModule here
     UserModule, 
     ProfileModule, 
-
+    JournalModule,
     FactureModule
   ],
   controllers: [AppController, SmsController],  // No need to manually add FactureController

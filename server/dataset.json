@@ -1,0 +1,2402 @@
+[
+    {
+      "transaction": {
+        "transaction_id": "ae821525-9a2e-4fa2-9f72-88a8ae734521",
+        "montant": 2446.88,
+        "date_transaction": "2025-04-09T15:53:56.705694",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2446.88,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2446.88
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "2ea26835-5c68-4bc0-a781-6ad9fb678f5a",
+        "montant": 662.73,
+        "date_transaction": "2025-04-09T15:53:56.705745",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 662.73,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 662.73
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "9f522420-f91c-4925-a0d9-ae93b1967035",
+        "montant": 1396.85,
+        "date_transaction": "2025-04-09T15:53:56.705789",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 1396.85,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1396.85
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "4f44c054-cdd2-4148-8a3e-6b89cefb7590",
+        "montant": 4059.63,
+        "date_transaction": "2025-04-09T15:53:56.705848",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 4059.63,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4059.63
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "70658c7b-7422-4a1e-a6ff-ad3376f25e83",
+        "montant": 3971.23,
+        "date_transaction": "2025-04-09T15:53:56.705918",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 3971.23,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3971.23
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "195fc345-6e6b-4e49-943c-2d93eca32edc",
+        "montant": 2414.67,
+        "date_transaction": "2025-04-09T15:53:56.705996",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2414.67,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2414.67
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "55f65234-172b-4bde-8fd7-5c5f5d32d735",
+        "montant": 3202.99,
+        "date_transaction": "2025-04-09T15:53:56.706026",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3202.99,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3202.99
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "8dcfaade-da75-4b9e-8a40-f91152b304ba",
+        "montant": 3976.41,
+        "date_transaction": "2025-04-09T15:53:56.706052",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3976.41,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3976.41
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "50b96a66-24e6-470d-83ab-7a371d5d13e4",
+        "montant": 3534.11,
+        "date_transaction": "2025-04-09T15:53:56.706242",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 3534.11,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3534.11
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "a0bb73a0-4343-4133-95a7-8d53ec42cb11",
+        "montant": 4431.58,
+        "date_transaction": "2025-04-09T15:53:56.706279",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 4431.58,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4431.58
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "02aa50b9-ebc3-4b47-beec-8fb9b60e53af",
+        "montant": 830.6,
+        "date_transaction": "2025-04-09T15:53:56.706376",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 830.6,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 830.6
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "23d73b39-374b-43d7-a8ab-d31415e97e54",
+        "montant": 4976.64,
+        "date_transaction": "2025-04-09T15:53:56.706434",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 4976.64,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4976.64
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "8cdbc62e-3c0c-41b2-8578-84765181da7c",
+        "montant": 2919.07,
+        "date_transaction": "2025-04-09T15:53:56.706497",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2919.07,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2919.07
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "62e25352-cb35-4c3e-917c-451218e89d33",
+        "montant": 1706.11,
+        "date_transaction": "2025-04-09T15:53:56.706531",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1706.11,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1706.11
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "315a0020-716c-47b4-9eac-bc3ad11e08ff",
+        "montant": 2715.55,
+        "date_transaction": "2025-04-09T15:53:56.706579",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2715.55,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2715.55
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "93f2a1d2-3c2f-409f-8eed-ab8ef176709e",
+        "montant": 2655.88,
+        "date_transaction": "2025-04-09T15:53:56.706602",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2655.88,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2655.88
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "7adf77cc-24b6-4288-9c9c-faf7f2afef7a",
+        "montant": 4282.05,
+        "date_transaction": "2025-04-09T15:53:56.706643",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 4282.05,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4282.05
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "908045c2-99cd-4851-bcb5-802192da701e",
+        "montant": 905.36,
+        "date_transaction": "2025-04-09T15:53:56.706684",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 905.36,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 905.36
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "8bc79aa4-800b-49c3-83d6-04171c1bf726",
+        "montant": 1610.42,
+        "date_transaction": "2025-04-09T15:53:56.706721",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 1610.42,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1610.42
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "274eca28-c7bf-4e03-bd76-9c795249e91c",
+        "montant": 3471.9,
+        "date_transaction": "2025-04-09T15:53:56.706754",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3471.9,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3471.9
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "d381de73-7f3b-4fe2-b40d-1b477adaffee",
+        "montant": 3207.67,
+        "date_transaction": "2025-04-09T15:53:56.706779",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3207.67,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3207.67
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "fd42d2cd-8b39-4306-9c7f-b214ecc9e9a2",
+        "montant": 2022.54,
+        "date_transaction": "2025-04-09T15:53:56.706811",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2022.54,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2022.54
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "07c108e1-99eb-4f23-8862-99a935281f68",
+        "montant": 2417.42,
+        "date_transaction": "2025-04-09T15:53:56.706846",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2417.42,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2417.42
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "4525841a-6753-45f5-9e6e-ad6e44151dc4",
+        "montant": 517.03,
+        "date_transaction": "2025-04-09T15:53:56.706866",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 517.03,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 517.03
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "6fea014d-f06a-4515-a42a-d3f08d7af945",
+        "montant": 737.84,
+        "date_transaction": "2025-04-09T15:53:56.706891",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 737.84,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 737.84
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "2aa3ab27-7b64-4d02-84bd-8c36b1a92cf3",
+        "montant": 619.68,
+        "date_transaction": "2025-04-09T15:53:56.706915",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 619.68,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 619.68
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "1cf3536e-c39d-462b-9b96-5b8020240f13",
+        "montant": 2402.82,
+        "date_transaction": "2025-04-09T15:53:56.706951",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2402.82,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2402.82
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "c618466b-53e2-4ea1-a392-8288aedc0756",
+        "montant": 3298.66,
+        "date_transaction": "2025-04-09T15:53:56.706972",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3298.66,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3298.66
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "9a6dde95-887f-431a-b029-a25ab71c427f",
+        "montant": 717.37,
+        "date_transaction": "2025-04-09T15:53:56.706992",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 717.37,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 717.37
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "44fc9963-7751-46b2-9b1b-7355f5997dd7",
+        "montant": 2051.6,
+        "date_transaction": "2025-04-09T15:53:56.707011",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2051.6,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2051.6
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "91672b78-3e1e-4800-afeb-d62474a15b1a",
+        "montant": 3252.72,
+        "date_transaction": "2025-04-09T15:53:56.707031",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 3252.72,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3252.72
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "2fecb3be-8d08-4ca0-a932-f589965cb5c1",
+        "montant": 2548.32,
+        "date_transaction": "2025-04-09T15:53:56.707052",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2548.32,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2548.32
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "51cc6b8c-e0e5-4d35-9997-130c9b9c8461",
+        "montant": 4685.84,
+        "date_transaction": "2025-04-09T15:53:56.707100",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 4685.84,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4685.84
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "859bd30c-8349-4418-96ec-027336723455",
+        "montant": 409.84,
+        "date_transaction": "2025-04-09T15:53:56.707133",
+        "mode_paiement": "Virement",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 409.84,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 409.84
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "2cf9480a-6c09-4ba9-8706-369d78c0335a",
+        "montant": 1902.56,
+        "date_transaction": "2025-04-09T15:53:56.707160",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1902.56,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1902.56
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "69b81ca7-487b-44e7-9156-8a8716e32087",
+        "montant": 1092.56,
+        "date_transaction": "2025-04-09T15:53:56.707343",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 1092.56,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1092.56
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "388714c9-163c-4831-ba75-23811417e39b",
+        "montant": 2716.79,
+        "date_transaction": "2025-04-09T15:53:56.707430",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2716.79,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2716.79
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "2694e1ba-4b78-41db-b81e-0a3230a0172c",
+        "montant": 124.24,
+        "date_transaction": "2025-04-09T15:53:56.707467",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 124.24,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 124.24
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "e35de24d-f2de-46f4-926f-2372ec68254c",
+        "montant": 3419.26,
+        "date_transaction": "2025-04-09T15:53:56.707498",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 3419.26,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3419.26
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "2e4108c1-264e-47c4-a825-4f67ebf1dd28",
+        "montant": 1007.1,
+        "date_transaction": "2025-04-09T15:53:56.707530",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 1007.1,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1007.1
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "0be218be-d188-426e-a757-e3f8efa3aafc",
+        "montant": 1167.01,
+        "date_transaction": "2025-04-09T15:53:56.707577",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1167.01,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1167.01
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "ff5b1980-22d1-4c31-ae1f-6bef70ae16b6",
+        "montant": 100.18,
+        "date_transaction": "2025-04-09T15:53:56.707607",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 100.18,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 100.18
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "3308bfe7-79e5-4a8a-9999-daec3b13e552",
+        "montant": 2555.3,
+        "date_transaction": "2025-04-09T15:53:56.707636",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2555.3,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2555.3
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "523ac3d5-0233-4cbd-ba18-bbab6874af0c",
+        "montant": 2369.88,
+        "date_transaction": "2025-04-09T15:53:56.707660",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2369.88,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2369.88
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "0d521459-f75d-4035-8e81-aeea852df768",
+        "montant": 4789.16,
+        "date_transaction": "2025-04-09T15:53:56.707691",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 4789.16,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4789.16
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "0d62aaa0-86d9-4a59-828b-c79ab9f316e6",
+        "montant": 4460.12,
+        "date_transaction": "2025-04-09T15:53:56.707723",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 4460.12,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4460.12
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "462489ba-5653-463b-b424-d122ebb73585",
+        "montant": 1880.5,
+        "date_transaction": "2025-04-09T15:53:56.707751",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1880.5,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1880.5
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "a5a03b8a-1aa8-4518-9d95-77d5fd128e24",
+        "montant": 226.63,
+        "date_transaction": "2025-04-09T15:53:56.707771",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 226.63,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 226.63
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "fa3b074c-af36-49a8-97c7-d9093682765a",
+        "montant": 2419.53,
+        "date_transaction": "2025-04-09T15:53:56.707797",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2419.53,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2419.53
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "21d1959a-d239-4b69-abbb-badbf04ad203",
+        "montant": 1741.24,
+        "date_transaction": "2025-04-09T15:53:56.707817",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1741.24,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1741.24
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "d7d4be5b-9194-456a-a6c8-56807483a36a",
+        "montant": 3117.68,
+        "date_transaction": "2025-04-09T15:53:56.707853",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 3117.68,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3117.68
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "3690ad58-ed92-4d54-8363-8625a3a3a27c",
+        "montant": 1453.84,
+        "date_transaction": "2025-04-09T15:53:56.707882",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1453.84,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1453.84
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "7c2e4f58-7254-4318-b344-2bc1797d3e4b",
+        "montant": 1532.09,
+        "date_transaction": "2025-04-09T15:53:56.707900",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 1532.09,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1532.09
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "b3e7d043-07ba-4651-8399-7a56d6454349",
+        "montant": 1111.0,
+        "date_transaction": "2025-04-09T15:53:56.707929",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1111.0,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1111.0
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "cf3b1fae-7ebf-4a82-a69f-afdc902e100a",
+        "montant": 3195.33,
+        "date_transaction": "2025-04-09T15:53:56.707950",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 3195.33,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3195.33
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "48a9d710-e075-436b-bec3-3d44667becda",
+        "montant": 1205.34,
+        "date_transaction": "2025-04-09T15:53:56.707977",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 1205.34,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1205.34
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "01b98a4d-670b-4f27-baf5-894f973bb4aa",
+        "montant": 548.09,
+        "date_transaction": "2025-04-09T15:53:56.708008",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 548.09,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 548.09
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "6a556277-3379-4c88-b55e-da760fd88fc8",
+        "montant": 761.5,
+        "date_transaction": "2025-04-09T15:53:56.708030",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 761.5,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 761.5
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "021ab180-9bc9-4d55-951f-873772c7d15d",
+        "montant": 4749.44,
+        "date_transaction": "2025-04-09T15:53:56.708052",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 4749.44,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4749.44
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "e21747e4-3ae7-48bb-8d87-3604c4a015d5",
+        "montant": 2777.42,
+        "date_transaction": "2025-04-09T15:53:56.708070",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2777.42,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2777.42
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "d3239a54-6730-4bf9-862b-1a26bdd7b9d4",
+        "montant": 2883.93,
+        "date_transaction": "2025-04-09T15:53:56.708091",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2883.93,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2883.93
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "afc9b751-fc7a-4336-8892-d6a40ce450b9",
+        "montant": 1586.34,
+        "date_transaction": "2025-04-09T15:53:56.708109",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 1586.34,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1586.34
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "ac21f200-7dd3-4141-b1de-99c8752850ab",
+        "montant": 2621.2,
+        "date_transaction": "2025-04-09T15:53:56.708132",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2621.2,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2621.2
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "a365dc88-05f8-4e61-aa83-1ee81626cad6",
+        "montant": 1449.55,
+        "date_transaction": "2025-04-09T15:53:56.708151",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 1449.55,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1449.55
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "93a483fa-53dc-4a01-8a31-ba8dd6248dae",
+        "montant": 2903.66,
+        "date_transaction": "2025-04-09T15:53:56.708169",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2903.66,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2903.66
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "afcd972c-7f3f-403d-8679-32242f51427c",
+        "montant": 905.68,
+        "date_transaction": "2025-04-09T15:53:56.708210",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 905.68,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 905.68
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "930b574f-545e-4927-a3e7-504817f5c262",
+        "montant": 3803.92,
+        "date_transaction": "2025-04-09T15:53:56.708241",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 3803.92,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3803.92
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "f92d3df5-3da2-4690-b9b4-125b1662d3e4",
+        "montant": 1097.65,
+        "date_transaction": "2025-04-09T15:53:56.708372",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 1097.65,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1097.65
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "60f7c3fc-685f-42dc-a747-7bcaecb4d049",
+        "montant": 4743.61,
+        "date_transaction": "2025-04-09T15:53:56.708501",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 4743.61,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4743.61
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "183e752e-ba19-4e0b-afc4-9a97efe21c8c",
+        "montant": 1837.84,
+        "date_transaction": "2025-04-09T15:53:56.708595",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 1837.84,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1837.84
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "74581338-9e08-4023-a56a-eea81181ac66",
+        "montant": 4583.01,
+        "date_transaction": "2025-04-09T15:53:56.708628",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 4583.01,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4583.01
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "183bb145-32ec-43b6-8c02-7d7c04272d7c",
+        "montant": 1976.91,
+        "date_transaction": "2025-04-09T15:53:56.708642",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 1976.91,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1976.91
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "4c841bfd-b8b3-48d1-b69f-45eac1a0569c",
+        "montant": 2014.17,
+        "date_transaction": "2025-04-09T15:53:56.708664",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2014.17,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2014.17
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "ddfed080-1ea0-4863-a59d-91a056da5500",
+        "montant": 834.6,
+        "date_transaction": "2025-04-09T15:53:56.708817",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 834.6,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 834.6
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "774ce8c4-217b-4f6f-9231-a736e0f3b7af",
+        "montant": 2426.01,
+        "date_transaction": "2025-04-09T15:53:56.708890",
+        "mode_paiement": "Virement",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2426.01,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2426.01
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "51ff8b45-9e96-41a6-b03f-4e36cecfa08e",
+        "montant": 2799.59,
+        "date_transaction": "2025-04-09T15:53:56.708913",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2799.59,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2799.59
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "533e41df-83ff-4e50-9836-ec0bf24a41cb",
+        "montant": 3454.99,
+        "date_transaction": "2025-04-09T15:53:56.708948",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3454.99,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3454.99
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "e204f9e8-324f-47fc-beec-9379cdcae13f",
+        "montant": 2604.67,
+        "date_transaction": "2025-04-09T15:53:56.708969",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2604.67,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2604.67
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "6d948a80-8e7c-4074-8682-05e7b288ebca",
+        "montant": 2993.94,
+        "date_transaction": "2025-04-09T15:53:56.708994",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2993.94,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2993.94
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "c761fbf5-60cf-4322-8a3f-69ebacb1d53f",
+        "montant": 4710.16,
+        "date_transaction": "2025-04-09T15:53:56.709030",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 4710.16,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4710.16
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "4282fecc-c79e-4163-bbe9-53dc8fc0f402",
+        "montant": 2099.72,
+        "date_transaction": "2025-04-09T15:53:56.709059",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2099.72,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2099.72
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "06da55ee-9425-4c2e-beb4-d533351624cd",
+        "montant": 2726.76,
+        "date_transaction": "2025-04-09T15:53:56.709083",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2726.76,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2726.76
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "1d85a6e3-c33b-431b-b2f1-d5cc6d8c5dcb",
+        "montant": 2292.73,
+        "date_transaction": "2025-04-09T15:53:56.709294",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2292.73,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2292.73
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "683ef9be-5730-4d5b-b420-63fac175fe04",
+        "montant": 2131.85,
+        "date_transaction": "2025-04-09T15:53:56.709335",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2131.85,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2131.85
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "8206f112-9219-4a5b-af5b-4ce0859090fc",
+        "montant": 2842.18,
+        "date_transaction": "2025-04-09T15:53:56.709354",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 2842.18,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2842.18
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "6424427a-3b5e-46a2-b3bf-9bdac273b3e4",
+        "montant": 4313.74,
+        "date_transaction": "2025-04-09T15:53:56.709373",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 4313.74,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4313.74
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "695edc46-c15c-49b8-ae2d-e40c6baa30bf",
+        "montant": 4810.86,
+        "date_transaction": "2025-04-09T15:53:56.709395",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 4810.86,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4810.86
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "c33b026a-f9bf-42a1-b902-ccddfc5e6763",
+        "montant": 3666.17,
+        "date_transaction": "2025-04-09T15:53:56.709425",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3666.17,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3666.17
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "12eb6cea-7b39-4d45-a759-a91f106054b2",
+        "montant": 3387.25,
+        "date_transaction": "2025-04-09T15:53:56.709454",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 3387.25,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3387.25
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "675fa483-c4b9-47c3-800c-9b00ed15ba8e",
+        "montant": 4132.65,
+        "date_transaction": "2025-04-09T15:53:56.709473",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 4132.65,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4132.65
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "fc3bd1bb-86a7-4e19-9b09-5f8bc89d91c8",
+        "montant": 3096.25,
+        "date_transaction": "2025-04-09T15:53:56.709490",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 3096.25,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3096.25
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "a6b546b9-f7f4-4a64-8bbf-d4761ee56d4c",
+        "montant": 4191.56,
+        "date_transaction": "2025-04-09T15:53:56.709542",
+        "mode_paiement": "Virement",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 4191.56,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4191.56
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "394e9d4c-3f20-4753-b0c9-b8cce4b076f8",
+        "montant": 3522.76,
+        "date_transaction": "2025-04-09T15:53:56.709561",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 3522.76,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3522.76
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "1aed302e-7082-4bb2-93e7-3884ef65f605",
+        "montant": 4249.01,
+        "date_transaction": "2025-04-09T15:53:56.709593",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 4249.01,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4249.01
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "a9ffd742-ff9f-4ab1-bfd1-ad808f37fb7b",
+        "montant": 2155.43,
+        "date_transaction": "2025-04-09T15:53:56.709623",
+        "mode_paiement": "Ch\u00e8que",
+        "statut": "Effectu\u00e9e",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 2155.43,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2155.43
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "6b86c7fd-9769-407f-b996-5d6bb795be0d",
+        "montant": 1197.23,
+        "date_transaction": "2025-04-09T15:53:56.709653",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "En attente",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 1197.23,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1197.23
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "c9219162-8bc4-4ff1-9d0c-b233ed33adf0",
+        "montant": 4154.27,
+        "date_transaction": "2025-04-09T15:53:56.709679",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "En attente",
+        "description": "Transaction Financi\u00e8re",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Financi\u00e8re"
+      },
+      "journal_comptable": [
+        {
+          "compte": "627 - Charges financi\u00e8res",
+          "debit": 4154.27,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 4154.27
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "1634761a-dc25-44ca-beaa-8de972692a11",
+        "montant": 1039.8,
+        "date_transaction": "2025-04-09T15:53:56.709708",
+        "mode_paiement": "Carte Bancaire",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exceptionnelle",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exceptionnelle"
+      },
+      "journal_comptable": [
+        {
+          "compte": "671 - Charges exceptionnelles",
+          "debit": 1039.8,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 1039.8
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "484d6860-0455-41d1-943d-4de29267dc07",
+        "montant": 2770.77,
+        "date_transaction": "2025-04-09T15:53:56.709727",
+        "mode_paiement": "Esp\u00e8ces",
+        "statut": "Rejet\u00e9e",
+        "description": "Transaction Exploitation",
+        "compte": "D\u00e9bit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 2770.77,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 2770.77
+        }
+      ]
+    },
+    {
+      "transaction": {
+        "transaction_id": "765fc93d-efee-409f-aea0-36404ce2ecb7",
+        "montant": 3927.06,
+        "date_transaction": "2025-04-09T15:53:56.709758",
+        "mode_paiement": "Virement",
+        "statut": "En attente",
+        "description": "Transaction Exploitation",
+        "compte": "Cr\u00e9dit",
+        "type_CResultat": "Exploitation"
+      },
+      "journal_comptable": [
+        {
+          "compte": "606 - Achats",
+          "debit": 3927.06,
+          "credit": 0
+        },
+        {
+          "compte": "512 - Banque",
+          "debit": 0,
+          "credit": 3927.06
+        }
+      ]
+    }
+  ]
