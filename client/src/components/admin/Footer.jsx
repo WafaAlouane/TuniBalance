@@ -1,22 +1,25 @@
 import React from 'react';
-import styles from './admin.module.css'; // Import the CSS module
 
 function Footer() {
   return (
-    <div>
-      <footer id="footer" className={styles.footer}>
-        <div className={styles.copyright}>
-          © Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    <footer className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 py-4 px-6 z-40">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+        <div className="text-gray-400 text-sm mb-2 md:mb-0">
+          © Copyright <strong className="text-gray-300">NiceAdmin</strong>. All Rights Reserved
         </div>
-        <div className={styles.credits}>
-          {/* All the links in the footer should remain intact. */}
-          {/* You can delete the links only if you purchased the pro version. */}
-          {/* Licensing information: https://bootstrapmade.com/license/ */}
-          {/* Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ */}
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        <div className="text-gray-500 text-xs">
+          Designed by{' '}
+          <a 
+            href="https://bootstrapmade.com/" 
+            className="text-gray-400 hover:text-blue-400 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            BootstrapMade
+          </a>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 }
 

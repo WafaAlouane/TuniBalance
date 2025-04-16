@@ -17,6 +17,7 @@ import { TwoFactorService } from './services/twofactor.service';
 import { TransactionsModule } from './transactions/transactions.module';
 import { FactureModule } from './facture/facture.module'; // Import FactureModule here
 import { JournalModule } from './journal/journal.module';  // Assure-toi que l'importation est correcte
+import { BilanModule } from './bilan/bilan.module'; // Assure-toi que l'importation est correcte
 
 @Module({
   imports: [
@@ -49,7 +50,8 @@ import { JournalModule } from './journal/journal.module';  // Assure-toi que l'i
     UserModule, 
     ProfileModule, 
     JournalModule,
-    FactureModule
+    FactureModule,
+    BilanModule
   ],
   controllers: [AppController, SmsController],  // No need to manually add FactureController
   providers: [AppService, SmsService, TwoFactorService],  // No need to manually add FactureService

@@ -275,7 +275,6 @@ const sousCategoriesProduit = [
                 <button onClick={handleAddTransaction} className="mb-4 p-2 rounded bg-blue-600 text-white">
                     Ajouter une Transaction
                 </button>
-                <button type="button" onClick={() => removeTransaction(index)}>Supprimer</button>
                 <div className="flex justify-end">
                     <button 
                         onClick={handleSave} 

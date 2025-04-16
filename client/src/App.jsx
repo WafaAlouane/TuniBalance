@@ -69,8 +69,8 @@ const router = createBrowserRouter([
   
  
   {
-      path: "/comptable",
-      element: <ProtectedRoute allowedRoles={["accountant"]}><Layout  /></ProtectedRoute>,
+      path: "/financier",
+      element: <ProtectedRoute allowedRoles={["financier"]}><Layout  /></ProtectedRoute>,
     
       children: [
      
@@ -93,8 +93,8 @@ const router = createBrowserRouter([
 
   
   {
-      path: "/financier",
-      element: <ProtectedRoute allowedRoles={["financier"]}><Layout /></ProtectedRoute>,
+      path: "/comptable",
+      element: <ProtectedRoute allowedRoles={["accountant"]}><Layout /></ProtectedRoute>,
       children: [
         { index: true, element: <Layoutfinancier /> },
         

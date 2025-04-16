@@ -39,7 +39,6 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Assurez-vous que la date est correctement formatée en ISO pour le backend
             const updatedProfileData = {
                 ...profileData.businessInfo,
                 companyCreationDate: profileData.businessInfo.companyCreationDate
@@ -56,127 +55,159 @@ const Profile = () => {
         }
     };
 
-    if (loading) return <div>Chargement...</div>;
+    if (loading) return (
+        <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+            <div className="text-indigo-400 text-xl">Chargement...</div>
+        </div>
+    );
 
     return (
-        <div className="container vh-100 d-flex justify-content-center align-items-center ">
-            <div className="row w-75 shadow-lg rounded p-4 bg-white">
-                {/* Colonne gauche : Informations */}
-                <div className="col-md-6 d-flex flex-column justify-content-center p-4 text-white bg-info rounded">
-                    <h2 className="mb-3">Votre Profil</h2>
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    <Form onSubmit={handleSubmit}>
-                        {/* Section Utilisateur */}
-                        <div className="mb-4 border-bottom pb-3">
-                            <h5 className="text-muted mb-3">Informations Personnelles</h5>
-                            <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold text-white">Nom</Form.Label>
-                                <Form.Control plaintext readOnly value={profileData.userInfo?.name} />
-                            </Form.Group>
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left Column: User Info */}
+                    <div className="bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-700">
+                        <h2 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+                            Votre Profil
+                        </h2>
+                        
+                        {error && (
+                            <div className="mb-6 p-4 bg-red-900/30 rounded-lg text-red-400 text-sm border border-red-800">
+                                {error}
+                            </div>
+                        )}
 
-                            <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold text-white">Email</Form.Label>
-                                <Form.Control plaintext readOnly value={profileData.userInfo?.email} />
-                            </Form.Group>
+                        <div className="mb-8 border-b border-gray-700 pb-6">
+                            <h5 className="text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wider">
+                                Informations Personnelles
+                            </h5>
+                            
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">Nom</label>
+                                    <div className="mt-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200">
+                                        {profileData.userInfo?.name || 'Non spécifié'}
+                                    </div>
+                                </div>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold text-white">Téléphone</Form.Label>
-                                <Form.Control plaintext readOnly value={profileData.userInfo?.phoneNumber} />
-                            </Form.Group>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                                    <div className="mt-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200">
+                                        {profileData.userInfo?.email || 'Non spécifié'}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">Téléphone</label>
+                                    <div className="mt-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200">
+                                        {profileData.userInfo?.phoneNumber || 'Non spécifié'}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </Form>
-                </div>
+                    </div>
 
-                {/* Colonne droite : Informations de l'entreprise */}
-                <div className="col-md-6 p-4">
-                    <h2 className="text-center text-primary mb-4">Édition du Profil</h2>
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    <Form onSubmit={handleSubmit}>
-                        {/* Section Entreprise */}
-                        <div className="mt-4">
-                            <h5 className="text-muted mb-3">Informations de l'Entreprise</h5>
-                            <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold text-primary">
-                                    <FiHome className="me-2" />
-                                    Nom de l'entreprise
-                                </Form.Label>
-                                <Form.Control 
-                                    value={profileData.businessInfo?.companyName || ''}
-                                    onChange={(e) => setProfileData({
-                                        ...profileData,
-                                        businessInfo: { 
-                                            ...profileData.businessInfo, 
-                                            companyName: e.target.value 
-                                        }
-                                    })}
-                                />
-                            </Form.Group>
+                    {/* Right Column: Business Info */}
+                    <div className="bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-700">
+                        <h2 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+                            Édition du Profil
+                        </h2>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold text-primary">
-                                    <FiInfo className="me-2" />
-                                    Bio
-                                </Form.Label>
-                                <Form.Control 
-                                    as="textarea"
-                                    rows={2}
-                                    value={profileData.businessInfo?.bio || ''}
-                                    onChange={(e) => setProfileData({
-                                        ...profileData,
-                                        businessInfo: { 
-                                            ...profileData.businessInfo, 
-                                            bio: e.target.value 
-                                        }
-                                    })}
-                                />
-                            </Form.Group>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div className="border-b border-gray-700 pb-6">
+                                <h5 className="text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wider">
+                                    Informations de l'Entreprise
+                                </h5>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold text-primary">
-                                    <FiMapPin className="me-2" />
-                                    Adresse
-                                </Form.Label>
-                                <Form.Control 
-                                    value={profileData.businessInfo?.address || ''}
-                                    onChange={(e) => setProfileData({
-                                        ...profileData,
-                                        businessInfo: { 
-                                            ...profileData.businessInfo, 
-                                            address: e.target.value 
-                                        }
-                                    })}
-                                />
-                            </Form.Group>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="flex items-center text-sm font-medium text-gray-300 mb-1">
+                                            <FiHome className="mr-2" />
+                                            Nom de l'entreprise
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200 placeholder-gray-400 transition duration-200"
+                                            value={profileData.businessInfo?.companyName || ''}
+                                            onChange={(e) => setProfileData({
+                                                ...profileData,
+                                                businessInfo: { 
+                                                    ...profileData.businessInfo, 
+                                                    companyName: e.target.value 
+                                                }
+                                            })}
+                                        />
+                                    </div>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold text-primary">
-                                    <FiCalendar className="me-2" />
-                                    Date de création
-                                </Form.Label>
-                                <DatePicker
-                                    selected={profileData.businessInfo?.companyCreationDate ? 
-                                        new Date(profileData.businessInfo.companyCreationDate) : null}
-                                    onChange={(date) => setProfileData({
-                                        ...profileData,
-                                        businessInfo: { 
-                                            ...profileData.businessInfo, 
-                                            companyCreationDate: date 
-                                        }
-                                    })}
-                                    className="form-control"
-                                    dateFormat="dd/MM/yyyy"
-                                />
-                            </Form.Group>
+                                    <div>
+                                        <label className="flex items-center text-sm font-medium text-gray-300 mb-1">
+                                            <FiInfo className="mr-2" />
+                                            Bio
+                                        </label>
+                                        <textarea
+                                            rows={3}
+                                            className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200 placeholder-gray-400 transition duration-200"
+                                            value={profileData.businessInfo?.bio || ''}
+                                            onChange={(e) => setProfileData({
+                                                ...profileData,
+                                                businessInfo: { 
+                                                    ...profileData.businessInfo, 
+                                                    bio: e.target.value 
+                                                }
+                                            })}
+                                        />
+                                    </div>
 
-                            <Button 
-                                variant="primary" 
-                                type="submit" 
-                                className="w-100 py-2 fw-bold mt-3"
+                                    <div>
+                                        <label className="flex items-center text-sm font-medium text-gray-300 mb-1">
+                                            <FiMapPin className="mr-2" />
+                                            Adresse
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200 placeholder-gray-400 transition duration-200"
+                                            value={profileData.businessInfo?.address || ''}
+                                            onChange={(e) => setProfileData({
+                                                ...profileData,
+                                                businessInfo: { 
+                                                    ...profileData.businessInfo, 
+                                                    address: e.target.value 
+                                                }
+                                            })}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="flex items-center text-sm font-medium text-gray-300 mb-1">
+                                            <FiCalendar className="mr-2" />
+                                            Date de création
+                                        </label>
+                                        <DatePicker
+                                            selected={profileData.businessInfo?.companyCreationDate ? 
+                                                new Date(profileData.businessInfo.companyCreationDate) : null}
+                                            onChange={(date) => setProfileData({
+                                                ...profileData,
+                                                businessInfo: { 
+                                                    ...profileData.businessInfo, 
+                                                    companyCreationDate: date 
+                                                }
+                                            })}
+                                            className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200 placeholder-gray-400 transition duration-200"
+                                            dateFormat="dd/MM/yyyy"
+                                            wrapperClassName="w-full"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:-translate-y-0.5 hover:shadow-md"
                             >
                                 Mettre à jour
-                            </Button>
-                        </div>
-                    </Form>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

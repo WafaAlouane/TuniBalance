@@ -1,67 +1,87 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/slices/authSlice";
-import "./Sidebar.css"; // Import du CSS
+import { 
+  FiGrid, 
+  FiUser, 
+  FiUserPlus, 
+  FiDollarSign,
+  FiLogOut
+} from "react-icons/fi";
 
 function Sidebar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/login");
   };
 
   return (
-    <aside id="sidebar" className="sidebar">
-      <ul className="sidebar-nav" id="sidebar-nav">
-        {/* Dashboard */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/BusinessOwner">
-            <i className="bi bi-grid" />
-            <span>Dashboard</span>
-          </Link>
-        </li>
+    <aside className="w-64 min-h-screen bg-gray-800 border-r border-gray-700 flex flex-col">
+      <div className="p-4 border-b border-gray-700">
+        <h1 className="text-xl font-semibold text-white">Business Portal</h1>
+      </div>
 
-        {/* Gestion des utilisateurs */}
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        {/* Dashboard */}
+        <Link 
+          to="/BusinessOwner" 
+          className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+        >
+          <FiGrid className="mr-3 text-lg" />
+          <span className="font-medium">Dashboard</span>
+        </Link>
+
         {user && (
           <>
-            <li className="nav-item">
-  <Link className="nav-link" to="/BusinessOwner/profile">
-    <i className="bi bi-person" />
-    <span>Mon Profil</span>
-  </Link>
-</li>
+            {/* Profile */}
+            <Link 
+              to="/BusinessOwner/profile" 
+              className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            >
+              <FiUser className="mr-3 text-lg" />
+              <span className="font-medium">My Profile</span>
+            </Link>
 
-<li className="nav-item">
-  <Link className="nav-link" to="/BusinessOwner/create-staff">
-    <i className="bi bi-person-plus" />
-    <span>Créer un Staff</span>
-  </Link>
-</li>
-<li className="nav-item">
-  <Link className="nav-link" to="/BusinessOwner/transactions">
-    <i className="bi bi-person-plus" />
-    <span>Afficher transactions</span>
-  </Link>
-</li>
+            {/* Create Staff */}
+            <Link 
+              to="/BusinessOwner/create-staff" 
+              className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            >
+              <FiUserPlus className="mr-3 text-lg" />
+              <span className="font-medium">Create Staff</span>
+            </Link>
 
+            {/* Transactions */}
+            <Link 
+              to="/BusinessOwner/transactions" 
+              className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            >
+              <FiDollarSign className="mr-3 text-lg" />
+              <span className="font-medium">View Transactions</span>
+            </Link>
           </>
         )}
 
-        {/* Navigation pour les composants */}
-       
+          {/* Logout Button */}
+      {user && (
+        <div className="p-4 border-t border-gray-700">
+          <button 
+            onClick={handleLogout}
+            className="w-full flex items-center p-3 rounded-lg text-red-400 hover:bg-red-900/30 hover:text-red-300 transition-colors"
+          >
+            <FiLogOut className="mr-3 text-lg" />
+            <span className="font-medium">Logout</span>
+          </button>
+        </div>
+      )}
+      </nav>
 
-        {/* Déconnexion */}
-        {user && (
-          <li className="nav-item">
-            <button className="nav-link logout-btn" onClick={handleLogout}>
-              <i className="bi bi-box-arrow-right" />
-              <span>Déconnexion</span>
-            </button>
-          </li>
-        )}
-      </ul>
+    
     </aside>
   );
 }

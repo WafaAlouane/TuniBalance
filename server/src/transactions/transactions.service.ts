@@ -68,7 +68,44 @@ export class TransactionsService {
     if (!deletedTransaction) throw new NotFoundException('Transaction non trouvée');
   }
  
-  
+  // transactions.service.ts
+  async filterTransactions(filters: {
+    type?: string;
+    minAmount?: number;
+    maxAmount?: number;
+    startDate?: string;
+    endDate?: string;
+    statut?: string;
+    search?: string;
+  }) {
+    const query: any = {};
+
+    // Filtres sur le type et statut
+    if (filters.type) query.type_CResultat = filters.type;
+    if (filters.statut) query.statut = filters.statut;
+
+    // Filtres sur le montant
+    if (filters.minAmount || filters.maxAmount) {
+      query.montant = {};
+      if (filters.minAmount) query.montant.$gte = filters.minAmount;
+      if (filters.maxAmount) query.montant.$lte = filters.maxAmount;
+    }
+
+    // Filtres sur les dates
+    if (filters.startDate || filters.endDate) {
+      query.date_transaction = {};
+      if (filters.startDate) query.date_transaction.$gte = new Date(filters.startDate);
+      if (filters.endDate) query.date_transaction.$lte = new Date(filters.endDate);
+    }
+
+    // Recherche par description
+    if (filters.search) {
+      query.description = new RegExp(filters.search, 'i'); // Recherche insensible à la casse
+    }
+
+    return this.transactionModel.find(query).exec();
+  }
+
   async getCompteResultat(): Promise<CompteResultat> {
     const transactions = await this.transactionModel.find().exec();
 
