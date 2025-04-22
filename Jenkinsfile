@@ -62,7 +62,7 @@ pipeline {
         stage('Building images - Client & Server') {
             steps {
                 script {
-                    sh 'docker-compose build'
+                    sh 'docker-compose build --no-cache'
                 }
             }
         }
@@ -71,8 +71,7 @@ pipeline {
         script {
             withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
                 sh 'echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin'
-                sh 'docker tag tunibalance-front:latest $DOCKER_HUB_USERNAME/tunibalance-front:latest'
-                sh 'docker tag tunibalance-back:latest $DOCKER_HUB_USERNAME/tunibalance-back:latest'
+              
                 sh 'docker push $DOCKER_HUB_USERNAME/tunibalance-front:latest'
                 sh 'docker push $DOCKER_HUB_USERNAME/tunibalance-back:latest'
             }
