@@ -38,7 +38,7 @@ pipeline {
         }
 
 
-        stage('Build application - Client') {
+       /* stage('Build application - Client') {
             steps {
                 script {
                     dir('client') {
@@ -46,7 +46,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         stage('Build application - Server') {
             steps {
