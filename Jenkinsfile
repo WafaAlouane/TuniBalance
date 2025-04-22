@@ -3,6 +3,10 @@ pipeline {
     triggers {
             githubPush() // Pour GitHub
         }
+        environment {
+             DOCKER_HUB_USERNAME = "arijbms"
+             DOCKER_CREDENTIALS = credentials('DOCKER_CREDENTIALS')  //ID du credential Docker Hub stocké dans Jenkins
+                }
     stages {
         stage('Clone Repository') {
             steps {
@@ -50,6 +54,38 @@ pipeline {
                     dir('server') {
                         sh 'npm run build'
                     }
+                }
+            }
+        }
+
+           // Construction des images avec Docker Compose
+        stage('Building images - Client & Server') {
+            steps {
+                script {
+                    sh 'docker-compose build'
+                }
+            }
+        }
+        stage('Push Docker Images to Docker Hub') {
+    steps {
+        script {
+            withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                sh 'echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin'
+                sh 'docker tag tunibalance-front:latest $DOCKER_HUB_USERNAME/tunibalance-front:latest'
+                sh 'docker tag tunibalance-back:latest $DOCKER_HUB_USERNAME/tunibalance-back:latest'
+                sh 'docker push $DOCKER_HUB_USERNAME/tunibalance-front:latest'
+                sh 'docker push $DOCKER_HUB_USERNAME/tunibalance-back:latest'
+            }
+        }
+    }
+}
+
+         //  Déploiement des services
+        stage('Deploy Services with Docker Compose') {
+            steps {
+                script {
+                    sh 'docker-compose down'
+                    sh 'docker-compose up -d'
                 }
             }
         }
