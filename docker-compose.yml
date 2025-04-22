@@ -1,0 +1,45 @@
+
+services:
+  db:
+    image: mongo:4.2
+    container_name: db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: arijbms/tunibalance-back:latest
+    restart: always
+    container_name: tunibalance-back
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mongodb://db:27017/tunibalance
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: arijbms/tunibalance-front:latest
+    restart: always
+    container_name: tunibalance-front
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    environment:
+      - VITE_API_URL=http://tunibalance-back:3001
+   
+
+volumes:
+  mongo-data:
