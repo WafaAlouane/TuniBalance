@@ -57,6 +57,14 @@ pipeline {
                 }
             }
         }
+        stage('Clean Running Containers') {
+            steps {
+                script {
+                    sh 'docker-compose down --remove-orphans'
+                }
+            }
+          }
+
 
            // Construction des images avec Docker Compose
         stage('Building images - Client & Server') {
