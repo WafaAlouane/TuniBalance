@@ -15,6 +15,7 @@ export class PythonService {
         `C:/Users/Islem/AppData/Local/Programs/Python/Python313/python.exe ${pythonScriptPath}`
       );
       
+      
       if (stderr) {
         console.error(`stderr: ${stderr}`);
       }
