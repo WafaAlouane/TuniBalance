@@ -16,6 +16,8 @@ import "jspdf-autotable";
 import html2canvas from "html2canvas";
 import axios from 'axios';
 import LayoutBilan from "./LayoutBilan";
+import LayoutKpi from "./LayoutKpi";
+import LayoutRevenu from "./LayoutRevenu";
 
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement);
@@ -548,7 +550,14 @@ alert('Impossible de télécharger le fichier. Vérifiez la connexion au serveur
                                 <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Bilan</h2>
                                 <LayoutBilan />
                             </div>
-
+                            <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                                <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">KPI</h2>
+                                <LayoutKpi />
+                            </div>
+                            <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                                <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Revenus</h2>
+                                <LayoutRevenu />
+                            </div>
               {/* Charts */}
               <div className="mt-6">
                 <h2 className="text-xl font-semibold text-center">Visualisation des Factures</h2>

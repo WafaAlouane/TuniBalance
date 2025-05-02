@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchBilanByYear } from "../services/bilanService";
+import { fetchBilanByYear, generateBilanByYear } from "../services/bilanService";
 
 // Générer dynamiquement la liste des années
 const generateYearsList = (startYear, endYear) => {
@@ -10,7 +10,7 @@ const generateYearsList = (startYear, endYear) => {
   return years;
 };
 
-const yearsList = generateYearsList(2020, new Date().getFullYear()); // De 2020 à aujourd’hui
+const yearsList = generateYearsList(2020, new Date().getFullYear());
 
 const LayoutBilan = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -26,37 +26,48 @@ const LayoutBilan = () => {
     totalPassifsEmprunts: 0,
     totalCapitauxPropres: 0,
   });
+  const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const loadBilan = async (year) => {
+    setLoading(true);
+    try {
+      const bilanData = await fetchBilanByYear(year);
+      if (Array.isArray(bilanData) && bilanData.length > 0) {
+        const bilanObject = bilanData[0];
+
+        setBilan({
+          actifsCirculants: bilanObject.actifsCirculants || [],
+          actifsNonCirculants: bilanObject.actifsNonCirculants || [],
+          passifsDettes: bilanObject.passifsDettes || [],
+          passifsEmprunts: bilanObject.passifsEmprunts || [],
+          capitauxPropresDetails: bilanObject.capitauxPropresDetails || [],
+          totalActifsCirculants: bilanObject.totalActifsCirculants || 0,
+          totalActifsNonCirculants: bilanObject.totalActifsNonCirculants || 0,
+          totalPassifsDettes: bilanObject.totalPassifsDettes || 0,
+          totalPassifsEmprunts: bilanObject.totalPassifsEmprunts || 0,
+          totalCapitauxPropres: bilanObject.totalCapitauxPropres || 0,
+        });
+      } else {
+        setBilan(null); // ✅ Affichage propre si aucun bilan trouvé
+      }
+    } catch (error) {
+      console.error("Erreur de récupération du bilan :", error);
+      setBilan(null);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const loadBilan = async () => {
-      try {
-        const bilanData = await fetchBilanByYear(selectedYear);
-        if (Array.isArray(bilanData) && bilanData.length > 0) {
-          const bilanObject = bilanData[0];
-
-          setBilan({
-            actifsCirculants: bilanObject.actifsCirculants || [],
-            actifsNonCirculants: bilanObject.actifsNonCirculants || [],
-            passifsDettes: bilanObject.passifsDettes || [],
-            passifsEmprunts: bilanObject.passifsEmprunts || [],
-            capitauxPropresDetails: bilanObject.capitauxPropresDetails || [],
-            totalActifsCirculants: bilanObject.totalActifsCirculants || 0,
-            totalActifsNonCirculants: bilanObject.totalActifsNonCirculants || 0,
-            totalPassifsDettes: bilanObject.totalPassifsDettes || 0,
-            totalPassifsEmprunts: bilanObject.totalPassifsEmprunts || 0,
-            totalCapitauxPropres: bilanObject.totalCapitauxPropres || 0,
-          });
-        } else {
-            setBilan(null); // ✅ Permet d'afficher un message vide
-          console.error("Erreur : Format inattendu des données du bilan", bilanData);
-        }
-      } catch (error) {
-        console.error("Erreur de récupération du bilan :", error);
-      }
-    };
-
     loadBilan(selectedYear);
   }, [selectedYear]);
+
+  const handleGenerateBilan = async () => {
+    setGenerating(true);
+    await generateBilanByYear(selectedYear);
+    await loadBilan(selectedYear); // 🔄 Met à jour après la génération
+    setGenerating(false);
+  };
 
   const formatMontant = (montant) =>
     montant !== undefined && montant !== null && !isNaN(montant)
@@ -85,21 +96,23 @@ const totalPassifs = bilan ? bilan.totalPassifsDettes + bilan.totalPassifsEmprun
       <h2 className="text-center text-white font-bold text-xl mb-4">
         Bilan {selectedYear}
       </h2>
-
-      {/* Sélecteur dynamique des années */}
-      <select 
-  value={selectedYear} 
-  onChange={(e) => {
-    const newYear = Number(e.target.value);
-    console.log("Année sélectionnée :", newYear); // 🔎 Vérification
-    setSelectedYear(newYear);
-  }}
-  className="p-2 mb-4 rounded bg-gray-700 text-white"
->
-  {yearsList.map(year => (
-    <option key={year} value={year}>{year}</option>
-  ))}
-</select>
+ {/* Sélecteur d’année */}
+ <select 
+        value={selectedYear} 
+        onChange={(e) => setSelectedYear(Number(e.target.value))}
+        className="p-2 mb-4 rounded bg-gray-700 text-white"
+      >
+        {yearsList.map(year => (
+          <option key={year} value={year}>{year}</option>
+        ))}
+      </select>
+      <button 
+            onClick={handleGenerateBilan} 
+            disabled={generating} 
+            className="p-2 bg-green-600 text-white rounded mb-4"
+          >
+            {generating ? "Génération en cours..." : "Générer le Bilan"}
+          </button>
 {/* Vérification si les données existent */}
 {bilan === null ? (
   <p className="text-white text-center">⚠️ Aucun bilan disponible pour l’année {selectedYear}</p>
