@@ -7,7 +7,7 @@ import { Footer } from "@/layouts/footer";
 import { cn } from "@/utils/cn";
 import { useTheme } from "@/hooks/use-theme";
 import { CreditCard, DollarSign, Package, TrendingUp, Users } from "lucide-react";
-
+    
 const LayoutFacture = () => {
     const isDesktopDevice = useMediaQuery("(min-width: 768px)");
     const [collapsed, setCollapsed] = useState(!isDesktopDevice);

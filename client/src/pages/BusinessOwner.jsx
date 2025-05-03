@@ -8,6 +8,7 @@ import Sidebar from '../components/admin/Sidebar';
 import Footer from '../components/admin/Footer';
 import { FiSearch, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
+
 function BusinessOwner() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,10 +21,12 @@ function BusinessOwner() {
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 6;
 
+
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate('/', { replace: true });
   };
+  
 
   const fetchTransactions = async () => {
     try {

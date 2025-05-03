@@ -5,7 +5,6 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
 import Layoutfinancier from "@/routes/layoutfinancier";
-import Landing from "./pages/Landing";
 import Register from "./pages/Registrer";
 import Login from "./pages/login";
 
@@ -24,6 +23,7 @@ import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la 
 
 
 import LayoutFacture from "./routes/layoutFacture"; 
+import Home from "./components/Home/index";
 
 const router = createBrowserRouter([
     {
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     },
     {
       path: "/",
-      element: <Landing />,
+      element: <Home/>,
   },
   {
       path: "/register",
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
       path: "/login",
-      element: <Login />,
+      element: <Home />,
   },
   {
       path: "/reset-password",
@@ -113,8 +113,8 @@ const router = createBrowserRouter([
 
  
   {
-      path: "/BusinessOwner",
-      element: <ProtectedRoute allowedRoles={["business_owner"]}><BusinessOwner /></ProtectedRoute>,
+      path: "/BusinessOwner/",
+        element: <ProtectedRoute allowedRoles={["business_owner"]}><BusinessOwner /></ProtectedRoute>,
       children: [
           { index: true, element: <BusinessOwner /> },
           { path: "create-staff", element: <CreateStaff /> },
@@ -131,7 +131,7 @@ const router = createBrowserRouter([
 
  
   {
-      path: "/AdminDashboard",
+      path: "/AdminDashboard/",
       element: <ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>,
       children: [
           { index: true, element: <ViewBO /> },

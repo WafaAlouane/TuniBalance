@@ -23,8 +23,10 @@ export class MailService {
     }
     async sendPasswordResetEmail(to: string, token: string) {
       const transport = this.emailTransport();
-      const resetLink = `http://localhost:5173/reset-password?token=${token}`;
-      const mailOptions: nodemailer.SendMailOptions = {
+      // const resetLink = `http://localhost:5173/reset-password?token=${token}`; old working before
+      const resetLink = `http://localhost:5173/?token=${token}`;
+
+      const mailOptions: nodemailer.SendMailOptions = { 
           from: this.configService.get<string>('EMAIL_USER'),
           to,
           subject: 'Password Reset Request',
