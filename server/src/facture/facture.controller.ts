@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Body, Get, UploadedFile, UseInterceptors, Query } from '@nestjs/common';
 import { FactureService } from './facture.service';
 import { FactureDocument } from './Schema/facture.schema';
 
@@ -29,4 +29,19 @@ export class FactureController {
   async getAllFactures(): Promise<FactureDocument[]> {
     return this.factureService.findAllFactures();
   }
+
+   /**
+   * Route pour calculer le chiffre d'affaires
+   * @param annee - Année optionnelle pour filtrer le chiffre d'affaires
+   */
+   @Get('chiffre-affaires')
+   async getChiffreAffaires(@Query('annee') annee?: number): Promise<{ chiffreAffaires: number }> {
+     try {
+       const chiffreAffaires = await this.factureService.calculerChiffreAffaires(annee);
+       return { chiffreAffaires };
+     } catch (error) {
+       console.error('Erreur lors de la récupération du chiffre d’affaires :', error.message);
+       throw error;
+     }
+   }
 }

@@ -14,6 +14,8 @@ import { Facture, FactureSchema } from '../facture/Schema/facture.schema';
       { name: Facture.name, schema: FactureSchema },         // Ajout du modèle Facture
     ]),
   ],
+    exports: [BilanService,MongooseModule], 
+  
   controllers: [BilanController],
   providers: [BilanService],
 })

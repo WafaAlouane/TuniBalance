@@ -117,10 +117,27 @@ export class TransactionsController {
   findAll() {
     return this.transactionsService.findAll();
   }
+ 
   @Get('compte-resultat')
   getCompteResultat() {
       return this.transactionsService.getCompteResultat();
   }
+  @Get('cout-investissement')
+  async getCoutInvestissement(@Query('annee') annee: number): Promise<{ coutInvestissement: number }> {
+    const coutInvestissement = await this.transactionsService.getCoutInvestissement(annee);
+    return { coutInvestissement };
+  }
+ /**
+   * Endpoint pour récupérer les revenus d'une période donnée
+   */
+ @Get('revenus')
+ async getRevenus(
+   @Query('startDate') startDate: string,
+   @Query('endDate') endDate: string
+ ): Promise<{ totalRevenus: number, revenusParPeriode: any[] }> {
+   return await this.transactionsService.getTotalRevenus(new Date(startDate), new Date(endDate));
+ }
+  
 
   // Endpoint to get a specific transaction by its ID
   @Get(':id')
@@ -133,7 +150,7 @@ export class TransactionsController {
   update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
     return this.transactionsService.update(id, updateTransactionDto);
   }
-
+ 
   // Endpoint to remove a transaction by its ID
   @Delete(':id')
   remove(@Param('id') id: string) {

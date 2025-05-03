@@ -18,6 +18,10 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { FactureModule } from './facture/facture.module'; // Import FactureModule here
 import { JournalModule } from './journal/journal.module';  // Assure-toi que l'importation est correcte
 import { BilanModule } from './bilan/bilan.module'; // Assure-toi que l'importation est correcte
+import { KpiModule } from './kpi/kpi.module';
+
+import { FiscalModule } from './fiscal/fiscal.module';
+import { ReportingFiscalService } from './fiscal/reporting-fiscal/reporting-fiscal.service';
 
 @Module({
   imports: [
@@ -51,9 +55,12 @@ import { BilanModule } from './bilan/bilan.module'; // Assure-toi que l'importat
     ProfileModule, 
     JournalModule,
     FactureModule,
-    BilanModule
+    BilanModule,
+    TransactionsModule,
+    KpiModule,
+    FiscalModule
   ],
   controllers: [AppController, SmsController],  // No need to manually add FactureController
-  providers: [AppService, SmsService, TwoFactorService],  // No need to manually add FactureService
+  providers: [AppService, SmsService, TwoFactorService, ReportingFiscalService],  // No need to manually add FactureService
 })
 export class AppModule {}

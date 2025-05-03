@@ -104,4 +104,30 @@ export class FactureService {
       throw new InternalServerErrorException('Erreur lors de la récupération des factures fournisseurs.');
     }
   }
+
+  async calculerChiffreAffaires(annee?: number): Promise<number> {
+    try {
+      // Définir les limites temporelles si l'année est spécifiée
+      const debutAnnee = annee ? new Date(annee, 0, 1) : null;
+      const finAnnee = annee ? new Date(annee, 11, 31, 23, 59, 59) : null;
+  
+      // Récupérer toutes les factures clients, avec ou sans filtre par année
+      const facturesClients = annee
+        ? await this.factureModel.find({
+            type_facture: 'client',
+            date_emission: { $gte: debutAnnee, $lte: finAnnee }
+          }).exec()
+        : await this.findAllFacturesForClient(); // Si aucune année n'est spécifiée, récupérer tout.
+  
+      // Calculer le chiffre d'affaires total
+      const chiffreAffaires = facturesClients.reduce((total, facture) => total + facture.montant_total, 0);
+  
+      return chiffreAffaires;
+    } catch (error) {
+      console.error("Erreur lors du calcul du chiffre d'affaires :", error.message);
+      throw new InternalServerErrorException("Erreur lors du calcul du chiffre d'affaires.");
+    }
+  }
+  
+
 }

@@ -18,6 +18,7 @@ import axios from 'axios';
 import LayoutBilan from "./LayoutBilan";
 import LayoutKpi from "./LayoutKpi";
 import LayoutRevenu from "./LayoutRevenu";
+import LayoutReportingFiscal from "./LayoutReportinFiscal";
 
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement);
@@ -557,6 +558,10 @@ alert('Impossible de télécharger le fichier. Vérifiez la connexion au serveur
                             <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
                                 <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Revenus</h2>
                                 <LayoutRevenu />
+                            </div>
+                            <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                                <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Reporting fiscal</h2>
+                                <LayoutReportingFiscal />
                             </div>
               {/* Charts */}
               <div className="mt-6">

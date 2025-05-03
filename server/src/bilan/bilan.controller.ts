@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { BilanService } from './bilan.service';
 import { BilanDocument } from './schema/bilan.schema';
 import { ParseIntPipe } from '@nestjs/common';
@@ -11,10 +11,16 @@ export class BilanController {
    * Endpoint pour générer le bilan de l'année actuelle.
    * Méthode HTTP : POST
    */
-  @Post('generate')
+ /* @Post('generate')
   async generateBilanForCurrentYear(): Promise<BilanDocument> {
     return await this.bilanService.generateBilanForCurrentYear();
-  }
+  }*/
+
+    @Post('generate')
+async generateBilan(@Query('annee') annee: number): Promise<BilanDocument> {
+  return await this.bilanService.generateBilanForYear(annee);
+}
+
 
   /**
    * Endpoint pour récupérer les bilans par année.

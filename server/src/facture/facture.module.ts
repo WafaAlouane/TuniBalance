@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FactureService } from './facture.service';
 import { FactureController } from './facture.controller';
@@ -8,9 +8,10 @@ import { TransactionsModule } from '../transactions/transactions.module'; // Imp
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Facture.name, schema: FactureSchema }]),
-    TransactionsModule, // Import TransactionsModule to make TransactionModel available
+    forwardRef(() => TransactionsModule)
   ],
   providers: [FactureService],
+  exports: [FactureService], 
   controllers: [FactureController],
 })
 export class FactureModule {}

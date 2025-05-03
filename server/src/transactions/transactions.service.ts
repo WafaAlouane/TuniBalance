@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -12,6 +12,7 @@ import {
   SousCategorieCharge,
   SousCategorieProduit
 } from './schema/transaction.schema';
+import { FactureService } from 'src/facture/facture.service';
 export interface TransactionLine {
   sous_categorie: string;
   montant: number;
@@ -35,7 +36,8 @@ export interface CompteResultat {
 }
 @Injectable()
 export class TransactionsService {
-  constructor(@InjectModel(Transaction.name) private transactionModel: Model<TransactionDocument>) {}
+  constructor(@InjectModel(Transaction.name) private transactionModel: Model<TransactionDocument>,
+  @Inject(forwardRef(() => FactureService)) private readonly factureService: FactureService) {}
 
   
 
@@ -183,6 +185,96 @@ export class TransactionsService {
 
     return compteResultat;
   }
+
+ 
+  async findByYear(annee: number): Promise<TransactionDocument[]> {
+    try {
+      const debutAnnee = new Date(annee, 0, 1); // 1er janvier de l'année
+      const finAnnee = new Date(annee, 11, 31, 23, 59, 59); // 31 décembre de l'année
+  
+      // Filtrer les transactions par date dans l'année spécifiée
+      const transactions = await this.transactionModel.find({
+        date_transaction: { $gte: debutAnnee, $lte: finAnnee }
+      }).exec();
+  
+      return transactions;
+    } catch (error) {
+      console.error(`Erreur lors de la récupération des transactions pour l'année ${annee} :`, error.message);
+      throw new Error(`Impossible de récupérer les transactions pour l'année ${annee}.`);
+    }
+  }
+  async getCoutInvestissement(annee: number): Promise<number> {
+    try {
+      const debutAnnee = new Date(annee, 0, 1);
+      const finAnnee = new Date(annee, 11, 31, 23, 59, 59);
+  
+      const transactionsInvestissement = await this.transactionModel.find({
+        date_transaction: { $gte: debutAnnee, $lte: finAnnee },
+        categorie: TypeTransaction.CHARGE,  
+        sous_categorie: { $in: [
+          SousCategorieCharge.REMPLACEMENT_MATERIEL, 
+          SousCategorieCharge.INTERETS_EMPRUNTS, 
+          SousCategorieCharge.ACHAT_MARCHANDISES 
+        ]}
+      }).exec();
+  
+      if (!transactionsInvestissement || transactionsInvestissement.length === 0) {
+        throw new Error(`Aucun investissement trouvé pour l'année ${annee}.`);
+      }
+  
+      const coutInvestissement = transactionsInvestissement.reduce((total, transaction) => total + transaction.montant, 0);
+  
+      return coutInvestissement;
+    } catch (error) {
+      console.error(`Erreur lors de la récupération du coût d’investissement pour l'année ${annee} :`, error.message);
+      throw new Error(`Impossible de récupérer le coût d’investissement pour l'année ${annee}.`);
+    }
+  }
+
+  async getCoutAchatsMarchandises(annee: number): Promise<number> {
+    const debutAnnee = new Date(annee, 0, 1);
+    const finAnnee = new Date(annee, 11, 31, 23, 59, 59);
+  
+    const achats = await this.transactionModel.find({
+      date_transaction: { $gte: debutAnnee, $lte: finAnnee },
+      categorie: TypeTransaction.CHARGE,
+      sous_categorie: SousCategorieCharge.ACHAT_MARCHANDISES
+    }).exec();
+  
+    return achats.reduce((total, transaction) => total + transaction.montant, 0);
+  }
+  
+ /**
+   * Récupérer les revenus sur une période donnée
+   * @param startDate Date de début
+   * @param endDate Date de fin
+   */
+ async getTotalRevenus(startDate: Date, endDate: Date): Promise<{ totalRevenus: number, revenusParPeriode: any[] }> {
+  try {
+    const transactions = await this.transactionModel.find({
+      date_transaction: { $gte: startDate, $lte: endDate },
+      categorie: 'Produit'
+    }).lean().exec();
+
+    if (!transactions || transactions.length === 0) {
+      return { totalRevenus: 0, revenusParPeriode: [] };
+    }
+
+    const totalRevenus = transactions.reduce((total, transaction) => total + (transaction.montant || 0), 0);
+
+    const revenusParPeriode = transactions.map(transaction => ({
+      periode: transaction.date_transaction.toISOString().split('T')[0],  // Format YYYY-MM-DD
+      revenus: transaction.montant
+    }));
+
+    return { totalRevenus, revenusParPeriode };
+  } catch (error) {
+    console.error("Erreur lors du calcul des revenus :", error.message);
+    throw new Error("Impossible de récupérer les revenus.");
+  }
+}
+  
+  
 }
   
   
