@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     
       children: [
      
-        { index: true, element: <Layout /> },
+        { index: true, element: <Layoutfinancier /> },
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
         { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
         
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
       path: "/comptable",
       element: <ProtectedRoute allowedRoles={["accountant"]}><Layout /></ProtectedRoute>,
       children: [
-        { index: true, element: <Layoutfinancier /> },
+        { index: true, element: <Layout /> },
         
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
         { path: "reports", element: <LayoutFacture /> }, 
