@@ -15,9 +15,13 @@ import { ProfileController } from './profile/profile.controller';
 import { ProfileService } from './profile/profile.service';
 import { TwoFactorService } from './services/twofactor.service';
 import { TransactionsModule } from './transactions/transactions.module';
-import { FactureModule } from './facture/facture.module'; // Import FactureModule here
-import { JournalModule } from './journal/journal.module';  // Assure-toi que l'importation est correcte
-import { BilanModule } from './bilan/bilan.module'; // Assure-toi que l'importation est correcte
+import { FactureModule } from './facture/facture.module';
+import { JournalModule } from './journal/journal.module';
+import { BilanModule } from './bilan/bilan.module';
+import { ImmobilisationModule } from './immobilisation/immobilisation.module';
+import { AmortissementModule } from './amortissement/amortissement.module';
+import { EmpruntModule } from './emprunt/emprunt.module';
+import { PaiementModule } from './paiement/paiement.module';
 
 @Module({
   imports: [
@@ -39,21 +43,23 @@ import { BilanModule } from './bilan/bilan.module'; // Assure-toi que l'importat
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config) => ({
-        uri: config.get('database.connectionString'),
+        uri: config.get('database.connectionString'), // MongoDB connection string
       }),
       inject: [ConfigService],
     }),
 
-    AuthModule,  // Ajoutez AuthModule ici, pas AuthService
+    AuthModule,
     UserModule,
-    AuthModule,  // Keep AuthModule here
-    UserModule, 
-    ProfileModule, 
+    ProfileModule,
     JournalModule,
     FactureModule,
-    BilanModule
+    BilanModule,
+    ImmobilisationModule,
+    AmortissementModule,
+    EmpruntModule,
+    PaiementModule,
   ],
-  controllers: [AppController, SmsController],  // No need to manually add FactureController
-  providers: [AppService, SmsService, TwoFactorService],  // No need to manually add FactureService
+  controllers: [AppController, SmsController],
+  providers: [AppService, SmsService, TwoFactorService],
 })
 export class AppModule {}

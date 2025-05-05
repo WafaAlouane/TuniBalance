@@ -5,6 +5,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
 import Layoutfinancier from "@/routes/layoutfinancier";
+
 import Landing from "./pages/Landing";
 import Register from "./pages/Registrer";
 import Login from "./pages/login";
@@ -12,7 +13,7 @@ import Login from "./pages/login";
 import AdminDashboard from "./pages/admindashbord";
 import CreateStaff from './pages/CreateStaff';
 import Profile from './pages/profile/Profile';
-import InfoProfile from './pages/profile/InfoProfile'; 
+import InfoProfile from './pages/profile/InfoProfile';
 import BusinessOwner from "./pages/BusinessOwner";
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/profile/ChangePassword";
@@ -23,7 +24,7 @@ import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la 
 
 
 
-import LayoutFacture from "./routes/layoutFacture"; 
+import LayoutFacture from "./routes/layoutFacture";
 
 const router = createBrowserRouter([
     {
@@ -66,18 +67,19 @@ const router = createBrowserRouter([
       path: "/forget-password",
       element: <ForgetPassword />,
   },
-  
- 
+
+
+
   {
       path: "/financier",
       element: <ProtectedRoute allowedRoles={["financier"]}><Layout  /></ProtectedRoute>,
-    
+
       children: [
-     
+
         { index: true, element: <Layoutfinancier /> },
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
         { path: "reports", element: <LayoutFacture /> }, // Link to LayoutFacture
-        
+
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },
         { path: "verified-customers", element: <h1 className="title">Verified Customers</h1> },
@@ -85,22 +87,22 @@ const router = createBrowserRouter([
         { path: "new-product", element: <h1 className="title">New Product</h1> },
         { path: "inventory", element: <h1 className="title">Inventory</h1> },
         { path: "settings", element: <h1 className="title">Settings</h1> },
-        
 
-       
+
+
     ],
   },
 
-  
+
   {
       path: "/comptable",
       element: <ProtectedRoute allowedRoles={["accountant"]}><Layout /></ProtectedRoute>,
       children: [
         { index: true, element: <Layout /> },
-        
+
         { path: "analytics", element: <h1 className="title">Analytics</h1> },
-        { path: "reports", element: <LayoutFacture /> }, 
-        
+        { path: "reports", element: <LayoutFacture /> },
+
         { path: "customers", element: <h1 className="title">Customers</h1> },
         { path: "new-customer", element: <h1 className="title">New Customer</h1> },
         { path: "verified-customers", element: <h1 className="title">Verified Customers</h1> },
@@ -111,7 +113,7 @@ const router = createBrowserRouter([
     ],
   },
 
- 
+
   {
       path: "/BusinessOwner",
       element: <ProtectedRoute allowedRoles={["business_owner"]}><BusinessOwner /></ProtectedRoute>,
@@ -124,12 +126,12 @@ const router = createBrowserRouter([
           { path: "change-password", element: <ChangePassword /> },
           { path: "forget-password", element: <ForgetPassword /> },
           { path: "transactions", element: <AffTransaction /> },
-         
+
 
       ],
   },
 
- 
+
   {
       path: "/AdminDashboard",
       element: <ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>,
