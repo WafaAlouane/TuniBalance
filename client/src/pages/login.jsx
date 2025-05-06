@@ -167,24 +167,24 @@ export default function Login() {
                         <h1 className="h3 text-white fw-bold mb-0">TuniBalance</h1>
                       </div>
 
-                      <h2 className="h2 text-white fw-bold mb-3">Portail de Gestion Financière</h2>
+                      <h2 className="h2 text-white fw-bold mb-3">Financial Management Portal</h2>
                       <p className="text-white-50 mb-4">
-                        Connectez-vous pour accéder à votre tableau de bord et gérer vos finances efficacement.
+                        Sign in to access your dashboard and manage your finances efficiently.
                       </p>
 
                       <div className="row g-3 mb-5">
                         <div className="col-6">
                           <div className="p-3 rounded" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
                             <FiBarChart2 className="text-info mb-2" />
-                            <h5 className="text-white fw-bold mb-1">Analyses Financières</h5>
-                            <p className="text-white-50 small mb-0">Suivez vos performances</p>
+                            <h5 className="text-white fw-bold mb-1">Financial Analytics</h5>
+                            <p className="text-white-50 small mb-0">Track your performance</p>
                           </div>
                         </div>
                         <div className="col-6">
                           <div className="p-3 rounded" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
                             <FiCreditCard className="text-info mb-2" />
-                            <h5 className="text-white fw-bold mb-1">Gestion Budgétaire</h5>
-                            <p className="text-white-50 small mb-0">Optimisez vos ressources</p>
+                            <h5 className="text-white fw-bold mb-1">Budget Management</h5>
+                            <p className="text-white-50 small mb-0">Optimize your resources</p>
                           </div>
                         </div>
                       </div>
@@ -212,7 +212,7 @@ export default function Login() {
                            }}>
                         <FiUser className="text-white" style={{ fontSize: '1.75rem' }} />
                       </div>
-                      <h2 className="h3 text-white fw-bold">Connexion</h2>
+                      <h2 className="h3 text-white fw-bold">Sign In</h2>
                     </div>
 
                     {error && (
@@ -237,7 +237,7 @@ export default function Login() {
                                 color: 'white',
                                 padding: '0.75rem 1rem'
                               }}
-                              placeholder="Entrez votre email"
+                              placeholder="Enter your email"
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                               required
@@ -247,7 +247,7 @@ export default function Login() {
                           <div className="mb-4">
                             <label className="form-label text-white-50 fw-medium">
                               <FiLock className="me-2" />
-                              Mot de passe
+                              Password
                             </label>
                             <input
                               type="password"
@@ -257,7 +257,7 @@ export default function Login() {
                                 color: 'white',
                                 padding: '0.75rem 1rem'
                               }}
-                              placeholder="Entrez votre mot de passe"
+                              placeholder="Enter your password"
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
                               required
@@ -284,19 +284,19 @@ export default function Login() {
                             }}
                             onClick={handleLogin}
                           >
-                            Se connecter
+                            Sign In
                           </button>
                         </>
                       ) : (
                         <div className="mt-3">
                           <div className="p-3 mb-4 rounded" style={{ backgroundColor: 'rgba(13, 110, 253, 0.2)', border: '1px solid rgba(13, 110, 253, 0.3)' }}>
                             <p className="text-info mb-0 small">
-                              Veuillez entrer le code de vérification de votre application d'authentification pour terminer la connexion.
+                              Please enter the verification code from your authentication app to complete the login.
                             </p>
                           </div>
 
                           <label className="form-label text-white-50 fw-medium">
-                            Code de vérification 2FA
+                            2FA Verification Code
                           </label>
                           <input
                             type="text"
@@ -306,7 +306,7 @@ export default function Login() {
                               color: 'white',
                               padding: '0.75rem 1rem'
                             }}
-                            placeholder="Entrez le code 2FA"
+                            placeholder="Enter 2FA code"
                             value={twoFactorToken}
                             onChange={(e) => setTwoFactorToken(e.target.value)}
                             required
@@ -323,11 +323,11 @@ export default function Login() {
                             }}
                             onClick={handleVerifyTwoFactorAuth}
                           >
-                            Vérifier le code 2FA
+                            Verify 2FA Code
                           </button>
                           {qrCodeImage && (
                             <div className="mt-4 text-center p-3 rounded" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
-                              <p className="text-white-50 small mb-2">Scannez ce QR code avec votre application d'authentification</p>
+                              <p className="text-white-50 small mb-2">Scan this QR code with your authentication app</p>
                               <img src={qrCodeImage} alt="QR Code 2FA" className="img-fluid" style={{ maxWidth: '200px', border: '1px solid rgba(255, 255, 255, 0.2)' }} />
                             </div>
                           )}
@@ -336,10 +336,10 @@ export default function Login() {
 
                       <div className="pt-4 mt-2 border-top" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
                         <p className="text-center text-white-50 mb-2">
-                          Pas encore de compte ? <a href="/register" className="text-info text-decoration-none">Créer un compte</a>
+                          Don't have an account? <a href="/register" className="text-info text-decoration-none">Create account</a>
                         </p>
                         <p className="text-center text-white-50">
-                          <a href="/forget-password" className="text-info text-decoration-none">Mot de passe oublié ?</a>
+                          <a href="/forget-password" className="text-info text-decoration-none">Forgot password?</a>
                         </p>
                       </div>
                     </form>

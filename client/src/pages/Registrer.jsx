@@ -29,14 +29,14 @@ const Register = () => {
       }
 
       if (!/^\+216[0-9]{8}$/.test(phoneNumber)) {
-        setError('Numéro de téléphone invalide (doit commencer par +216 et avoir 8 chiffres)');
+        setError('Invalid phone number (must start with +216 and have 8 digits)');
         setIsLoading(false);
         return;
       }
 
       // Validation du mot de passe
       if (formData.password.length < 8) {
-        setError('Le mot de passe doit contenir au moins 8 caractères');
+        setError('Password must contain at least 8 characters');
         setIsLoading(false);
         return;
       }
@@ -59,7 +59,7 @@ const Register = () => {
 
       // Afficher un message de succès et rediriger
       setIsLoading(false);
-      alert(`${response.message || 'Compte créé avec succès!'} Vous allez être redirigé vers la page de connexion.`);
+      alert(`${response.message || 'Account created successfully!'} You will be redirected to the login page.`);
       navigate('/login');
 
     } catch (err) {
@@ -77,7 +77,7 @@ const Register = () => {
       localStorage.setItem('tempUser', JSON.stringify(userInfo));
 
       setIsLoading(false);
-      alert('Votre compte a été créé avec succès! Vous allez être redirigé vers la page de connexion.');
+      alert('Your account has been created successfully! You will be redirected to the login page.');
       navigate('/login');
     }
   };
@@ -128,9 +128,9 @@ const Register = () => {
                         <h1 className="h3 text-white fw-bold mb-0">TuniBalance</h1>
                       </div>
 
-                      <h2 className="h2 text-white fw-bold mb-3">Créez Votre Compte</h2>
+                      <h2 className="h2 text-white fw-bold mb-3">Create Your Account</h2>
                       <p className="text-white-50 mb-4">
-                        Rejoignez notre plateforme pour accéder à des outils puissants de gestion financière et optimiser vos opérations commerciales.
+                        Join our platform to access powerful financial management tools and optimize your business operations.
                       </p>
 
                       <div className="mb-5">
@@ -139,8 +139,8 @@ const Register = () => {
                             <FiCheckCircle className="text-info" />
                           </div>
                           <div>
-                            <h5 className="text-white fw-bold mb-1">Gestion Financière Complète</h5>
-                            <p className="text-white-50 small mb-0">Suivez vos dépenses, gérez vos budgets et optimisez votre trésorerie</p>
+                            <h5 className="text-white fw-bold mb-1">Complete Financial Management</h5>
+                            <p className="text-white-50 small mb-0">Track your expenses, manage budgets and optimize your cash flow</p>
                           </div>
                         </div>
 
@@ -149,8 +149,8 @@ const Register = () => {
                             <FiCheckCircle className="text-info" />
                           </div>
                           <div>
-                            <h5 className="text-white fw-bold mb-1">Analyses Avancées</h5>
-                            <p className="text-white-50 small mb-0">Obtenez des insights avec des rapports financiers détaillés</p>
+                            <h5 className="text-white fw-bold mb-1">Advanced Analytics</h5>
+                            <p className="text-white-50 small mb-0">Gain insights with detailed financial reports</p>
                           </div>
                         </div>
 
@@ -159,8 +159,8 @@ const Register = () => {
                             <FiCheckCircle className="text-info" />
                           </div>
                           <div>
-                            <h5 className="text-white fw-bold mb-1">Plateforme Sécurisée</h5>
-                            <p className="text-white-50 small mb-0">Vos données financières sont protégées avec une sécurité de niveau entreprise</p>
+                            <h5 className="text-white fw-bold mb-1">Secure Platform</h5>
+                            <p className="text-white-50 small mb-0">Your financial data is protected with enterprise-grade security</p>
                           </div>
                         </div>
                       </div>
@@ -188,7 +188,7 @@ const Register = () => {
                            }}>
                         <FiUser className="text-white" style={{ fontSize: '1.75rem' }} />
                       </div>
-                      <h2 className="h3 text-white fw-bold">Créer un compte</h2>
+                      <h2 className="h3 text-white fw-bold">Create Account</h2>
                     </div>
 
                     {error && (
@@ -201,7 +201,7 @@ const Register = () => {
                       <div className="mb-4">
                         <label className="form-label text-white-50 fw-medium">
                           <FiUser className="me-2" />
-                          Nom complet
+                          Full Name
                         </label>
                         <input
                           type="text"
@@ -212,7 +212,7 @@ const Register = () => {
                             color: 'white',
                             padding: '0.75rem 1rem'
                           }}
-                          placeholder="Entrez votre nom"
+                          placeholder="Enter your name"
                           value={formData.name}
                           onChange={handleChange}
                           required
@@ -233,7 +233,7 @@ const Register = () => {
                             color: 'white',
                             padding: '0.75rem 1rem'
                           }}
-                          placeholder="Entrez votre email"
+                          placeholder="Enter your email"
                           value={formData.email}
                           onChange={handleChange}
                           required
@@ -243,7 +243,7 @@ const Register = () => {
                       <div className="mb-4">
                         <label className="form-label text-white-50 fw-medium">
                           <FiPhone className="me-2" />
-                          Téléphone
+                          Phone
                         </label>
                         <div className="input-group input-group-lg">
                           <span className="input-group-text" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'white', border: 'none' }}>
@@ -258,19 +258,19 @@ const Register = () => {
                               color: 'white',
                               padding: '0.75rem 1rem'
                             }}
-                            placeholder="Votre numéro de téléphone"
+                            placeholder="Your phone number"
                             value={formData.phoneNumber.replace('+216', '')}
                             onChange={handleChange}
                             required
                           />
                         </div>
-                        <small className="text-white-50 d-block mt-1">Format: 8 chiffres après +216</small>
+                        <small className="text-white-50 d-block mt-1">Format: 8 digits after +216</small>
                       </div>
 
                       <div className="mb-4">
                         <label className="form-label text-white-50 fw-medium">
                           <FiLock className="me-2" />
-                          Mot de passe
+                          Password
                         </label>
                         <input
                           type="password"
@@ -281,12 +281,12 @@ const Register = () => {
                             color: 'white',
                             padding: '0.75rem 1rem'
                           }}
-                          placeholder="Créez un mot de passe"
+                          placeholder="Create a password"
                           value={formData.password}
                           onChange={handleChange}
                           required
                         />
-                        <small className="text-white-50 d-block mt-1">Le mot de passe doit contenir au moins 8 caractères</small>
+                        <small className="text-white-50 d-block mt-1">Password must contain at least 8 characters</small>
                       </div>
 
                       <button
@@ -305,16 +305,16 @@ const Register = () => {
                         {isLoading ? (
                           <>
                             <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                            Création en cours...
+                            Creating account...
                           </>
                         ) : (
-                          'Créer mon compte'
+                          'Create Account'
                         )}
                       </button>
 
                       <div className="pt-4 mt-2 border-top" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
                         <p className="text-center text-white-50">
-                          Déjà un compte ? <a href="/login" className="text-info text-decoration-none">Se connecter</a>
+                          Already have an account? <a href="/login" className="text-info text-decoration-none">Sign in</a>
                         </p>
                       </div>
                     </form>
