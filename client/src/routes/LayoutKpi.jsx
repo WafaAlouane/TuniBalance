@@ -7,8 +7,8 @@ import {
   fetchLiquiditeGenerale,
   fetchDSO,
   fetchROI,
-  fetchTauxCroissanceCA,
-  fetchTauxMargeCommerciale
+  fetchTauxMargeCommerciale,
+  fetchTauxCroissanceCA
 } from '../services/kpiService';
 
 const KpiDashboard = () => {

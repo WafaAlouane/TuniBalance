@@ -117,6 +117,16 @@ export class TransactionsController {
   findAll() {
     return this.transactionsService.findAll();
   }
+   /**
+   * Endpoint pour récupérer les revenus d'une période donnée
+   */
+ @Get('revenus')
+ async getRevenus(
+   @Query('startDate') startDate: string,
+   @Query('endDate') endDate: string
+ ): Promise<{ totalRevenus: number, revenusParPeriode: any[] }> {
+   return await this.transactionsService.getTotalRevenus(new Date(startDate), new Date(endDate));
+ }
  
   @Get('compte-resultat')
   getCompteResultat() {
@@ -127,16 +137,7 @@ export class TransactionsController {
     const coutInvestissement = await this.transactionsService.getCoutInvestissement(annee);
     return { coutInvestissement };
   }
- /**
-   * Endpoint pour récupérer les revenus d'une période donnée
-   */
- @Get('revenus')
- async getRevenus(
-   @Query('startDate') startDate: string,
-   @Query('endDate') endDate: string
- ): Promise<{ totalRevenus: number, revenusParPeriode: any[] }> {
-   return await this.transactionsService.getTotalRevenus(new Date(startDate), new Date(endDate));
- }
+
   
 
   // Endpoint to get a specific transaction by its ID

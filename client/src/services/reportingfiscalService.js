@@ -37,3 +37,13 @@ export const fetchRapportTVAExcel = async (annee, trimestre) => {
   const response = await axios.get(`${API_URL}/rapport-tva/${annee}/${trimestre}/excel`, { responseType: 'blob' });
   return response.data;
 };
+
+export const fetchVerificationFiscale = async (annee, secteur) => {
+  try {
+    const response = await axios.get(`${API_URL}/verifier-conformite/${annee}/${secteur}`);
+    return response.data;
+  } catch (error) {
+    console.error(" Erreur lors de la vérification fiscale :", error);
+    return null;
+  }
+};

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Facture, FactureDocument } from '../../facture/Schema/facture.schema';
@@ -7,15 +7,18 @@ import { Transaction, TransactionDocument } from '../../transactions/schema/tran
 import * as PDFKit from 'pdfkit';
 import * as ExcelJS from 'exceljs';
 import { SousCategorieCharge } from '../../transactions/schema/transaction.schema';
+import { FactureService } from 'src/facture/facture.service';
 
 @Injectable()
 export class ReportingFiscalService {
   constructor(
     @InjectModel(Bilan.name) private bilanModel: Model<BilanDocument>,
     @InjectModel(Transaction.name) private transactionModel: Model<TransactionDocument>,
-    @InjectModel(Facture.name) private factureModel: Model<FactureDocument>
+    @InjectModel(Facture.name) private factureModel: Model<FactureDocument>,
+    private readonly factureService: FactureService
 
   ) {}
+  
 
   /**
    * Génère un rapport TVA trimestriel complet (PDF + Excel)
@@ -75,7 +78,10 @@ export class ReportingFiscalService {
     const impotTheorique = this.calculerImpotTheorique(benefice);
     const impotPaye = transactionsImpot.reduce((sum, t) => sum + t.montant, 0);
     const ecart = impotTheorique - impotPaye;
-
+    console.log("Bénéfice :", benefice);
+    console.log("Impôt Théorique :", impotTheorique);
+    console.log("Impôt Payé :", impotPaye);
+    console.log("Écart Fiscal :", ecart);
     return {
       impotTheorique,
       impotPaye,
@@ -84,6 +90,9 @@ export class ReportingFiscalService {
       details: {
         annee,
         benefice,
+        impotTheorique,
+        impotPaye,
+        ecart,
         transactionsImpot: transactionsImpot.map(t => ({
           date: t.date_transaction,
           montant: t.montant,
@@ -278,4 +287,86 @@ export class ReportingFiscalService {
     if (ecart > 0) return `Écart significatif (${absEcart.toFixed(2)} TND) - Possible sous-déclaration`;
     return `Écart significatif (${absEcart.toFixed(2)} TND) - Possible surpaiement`;
   }
+
+
+ 
+  private readonly tauxFiscalTunisie = {
+    agriculture: 0.10,
+    industrie: 0.20,
+    commerce: 0.20,
+    telecom: 0.35,
+    societe_investissement: 0.35, 
+    grandes_surfaces_franchises: 0.35,
+    banques: 0.40
+  };
+
+  async verifierConformiteFiscaleAuto(annee: number, secteur: string) {
+    try {
+      const [transactionsImpot, chiffreAffaires] = await Promise.all([
+        this.transactionModel.aggregate([
+          { $match: { sous_categorie: "IMPOT_BENEFICE", date_transaction: { $gte: new Date(annee, 0, 1), $lte: new Date(annee, 11, 31, 23, 59, 59) } } },
+          { $group: { _id: null, total: { $sum: "$montant" } } }
+        ]).exec(),
+  
+        this.factureService.calculerChiffreAffaires(annee) // Appel à FactureService pour récupérer le chiffre d'affaires
+      ]);
+  
+      const impotPaye = transactionsImpot.length ? transactionsImpot[0].total : 0;
+  
+      return this.analyserConformite({ chiffreAffaires, impotDeclare: impotPaye, secteur });
+    } catch (error) {
+      console.error(` Erreur vérification fiscale (${annee}, ${secteur}) :`, error.message);
+      throw new InternalServerErrorException("Une erreur s'est produite lors de la vérification fiscale.");
+    }
+  }
+  private analyserConformite(data: { chiffreAffaires: number; impotDeclare: number; secteur: string }) {
+    // Vérifier si le secteur est valide
+    const tauxApplicable = this.tauxFiscalTunisie[data.secteur] ?? null;
+    if (!tauxApplicable) {
+        return {
+            statut: "erreur",
+            message: "⚠️ Secteur inconnu - Impossible de vérifier la conformité.",
+            couleur: "text-gray-500 bg-gray-900",
+            details: data
+        };
+    }
+
+    // Vérifier si les données sont disponibles
+    if (data.impotDeclare === 0 && data.chiffreAffaires === 0) {
+        return {
+            statut: "aucune_donnee",
+            message: "⚠️ Aucun impôt enregistré pour cette année.",
+            couleur: "text-gray-500 bg-gray-900",
+            details: data
+        };
+    }
+
+    // Calcul de l'impôt attendu et de l'écart fiscal
+    const impotAttenduCA = data.chiffreAffaires * tauxApplicable;
+    const ecart = data.impotDeclare - impotAttenduCA;
+
+    // Définition des messages et couleurs selon le statut fiscal
+    let statut = "ok";
+    let message = "✅ Conformité fiscale respectée.";
+    let couleur = "text-green-500 bg-green-900";
+
+    if (ecart > 0) {
+        statut = "attention";
+        message = `🔵 Surpaiement détecté ! Vous avez payé **${data.impotDeclare.toFixed(2)} TND**, alors que l'impôt attendu est **${impotAttenduCA.toFixed(2)} TND**.`;
+        couleur = "text-blue-500 bg-blue-900";
+    } else if (ecart < 0) {
+        statut = "alerte";
+        message = `🔴 Sous-déclaration possible ! Vous avez déclaré **${data.impotDeclare.toFixed(2)} TND**, alors que l'impôt attendu est **${impotAttenduCA.toFixed(2)} TND**.`;
+        couleur = "text-red-500 bg-red-900";
+    }
+
+    return {
+        statut,
+        message,
+        couleur,
+        details: { ...data, tauxApplicable, impotAttenduCA, ecart }
+    };
+}
+
+  
 }

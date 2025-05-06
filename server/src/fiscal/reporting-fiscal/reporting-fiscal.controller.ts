@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Param, Res, HttpStatus, Body, Post, InternalServerErrorException } from '@nestjs/common';
 import { ReportingFiscalService } from './reporting-fiscal.service';
 import { Response } from 'express';
 
@@ -59,5 +59,18 @@ export class ReportingFiscalController {
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', `attachment; filename=Rapport_TVA_${annee}_T${trimestre}.xlsx`);
     res.send(rapport.excel);
+  }
+
+  @Get('verifier-conformite/:annee/:secteur')
+  async verifierConformite(
+    @Param('annee') annee: number,
+    @Param('secteur') secteur: string
+  ) {
+    try {
+      return await this.reportingFiscalService.verifierConformiteFiscaleAuto(Number(annee), secteur);
+    } catch (error) {
+      console.error(` Erreur de vérification fiscale (${annee}, ${secteur}) :`, error.message);
+      throw new InternalServerErrorException("Erreur lors de la vérification fiscale.");
+    }
   }
 }

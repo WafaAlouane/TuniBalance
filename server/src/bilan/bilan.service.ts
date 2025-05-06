@@ -187,11 +187,31 @@ async generateBilanForYear(annee: number): Promise<BilanDocument> {
       const entry = { sous_categorie: transaction.sous_categorie, montant: transaction.montant };
 
       if (transaction.categorie === TypeTransaction.PRODUIT) {
-        bilan.actifsCirculants.push(entry);
-        bilan.totalActifsCirculants += transaction.montant;
+        // Actifs
+        switch (transaction.sous_categorie) {
+          case SousCategorieProduit.VENTE_MARCHANDISES:
+            bilan.actifsCirculants.push(entry);
+            bilan.totalActifsCirculants += transaction.montant;
+            break;
+
+          default:
+            bilan.actifsNonCirculants.push(entry);
+            bilan.totalActifsNonCirculants += transaction.montant;
+            break;
+        }
       } else if (transaction.categorie === TypeTransaction.CHARGE) {
-        bilan.passifsDettes.push(entry);
-        bilan.totalPassifsDettes += transaction.montant;
+        // Passifs
+        switch (transaction.sous_categorie) {
+          case SousCategorieCharge.INTERETS_EMPRUNTS:
+            bilan.passifsEmprunts.push(entry);
+            bilan.totalPassifsEmprunts += transaction.montant;
+            break;
+
+          default:
+            bilan.passifsDettes.push(entry);
+            bilan.totalPassifsDettes += transaction.montant;
+            break;
+        }
       }
     });
 
@@ -207,7 +227,22 @@ async generateBilanForYear(annee: number): Promise<BilanDocument> {
       bilan.passifsDettes.push({ sous_categorie: `Facture Fournisseur Non Payée: ${facture.numero_facture}`, montant: montantImpayé });
       bilan.totalPassifsDettes += montantImpayé;
     });
+    const totalProduits = transactions
+    .filter((t) => t.categorie === TypeTransaction.PRODUIT)
+    .reduce((sum, t) => sum + t.montant, 0);
 
+  const totalCharges = transactions
+    .filter((t) => t.categorie === TypeTransaction.CHARGE)
+    .reduce((sum, t) => sum + t.montant, 0);
+
+  const resultatsNonDistribues = totalProduits - totalCharges;
+  bilan.capitauxPropresDetails.push({ sous_categorie: 'Résultats Non Distribués', montant: resultatsNonDistribues });
+  bilan.totalCapitauxPropres += resultatsNonDistribues;
+
+  const capitalSocial = 200000; // Exemple statique
+  bilan.capitauxPropresDetails.push({ sous_categorie: 'Capital Social', montant: capitalSocial });
+  bilan.totalCapitauxPropres += capitalSocial;
+  
     // Sauvegarde du bilan
     const newBilan = new this.bilanModel(bilan);
     return await newBilan.save();

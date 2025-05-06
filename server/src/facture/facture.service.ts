@@ -107,7 +107,6 @@ export class FactureService {
 
   async calculerChiffreAffaires(annee?: number): Promise<number> {
     try {
-      // Définir les limites temporelles si l'année est spécifiée
       const debutAnnee = annee ? new Date(annee, 0, 1) : null;
       const finAnnee = annee ? new Date(annee, 11, 31, 23, 59, 59) : null;
   
@@ -117,7 +116,7 @@ export class FactureService {
             type_facture: 'client',
             date_emission: { $gte: debutAnnee, $lte: finAnnee }
           }).exec()
-        : await this.findAllFacturesForClient(); // Si aucune année n'est spécifiée, récupérer tout.
+        : await this.findAllFacturesForClient(); 
   
       // Calculer le chiffre d'affaires total
       const chiffreAffaires = facturesClients.reduce((total, facture) => total + facture.montant_total, 0);

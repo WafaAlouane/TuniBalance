@@ -22,6 +22,7 @@ import { KpiModule } from './kpi/kpi.module';
 
 import { FiscalModule } from './fiscal/fiscal.module';
 import { ReportingFiscalService } from './fiscal/reporting-fiscal/reporting-fiscal.service';
+import { GestionImpotEtTaxesModule } from './gestion-impot-et-taxes/gestion-impot-et-taxes.module';
 
 @Module({
   imports: [
@@ -58,7 +59,8 @@ import { ReportingFiscalService } from './fiscal/reporting-fiscal/reporting-fisc
     BilanModule,
     TransactionsModule,
     KpiModule,
-    FiscalModule
+    FiscalModule,
+    GestionImpotEtTaxesModule
   ],
   controllers: [AppController, SmsController],  // No need to manually add FactureController
   providers: [AppService, SmsService, TwoFactorService, ReportingFiscalService],  // No need to manually add FactureService
