@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FiLock, FiArrowLeft } from "react-icons/fi";
+import { FiLock, FiArrowLeft, FiKey, FiSave } from "react-icons/fi";
 import { useSelector } from "react-redux";
+import Header from '../../components/admin/Header';
+import Sidebar from '../../components/admin/Sidebar';
 
 export default function ResetPassword() {
   const [oldPassword, setOldPassword] = useState("");
@@ -10,7 +12,7 @@ export default function ResetPassword() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const token = useSelector((state) => state.auth.token);
+  const { token, user } = useSelector((state) => state.auth);
 
   const handleChangePassword = async () => {
     try {
@@ -33,106 +35,126 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Left Column - Information */}
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-8 flex flex-col justify-between">
-            <div>
-              <button 
-                onClick={() => navigate(-1)}
-                className="flex items-center text-blue-100 hover:text-white mb-6 transition-colors"
+    <div className="min-h-screen bg-gray-900 flex">
+      <Sidebar user={user} />
+
+      <div className="flex-1 flex flex-col">
+        <Header user={user} />
+
+        <main className="flex-1 p-8 overflow-y-auto bg-gray-800">
+          {/* Page header */}
+          <div className="relative mb-8">
+            <div className="absolute inset-0 bg-blue-600 opacity-5 rounded-xl"></div>
+            <div className="relative z-10 flex justify-between items-center p-6 bg-gray-800 border border-gray-700 rounded-xl shadow-lg">
+              <div>
+                <h1 className="text-2xl font-bold text-white">Security Settings</h1>
+                <p className="text-gray-400 mt-1">Update your password to enhance your account security</p>
+              </div>
+              <button
+                onClick={() => navigate('/BusinessOwner/profile')}
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg shadow transition-colors flex items-center"
               >
                 <FiArrowLeft className="mr-2" />
-                Back
+                Back to Profile
               </button>
-              <h2 className="text-3xl font-bold text-white mb-4">Password Reset</h2>
-              <p className="text-blue-100">
-                Update your password to enhance your account security. Choose a strong, unique password.
-              </p>
-            </div>
-            <div className="mt-8">
-              <div className="flex items-center">
-                <div className="h-1 w-8 bg-blue-400 rounded-full mr-2"></div>
-                <div className="h-1 w-8 bg-blue-400/50 rounded-full mr-2"></div>
-                <div className="h-1 w-8 bg-blue-400/30 rounded-full"></div>
-              </div>
             </div>
           </div>
 
-          {/* Right Column - Form */}
-          <div className="p-8">
-            <div className="flex justify-center mb-6">
-              <div className="bg-gray-700 p-3 rounded-full">
-                <FiLock className="text-indigo-400 text-2xl" />
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 overflow-hidden">
+              <div className="border-b border-gray-700 p-4">
+                <h2 className="text-xl font-bold text-white flex items-center">
+                  <FiKey className="mr-2 text-blue-400" />
+                  Change Password
+                </h2>
+              </div>
+
+              <div className="p-6">
+                {/* Notifications */}
+                {error && (
+                  <div className="mb-6 p-4 bg-red-900/30 rounded-lg text-red-400 text-sm border border-red-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {error}
+                  </div>
+                )}
+
+                {success && (
+                  <div className="mb-6 p-4 bg-green-900/30 rounded-lg text-green-400 text-sm border border-green-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    {success}
+                  </div>
+                )}
+
+                <form className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Current Password
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FiLock className="text-gray-500" />
+                      </div>
+                      <input
+                        type="password"
+                        className="block w-full pl-10 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200"
+                        placeholder="Enter your current password"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      New Password
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FiKey className="text-gray-500" />
+                      </div>
+                      <input
+                        type="password"
+                        className="block w-full pl-10 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200"
+                        placeholder="Enter your new password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <p className="mt-1 text-sm text-gray-400">
+                      Password should be at least 8 characters and include numbers and special characters
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-700">
+                    <div className="flex items-center justify-end space-x-3">
+                      <button
+                        type="button"
+                        onClick={() => navigate('/BusinessOwner/profile')}
+                        className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg shadow transition-colors"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleChangePassword}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow transition-colors flex items-center"
+                      >
+                        <FiSave className="mr-2" />
+                        Update Password
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-
-            <h2 className="text-2xl font-bold text-center text-white mb-6">
-              Change Your Password
-            </h2>
-
-            {error && (
-              <div className="mb-6 p-4 bg-red-900/30 rounded-lg text-red-400 text-sm border border-red-800">
-                {error}
-              </div>
-            )}
-
-            {success && (
-              <div className="mb-6 p-4 bg-green-900/30 rounded-lg text-green-400 text-sm border border-green-800">
-                {success}
-              </div>
-            )}
-
-            <form className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Current Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiLock className="text-gray-500" />
-                  </div>
-                  <input
-                    type="password"
-                    className="block w-full pl-10 pr-3 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-white placeholder-gray-400"
-                    placeholder="Enter current password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
-                  New Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiLock className="text-gray-500" />
-                  </div>
-                  <input
-                    type="password"
-                    className="block w-full pl-10 pr-3 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-white placeholder-gray-400"
-                    placeholder="Enter new password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleChangePassword}
-                className="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-medium rounded-lg shadow-md transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                Update Password
-              </button>
-            </form>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

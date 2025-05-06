@@ -6,7 +6,7 @@ import { FiUser, FiMail, FiPhone, FiBriefcase, FiMapPin, FiCalendar, FiFileText,
 import Header from '../../components/admin/Header';
 import Sidebar from '../../components/admin/Sidebar';
 
-const InfoProfile = () => {
+const ProfileInfo = () => {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -61,7 +61,7 @@ const InfoProfile = () => {
                 </div>
                 <div className="flex space-x-3">
                   <Link
-                    to="profile/edit"
+                    to="/BusinessOwner/profile/edit"
                     className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow transition-colors flex items-center"
                   >
                     <FiEdit className="mr-2" />
@@ -196,7 +196,7 @@ const InfoProfile = () => {
           {/* Action Buttons */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <Link
-              to="profile/edit"
+              to="/BusinessOwner/profile/edit"
               className="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow transition-colors flex items-center justify-center"
             >
               <FiEdit className="mr-2" />
@@ -217,4 +217,4 @@ const InfoProfile = () => {
   );
 };
 
-export default InfoProfile;
+export default ProfileInfo;

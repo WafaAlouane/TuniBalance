@@ -13,7 +13,7 @@ import Login from "./pages/login";
 import AdminDashboard from "./pages/admindashbord";
 import CreateStaff from './pages/CreateStaff';
 import Profile from './pages/profile/Profile';
-import InfoProfile from './pages/profile/InfoProfile';
+import ProfileInfo from './pages/profile/ProfileInfo';
 import BusinessOwner from "./pages/BusinessOwner";
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/profile/ChangePassword";
@@ -121,7 +121,7 @@ const router = createBrowserRouter([
           { index: true, element: <BusinessOwner /> },
           { path: "create-staff", element: <CreateStaff /> },
           { path: "profile/edit", element: <Profile /> },
-          { path: "profile", element: <InfoProfile /> },
+          { path: "profile", element: <ProfileInfo /> },
           { path: "reset-password", element: <ResetPassword /> },
           { path: "change-password", element: <ChangePassword /> },
           { path: "forget-password", element: <ForgetPassword /> },

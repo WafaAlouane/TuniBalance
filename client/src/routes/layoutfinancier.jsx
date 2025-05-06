@@ -13,6 +13,8 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import { HeaderF } from "@/layouts/HeaderF";
 import SidebarF from "@/layouts/SidebarF";
 import { cn } from "@/utils/cn";
+import FinancialAnalytics from "@/components/FinancialAnalytics";
+import AIPredictions from "@/components/AIPredictions";
 
 
 const Layout = () => {
@@ -23,7 +25,7 @@ const Layout = () => {
   const [amortissements, setAmortissements] = useState([]);
   const [message, setMessage] = useState(null);
   const [visibleRows, setVisibleRows] = useState({});
-  const [activeTab, setActiveTab] = useState("emprunts"); // "emprunts", "immobilisations", or "paiements"
+  const [activeTab, setActiveTab] = useState("emprunts"); // "emprunts", "immobilisations", "paiements", "analyses", or "ia_predictions"
   const [paiements, setPaiements] = useState([]);
   const [showEmpruntForm, setShowEmpruntForm] = useState(false);
   const [showImmobilisationForm, setShowImmobilisationForm] = useState(false);
@@ -1172,39 +1174,92 @@ const Layout = () => {
 
 
 
-          <div className="flex border-b border-slate-200 dark:border-slate-700 mb-4">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-1 border border-slate-200 dark:border-slate-700 mb-6 flex flex-wrap">
             <button
               className={cn(
-                "px-4 py-2 font-medium",
+                "flex items-center px-5 py-3 font-medium rounded-lg transition-all",
                 activeTab === "emprunts"
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-slate-600 dark:text-slate-400"
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
               )}
               onClick={() => setActiveTab("emprunts")}
             >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               Emprunts
+              <span className="ml-2 bg-white bg-opacity-20 text-xs py-0.5 px-2 rounded-full">
+                {emprunts.length}
+              </span>
             </button>
+
             <button
               className={cn(
-                "px-4 py-2 font-medium",
+                "flex items-center px-5 py-3 font-medium rounded-lg transition-all",
                 activeTab === "immobilisations"
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-slate-600 dark:text-slate-400"
+                  ? "bg-green-600 text-white shadow-md"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
               )}
               onClick={() => setActiveTab("immobilisations")}
             >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
               Immobilisations
+              <span className="ml-2 bg-white bg-opacity-20 text-xs py-0.5 px-2 rounded-full">
+                {immobilisations.length}
+              </span>
             </button>
+
             <button
               className={cn(
-                "px-4 py-2 font-medium",
+                "flex items-center px-5 py-3 font-medium rounded-lg transition-all",
                 activeTab === "paiements"
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-slate-600 dark:text-slate-400"
+                  ? "bg-purple-600 text-white shadow-md"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
               )}
               onClick={() => setActiveTab("paiements")}
             >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
               Paiements
+              <span className="ml-2 bg-white bg-opacity-20 text-xs py-0.5 px-2 rounded-full">
+                {paiements.length}
+              </span>
+            </button>
+
+            <button
+              className={cn(
+                "flex items-center px-5 py-3 font-medium rounded-lg transition-all",
+                activeTab === "analyses"
+                  ? "bg-amber-600 text-white shadow-md"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
+              )}
+              onClick={() => setActiveTab("analyses")}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              Analyses
+            </button>
+
+            <button
+              className={cn(
+                "flex items-center px-5 py-3 font-medium rounded-lg transition-all",
+                activeTab === "ia_predictions"
+                  ? "bg-indigo-600 text-white shadow-md"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
+              )}
+              onClick={() => setActiveTab("ia_predictions")}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+              IA Prédictive
+              <span className="ml-2 bg-indigo-500 bg-opacity-20 text-xs py-0.5 px-2 rounded-full">
+                Nouveau
+              </span>
             </button>
           </div>
 
@@ -1520,191 +1575,189 @@ const Layout = () => {
           {activeTab === "paiements" && (
             <div className="space-y-6">
               {/* Payments Table */}
-              <div className="rounded-lg shadow-md bg-white dark:bg-slate-800 overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
-                  <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
-                    Tous les paiements
-                  </h2>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="table-auto w-full text-sm">
-                    <thead className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 uppercase text-xs">
+              <div className="rounded-xl shadow ring-1 ring-slate-200 dark:ring-slate-700 bg-white dark:bg-slate-800 overflow-hidden">
+                <table className="table-fixed w-full text-sm">
+                  <thead className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-100 uppercase text-xs">
+                    <tr>
+                      <th className="px-3 py-3 w-[150px] truncate">Emprunt</th>
+                      <th className="px-3 py-3 w-[120px] truncate">Date</th>
+                      <th className="px-3 py-3 w-[100px]">Montant total</th>
+                      <th className="px-3 py-3 w-[100px]">Intérêts</th>
+                      <th className="px-3 py-3 w-[120px]">Amortissement</th>
+                      <th className="px-3 py-3 w-[120px]">Capital restant</th>
+                      <th className="px-3 py-3 w-[100px]">Mode</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {paiements.length > 0 ? (
+                      paiements.map((paiement) => {
+                        // Find the related loan
+                        const emprunt = emprunts.find(e =>
+                          e._id === paiement.emprunt_id ||
+                          (paiement.emprunt_id && paiement.emprunt_id._id === e._id)
+                        );
+
+                        return (
+                          <tr key={paiement._id} className="hover:bg-slate-50 dark:hover:bg-slate-700">
+                            <td className="px-3 py-3 truncate">
+                              {emprunt ? emprunt.intitule : "Emprunt inconnu"}
+                            </td>
+                            <td className="px-3 py-3 truncate">
+                              {new Date(paiement.date_paiement).toLocaleDateString()}
+                            </td>
+                            <td className="px-3 py-3">
+                              {Number(paiement.montant_total || 0).toFixed(2)} DT
+                            </td>
+                            <td className="px-3 py-3">
+                              {Number(paiement.montant_interet || 0).toFixed(2)} DT
+                            </td>
+                            <td className="px-3 py-3">
+                              {Number(paiement.montant_amortissement || 0).toFixed(2)} DT
+                            </td>
+                            <td className="px-3 py-3">
+                              {Number(paiement.capital_restant_du || 0).toFixed(2)} DT
+                            </td>
+                            <td className="px-3 py-3">
+                              {paiement.mode_paiement}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
                       <tr>
-                        <th className="px-4 py-3 text-left font-semibold">Emprunt</th>
-                        <th className="px-4 py-3 text-left font-semibold">Date</th>
-                        <th className="px-4 py-3 text-left font-semibold">Montant total</th>
-                        <th className="px-4 py-3 text-left font-semibold">Intérêts</th>
-                        <th className="px-4 py-3 text-left font-semibold">Amortissement</th>
-                        <th className="px-4 py-3 text-left font-semibold">Capital restant</th>
-                        <th className="px-4 py-3 text-left font-semibold">Mode</th>
+                        <td
+                          colSpan="7"
+                          className="px-6 py-8 text-center text-slate-500 dark:text-slate-300"
+                        >
+                          Aucun paiement trouvé.
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                      {paiements.length > 0 ? (
-                        paiements.map((paiement, index) => {
-                          // Find the related loan
-                          const emprunt = emprunts.find(e =>
-                            e._id === paiement.emprunt_id ||
-                            (paiement.emprunt_id && paiement.emprunt_id._id === e._id)
-                          );
-
-                          // Alternate row colors
-                          const isEven = index % 2 === 0;
-                          const rowClass = isEven
-                            ? "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700"
-                            : "bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700";
-
-                          return (
-                            <tr key={paiement._id} className={rowClass}>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-medium">
-                                {emprunt ? emprunt.intitule : "Emprunt inconnu"}
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-                                {new Date(paiement.date_paiement).toLocaleDateString()}
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-medium">
-                                {Number(paiement.montant_total || 0).toFixed(2)} DT
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-                                {Number(paiement.montant_interet || 0).toFixed(2)} DT
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-                                {Number(paiement.montant_amortissement || 0).toFixed(2)} DT
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-medium">
-                                {Number(paiement.capital_restant_du || 0).toFixed(2)} DT
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-                                <span className="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded text-xs">
-                                  {paiement.mode_paiement}
-                                </span>
-                              </td>
-                            </tr>
-                          );
-                        })
-                      ) : (
-                        <tr>
-                          <td colSpan="7" className="px-4 py-6 text-center text-slate-500 dark:text-slate-400">
-                            Aucun paiement trouvé.
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
+                    )}
+                  </tbody>
+                </table>
               </div>
 
               {/* Loan Status Table */}
-              <div className="rounded-lg shadow-md bg-white dark:bg-slate-800 overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
-                  <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
-                    Statut des emprunts
-                  </h2>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="table-auto w-full text-sm">
-                    <thead className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 uppercase text-xs">
-                      <tr>
-                        <th className="px-4 py-3 text-left font-semibold">Emprunt</th>
-                        <th className="px-4 py-3 text-left font-semibold">Montant initial</th>
-                        <th className="px-4 py-3 text-left font-semibold">Montant remboursé</th>
-                        <th className="px-4 py-3 text-left font-semibold">Capital restant</th>
-                        <th className="px-4 py-3 text-left font-semibold">Statut</th>
-                        <th className="px-4 py-3 text-left font-semibold">Progression</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                      {emprunts.length > 0 ? (
-                        emprunts.map((emprunt, index) => {
-                          // Find all payments for this loan
-                          const empruntPaiements = paiements.filter(p =>
-                            p.emprunt_id === emprunt._id ||
-                            (p.emprunt_id && p.emprunt_id._id === emprunt._id)
-                          );
+              <div className="rounded-xl shadow ring-1 ring-slate-200 dark:ring-slate-700 bg-white dark:bg-slate-800 overflow-hidden">
+                <table className="table-fixed w-full text-sm">
+                  <thead className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-100 uppercase text-xs">
+                    <tr>
+                      <th className="px-3 py-3 w-[150px] truncate">Emprunt</th>
+                      <th className="px-3 py-3 w-[100px]">Montant initial</th>
+                      <th className="px-3 py-3 w-[120px]">Montant remboursé</th>
+                      <th className="px-3 py-3 w-[120px]">Capital restant</th>
+                      <th className="px-3 py-3 w-[100px]">Statut</th>
+                      <th className="px-3 py-3 w-[150px]">Progression</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {emprunts.length > 0 ? (
+                      emprunts.map((emprunt) => {
+                        // Find all payments for this loan
+                        const empruntPaiements = paiements.filter(p =>
+                          p.emprunt_id === emprunt._id ||
+                          (p.emprunt_id && p.emprunt_id._id === emprunt._id)
+                        );
 
-                          // Calculate total paid amount
-                          const totalPaid = empruntPaiements.reduce((sum, p) => sum + Number(p.montant_amortissement || 0), 0);
+                        // Calculate total paid amount
+                        const totalPaid = empruntPaiements.reduce((sum, p) => sum + Number(p.montant_amortissement || 0), 0);
 
-                          // Get the latest payment to know the remaining capital
-                          const latestPaiement = empruntPaiements.length > 0 ?
-                            empruntPaiements.sort((a, b) =>
-                              new Date(b.date_paiement || 0) - new Date(a.date_paiement || 0)
-                            )[0] : null;
+                        // Get the latest payment to know the remaining capital
+                        const latestPaiement = empruntPaiements.length > 0 ?
+                          empruntPaiements.sort((a, b) =>
+                            new Date(b.date_paiement || 0) - new Date(a.date_paiement || 0)
+                          )[0] : null;
 
-                          const capitalRestant = latestPaiement ? Number(latestPaiement.capital_restant_du || 0) : Number(emprunt.montant || 0);
+                        const capitalRestant = latestPaiement ? Number(latestPaiement.capital_restant_du || 0) : Number(emprunt.montant || 0);
 
-                          // Calculate payment progress
-                          const montant = Number(emprunt.montant || 0);
-                          const progress = montant > 0 ? ((montant - capitalRestant) / montant) * 100 : 0;
+                        // Calculate payment progress
+                        const montant = Number(emprunt.montant || 0);
+                        const progress = montant > 0 ? ((montant - capitalRestant) / montant) * 100 : 0;
 
-                          // Determine status
-                          let status = "Non commencé";
-                          let statusColor = "bg-slate-500";
-                          let progressColor = "bg-slate-500";
+                        // Determine status
+                        let status = "Non commencé";
+                        let statusColor = "bg-gray-500";
+                        let progressColor = "bg-gray-500";
+                        let textColor = "text-slate-500";
 
-                          if (empruntPaiements.length > 0) {
-                            if (capitalRestant <= 0) {
-                              status = "Remboursé";
-                              statusColor = "bg-slate-700";
-                              progressColor = "bg-slate-700";
-                            } else {
-                              status = "En cours";
-                              statusColor = "bg-slate-600";
-                              progressColor = "bg-slate-600";
-                            }
+                        if (empruntPaiements.length > 0) {
+                          if (capitalRestant <= 0) {
+                            status = "Remboursé";
+                            statusColor = "bg-green-600";
+                            progressColor = "bg-green-600";
+                            textColor = "text-green-600";
+                          } else {
+                            status = "En cours";
+                            statusColor = "bg-blue-600";
+                            progressColor = "bg-blue-600";
+                            textColor = "text-blue-600";
                           }
+                        }
 
-                          // Alternate row colors
-                          const isEven = index % 2 === 0;
-                          const rowClass = isEven
-                            ? "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700"
-                            : "bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700";
-
-                          return (
-                            <tr key={emprunt._id} className={rowClass}>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-medium">
-                                {emprunt.intitule}
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-                                {Number(emprunt.montant || 0).toFixed(2)} DT
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
-                                {Number(totalPaid || 0).toFixed(2)} DT
-                              </td>
-                              <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-medium">
-                                {Number(capitalRestant || 0).toFixed(2)} DT
-                              </td>
-                              <td className="px-4 py-3">
-                                <span className={`px-2 py-1 rounded text-xs text-white ${statusColor}`}>
-                                  {status}
-                                </span>
-                              </td>
-                              <td className="px-4 py-3 w-40">
-                                <div className="w-full bg-slate-200 dark:bg-slate-700 rounded h-1.5">
-                                  <div
-                                    className={`${progressColor} h-1.5 rounded`}
-                                    style={{ width: `${Math.min(progress, 100)}%` }}
-                                  ></div>
-                                </div>
-                                <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                                  {Math.round(progress)}% remboursé
-                                </div>
-                              </td>
-                            </tr>
-                          );
-                        })
-                      ) : (
-                        <tr>
-                          <td colSpan="6" className="px-4 py-6 text-center text-slate-500 dark:text-slate-400">
-                            Aucun emprunt trouvé.
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
+                        return (
+                          <tr key={emprunt._id} className="hover:bg-slate-50 dark:hover:bg-slate-700">
+                            <td className="px-3 py-3 truncate">
+                              {emprunt.intitule}
+                            </td>
+                            <td className="px-3 py-3">
+                              {Number(emprunt.montant || 0).toFixed(2)} DT
+                            </td>
+                            <td className="px-3 py-3">
+                              {Number(totalPaid || 0).toFixed(2)} DT
+                            </td>
+                            <td className="px-3 py-3">
+                              {Number(capitalRestant || 0).toFixed(2)} DT
+                            </td>
+                            <td className="px-3 py-3">
+                              <span className={`px-2 py-1 rounded text-xs text-white ${statusColor}`}>
+                                {status}
+                              </span>
+                            </td>
+                            <td className="px-3 py-3">
+                              <div className="w-full bg-slate-200 dark:bg-slate-700 rounded h-1.5">
+                                <div
+                                  className={`${progressColor} h-1.5 rounded`}
+                                  style={{ width: `${Math.min(progress, 100)}%` }}
+                                ></div>
+                              </div>
+                              <div className={`text-xs ${textColor} dark:${textColor} mt-1 font-medium`}>
+                                {Math.round(progress)}% remboursé
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan="6"
+                          className="px-6 py-8 text-center text-slate-500 dark:text-slate-300"
+                        >
+                          Aucun emprunt trouvé.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
+          )}
+
+          {/* Analytics Tab */}
+          {activeTab === "analyses" && (
+            <FinancialAnalytics
+              emprunts={emprunts}
+              paiements={paiements}
+              immobilisations={immobilisations}
+            />
+          )}
+
+          {/* AI Predictions Tab */}
+          {activeTab === "ia_predictions" && (
+            <AIPredictions
+              emprunts={emprunts}
+              immobilisations={immobilisations}
+            />
           )}
 
           <Outlet />
