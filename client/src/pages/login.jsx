@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FiMail, FiLock } from "react-icons/fi";
+import { FiMail, FiLock, FiUser, FiDollarSign, FiBarChart2, FiPieChart, FiCreditCard, FiShield } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/slices/authSlice';
@@ -48,12 +48,12 @@ export default function Login() {
         password,
         recaptchaToken,  // Send reCAPTCHA token to backend for verification
       });
-      
+
       dispatch(loginSuccess({
         user: response.data.user,
         token: response.data.accessToken
       }));
-      localStorage.setItem("accessToken", response.data.accessToken); 
+      localStorage.setItem("accessToken", response.data.accessToken);
       console.log("Token enregistré :", localStorage.getItem("accessToken"));
 
       const setupResponse = await axios.post(
@@ -86,15 +86,15 @@ export default function Login() {
       }
 
       const response = await verify2FA(token, twoFactorToken);
-      
+
       if (response?.data?.user) {
         const { user } = response.data;
         const role = user.role?.toLowerCase();
         dispatch(loginSuccess({
           user: response.data.user,
-          token: token 
+          token: token
         }));
-        
+
         let redirectPath = '/';
         switch(role) {
           case 'business_owner':
@@ -113,7 +113,7 @@ export default function Login() {
             setError("Rôle utilisateur non reconnu !");
             return;
         }
-        
+
         navigate(redirectPath);
       } else {
         setError("Échec de la vérification du code 2FA !");
@@ -126,103 +126,228 @@ export default function Login() {
   };
 
   return (
-    <div className="container vh-100 d-flex justify-content-center align-items-center">
-      <div className="row w-75 shadow-lg rounded p-4 bg-white">
-        <div className="col-md-7 d-flex flex-column justify-content-center p-4 text-white bg-primary rounded-start">
-          <h2 className="mb-3">Bienvenue de retour !</h2>
-          <p>
-            Connectez-vous pour accéder à votre tableau de bord et gérer vos finances efficacement.
-          </p>
-        </div>
-
-        <div className="col-md-5 p-4">
-          <h2 className="text-center text-primary mb-4">Connexion</h2>
-
-          {error && <div className="alert alert-danger">{error}</div>}
-
-          <form>
-            {!showTwoFactorInput ? (
-              <>
-                <div className="mb-3">
-                  <label className="form-label fw-bold">
-                    <FiMail className="me-2" />
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control form-control-lg"
-                    placeholder="Entrez votre email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label className="form-label fw-bold">
-                    <FiLock className="me-2" />
-                    Mot de passe
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Entrez votre mot de passe"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <ReCAPTCHA
-                    sitekey="6LcoRwErAAAAAIauP2SPQe1fvh5je4o4RwuvDy0V" // Replace with your site key
-                    onChange={handleRecaptchaChange}
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  className="btn btn-primary w-100 py-2"
-                  onClick={handleLogin}
-                >
-                  Se connecter
-                </button>
-              </>
-            ) : (
-              <div className="mt-3">
-                <label className="form-label fw-bold">
-                  Code de vérification 2FA
-                </label>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Entrez le code 2FA"
-                  value={twoFactorToken}
-                  onChange={(e) => setTwoFactorToken(e.target.value)}
-                  required
-                />
-                <button
-                  type="button"
-                  className="btn btn-primary w-100 py-2 mt-2"
-                  onClick={handleVerifyTwoFactorAuth}
-                >
-                  Vérifier le code 2FA
-                </button>
-                {qrCodeImage && (
-                  <div className="mt-3 text-center">
-                    <img src={qrCodeImage} alt="QR Code 2FA" />
+    <div className="min-h-screen d-flex align-items-center justify-content-center"
+         style={{
+           backgroundColor: '#121212',
+           backgroundImage: 'url("https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1951&q=80")',
+           backgroundSize: 'cover',
+           backgroundPosition: 'center',
+           backgroundBlendMode: 'overlay',
+           padding: '2rem'
+         }}>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-lg-10">
+            <div className="card border-0 shadow-lg overflow-hidden"
+                 style={{
+                   backgroundColor: 'rgba(33, 37, 41, 0.85)',
+                   backdropFilter: 'blur(10px)',
+                   border: '1px solid rgba(66, 70, 73, 0.5)'
+                 }}>
+              <div className="row g-0">
+                {/* Left Column - Information */}
+                <div className="col-lg-6 d-none d-lg-block"
+                     style={{
+                       background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.8) 0%, rgba(79, 70, 229, 0.8) 100%)',
+                       position: 'relative',
+                       overflow: 'hidden'
+                     }}>
+                  {/* Abstract financial graphics */}
+                  <div style={{ position: 'absolute', top: '20px', right: '20px', opacity: '0.1' }}>
+                    <FiBarChart2 style={{ color: '#93c5fd', fontSize: '200px' }} />
                   </div>
-                )}
+                  <div style={{ position: 'absolute', bottom: '20px', left: '20px', opacity: '0.1' }}>
+                    <FiPieChart style={{ color: '#c7d2fe', fontSize: '150px' }} />
+                  </div>
+
+                  <div className="p-5 d-flex flex-column h-100 position-relative" style={{ zIndex: 1 }}>
+                    <div className="mb-5">
+                      <div className="d-flex align-items-center mb-4">
+                        <FiDollarSign className="text-white me-2" style={{ fontSize: '2rem' }} />
+                        <h1 className="h3 text-white fw-bold mb-0">TuniBalance</h1>
+                      </div>
+
+                      <h2 className="h2 text-white fw-bold mb-3">Portail de Gestion Financière</h2>
+                      <p className="text-white-50 mb-4">
+                        Connectez-vous pour accéder à votre tableau de bord et gérer vos finances efficacement.
+                      </p>
+
+                      <div className="row g-3 mb-5">
+                        <div className="col-6">
+                          <div className="p-3 rounded" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+                            <FiBarChart2 className="text-info mb-2" />
+                            <h5 className="text-white fw-bold mb-1">Analyses Financières</h5>
+                            <p className="text-white-50 small mb-0">Suivez vos performances</p>
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="p-3 rounded" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+                            <FiCreditCard className="text-info mb-2" />
+                            <h5 className="text-white fw-bold mb-1">Gestion Budgétaire</h5>
+                            <p className="text-white-50 small mb-0">Optimisez vos ressources</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-auto">
+                      <div className="d-flex">
+                        <div className="bg-info rounded-pill me-2" style={{ height: '4px', width: '30px' }}></div>
+                        <div className="bg-info rounded-pill me-2 opacity-50" style={{ height: '4px', width: '30px' }}></div>
+                        <div className="bg-info rounded-pill opacity-25" style={{ height: '4px', width: '30px' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column - Form */}
+                <div className="col-lg-6">
+                  <div className="p-5">
+                    <div className="text-center mb-4">
+                      <div className="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                           style={{
+                             width: '70px',
+                             height: '70px',
+                             background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)'
+                           }}>
+                        <FiUser className="text-white" style={{ fontSize: '1.75rem' }} />
+                      </div>
+                      <h2 className="h3 text-white fw-bold">Connexion</h2>
+                    </div>
+
+                    {error && (
+                      <div className="alert" style={{ backgroundColor: 'rgba(220, 53, 69, 0.2)', color: '#f8aeb5', border: '1px solid rgba(220, 53, 69, 0.3)' }}>
+                        {error}
+                      </div>
+                    )}
+
+                    <form>
+                      {!showTwoFactorInput ? (
+                        <>
+                          <div className="mb-4">
+                            <label className="form-label text-white-50 fw-medium">
+                              <FiMail className="me-2" />
+                              Email
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control form-control-lg border-0"
+                              style={{
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                color: 'white',
+                                padding: '0.75rem 1rem'
+                              }}
+                              placeholder="Entrez votre email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                            />
+                          </div>
+
+                          <div className="mb-4">
+                            <label className="form-label text-white-50 fw-medium">
+                              <FiLock className="me-2" />
+                              Mot de passe
+                            </label>
+                            <input
+                              type="password"
+                              className="form-control form-control-lg border-0"
+                              style={{
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                color: 'white',
+                                padding: '0.75rem 1rem'
+                              }}
+                              placeholder="Entrez votre mot de passe"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              required
+                            />
+                          </div>
+
+                          <div className="mb-4 d-flex justify-content-center">
+                            <ReCAPTCHA
+                              sitekey="6LcoRwErAAAAAIauP2SPQe1fvh5je4o4RwuvDy0V"
+                              onChange={handleRecaptchaChange}
+                              theme="dark"
+                            />
+                          </div>
+
+                          <button
+                            type="button"
+                            className="btn btn-lg w-100 mb-4"
+                            style={{
+                              background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)',
+                              color: 'white',
+                              border: 'none',
+                              padding: '0.75rem 1rem',
+                              transition: 'all 0.2s ease'
+                            }}
+                            onClick={handleLogin}
+                          >
+                            Se connecter
+                          </button>
+                        </>
+                      ) : (
+                        <div className="mt-3">
+                          <div className="p-3 mb-4 rounded" style={{ backgroundColor: 'rgba(13, 110, 253, 0.2)', border: '1px solid rgba(13, 110, 253, 0.3)' }}>
+                            <p className="text-info mb-0 small">
+                              Veuillez entrer le code de vérification de votre application d'authentification pour terminer la connexion.
+                            </p>
+                          </div>
+
+                          <label className="form-label text-white-50 fw-medium">
+                            Code de vérification 2FA
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control form-control-lg border-0"
+                            style={{
+                              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                              color: 'white',
+                              padding: '0.75rem 1rem'
+                            }}
+                            placeholder="Entrez le code 2FA"
+                            value={twoFactorToken}
+                            onChange={(e) => setTwoFactorToken(e.target.value)}
+                            required
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-lg w-100 mt-3"
+                            style={{
+                              background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)',
+                              color: 'white',
+                              border: 'none',
+                              padding: '0.75rem 1rem',
+                              transition: 'all 0.2s ease'
+                            }}
+                            onClick={handleVerifyTwoFactorAuth}
+                          >
+                            Vérifier le code 2FA
+                          </button>
+                          {qrCodeImage && (
+                            <div className="mt-4 text-center p-3 rounded" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+                              <p className="text-white-50 small mb-2">Scannez ce QR code avec votre application d'authentification</p>
+                              <img src={qrCodeImage} alt="QR Code 2FA" className="img-fluid" style={{ maxWidth: '200px', border: '1px solid rgba(255, 255, 255, 0.2)' }} />
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      <div className="pt-4 mt-2 border-top" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+                        <p className="text-center text-white-50 mb-2">
+                          Pas encore de compte ? <a href="/register" className="text-info text-decoration-none">Créer un compte</a>
+                        </p>
+                        <p className="text-center text-white-50">
+                          <a href="/forget-password" className="text-info text-decoration-none">Mot de passe oublié ?</a>
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
-            )}
-            
-            <p className="mt-3 text-center">
-              Pas encore de compte ? <a href="/register">Créer un compte</a>
-            </p>
-            <p className="mt-3 text-center">
-              <a href="/forget-password" className="ms-2">Mot de passe oublié ?</a>
-            </p>
-          </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
