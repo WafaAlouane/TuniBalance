@@ -15,7 +15,9 @@ import SidebarF from "@/layouts/SidebarF";
 import { cn } from "@/utils/cn";
 import FinancialAnalytics from "@/components/FinancialAnalytics";
 import AIPredictions from "@/components/AIPredictions";
-
+import LayoutKpi from "./LayoutKpi";
+import LayoutRevenu from "./LayoutRevenu";
+import LayoutReportingFiscal from "./LayoutReportinFiscal";
 
 const Layout = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -1759,7 +1761,18 @@ const Layout = () => {
               immobilisations={immobilisations}
             />
           )}
-
+<div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                                <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">KPI</h2>
+                                <LayoutKpi />
+                            </div>
+                            <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                                <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Revenus</h2>
+                                <LayoutRevenu />
+                            </div>
+                            <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+                                <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Reporting fiscal</h2>
+                                <LayoutReportingFiscal />
+                            </div>
           <Outlet />
         </main>
       </div>

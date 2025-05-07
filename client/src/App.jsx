@@ -30,8 +30,8 @@ import FriendRequestList from "./pages/friends/FriendRequestList"
 
 import LayoutFacture from "./routes/layoutFacture"
 import PrivateMessageChat from "./pages/privatemessages/PrivateMessageChat"
-import AppointmentForm from '../../client/src/pages/BusinessCalendar';
-import Appointment from '../../client/src/pages/AppointmentForm';
+import BusinessCalendarDark from './pages/BusinessCalendarDark';
+import AppointmentForm from './pages/AppointmentForm';
 
 
 
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
     path: "/friend-requests",
     element: <FriendRequestList />,
   },
-  
+
   {
     path: "/private-chat/:userId",
     element: <PrivateMessageChat />,
@@ -112,8 +112,8 @@ const router = createBrowserRouter([
         { path: "send-friend-request", element: <SendFriendRequest /> },
         { path: "notifications", element: <Notifications /> },
         { path: "user-search", element: <UserSearch /> },
-        { path: "Appointment", element: <AppointmentForm /> },
-        { path: "Ajoutterappoint", element: <Appointment /> },
+        { path: "calendar", element: <BusinessCalendarDark /> },
+        { path: "appointment", element: <AppointmentForm /> },
 
 
     ],
@@ -140,8 +140,8 @@ const router = createBrowserRouter([
       { path: "send-friend-request", element: <SendFriendRequest /> },
       { path: "notifications", element: <Notifications /> },
       { path: "user-search", element: <UserSearch /> },
-      { path: "Appointment", element: <AppointmentForm /> },
-      { path: "Ajoutterappoint", element: <Appointment /> },
+      { path: "calendar", element: <BusinessCalendarDark /> },
+      { path: "appointment", element: <AppointmentForm /> },
     ],
   },
 
@@ -163,8 +163,8 @@ const router = createBrowserRouter([
           { path: "notifications", element: <Notifications /> },
           { path: "user-search", element: <UserSearch /> },
           { path: "stat", element: <Statistiques /> },
-          { path: "Appointment", element: <AppointmentForm /> },
-          { path: "Ajoutterappoint", element: <Appointment /> },
+          { path: "calendar", element: <BusinessCalendarDark /> },
+          { path: "appointment", element: <AppointmentForm /> },
 
       ],
   },

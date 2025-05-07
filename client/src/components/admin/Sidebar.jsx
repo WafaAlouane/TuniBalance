@@ -2,12 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/slices/authSlice";
-import { 
-  FiGrid, 
-  FiUser, 
-  FiUserPlus, 
+import {
+  FiGrid,
+  FiUser,
+  FiUserPlus,
   FiDollarSign,
-  FiLogOut
+  FiLogOut,
+  FiCalendar,
+  FiBarChart2,
+  FiUsers
 } from "react-icons/fi";
 
 function Sidebar() {
@@ -28,8 +31,8 @@ function Sidebar() {
 
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
         {/* Dashboard */}
-        <Link 
-          to="/BusinessOwner" 
+        <Link
+          to="/BusinessOwner"
           className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
         >
           <FiGrid className="mr-3 text-lg" />
@@ -39,8 +42,8 @@ function Sidebar() {
         {user && (
           <>
             {/* Profile */}
-            <Link 
-              to="/BusinessOwner/profile" 
+            <Link
+              to="/BusinessOwner/profile"
               className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
             >
               <FiUser className="mr-3 text-lg" />
@@ -48,8 +51,8 @@ function Sidebar() {
             </Link>
 
             {/* Create Staff */}
-            <Link 
-              to="/BusinessOwner/create-staff" 
+            <Link
+              to="/BusinessOwner/create-staff"
               className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
             >
               <FiUserPlus className="mr-3 text-lg" />
@@ -57,58 +60,69 @@ function Sidebar() {
             </Link>
 
             {/* Transactions */}
-            <Link 
-              to="/BusinessOwner/transactions" 
+            <Link
+              to="/BusinessOwner/transactions"
               className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
             >
               <FiDollarSign className="mr-3 text-lg" />
               <span className="font-medium">View Transactions</span>
             </Link>
-            <Link 
-      to="/BusinessOwner/Appointment" 
-      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-    >
-      <span className="font-medium">Calender</span>
-    </Link>
-    <Link 
-      to="/BusinessOwner/Ajoutterappoint" 
-      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-    >
-      <span className="font-medium">Appointments</span>
-    </Link>
-            <Link 
-      to="/BusinessOwner/stat" 
-      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-    >
-      <span className="font-medium">Statistiques</span>
-    </Link>
+            {/* Calendar */}
+            <Link
+              to="/BusinessOwner/calendar"
+              className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            >
+              <FiCalendar className="mr-3 text-lg" />
+              <span className="font-medium">Calendar</span>
+            </Link>
+
+            {/* Appointment Form */}
+            <Link
+              to="/BusinessOwner/appointment"
+              className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            >
+              <FiUserPlus className="mr-3 text-lg" />
+              <span className="font-medium">New Appointment</span>
+            </Link>
+
+            {/* Statistics */}
+            <Link
+              to="/BusinessOwner/stat"
+              className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            >
+              <FiBarChart2 className="mr-3 text-lg" />
+              <span className="font-medium">Statistics</span>
+            </Link>
           </>
         )}
-{user && (
-  <>
-    
+{/* Friends Section */}
+<div className="mt-6 mb-2">
+  <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+    Social
+  </h3>
+</div>
 
-    <Link 
-      to="/BusinessOwner/friend-requests" 
-      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-    >
-      <span className="font-medium">Friend Requests</span>
-    </Link>
-   
-    <Link 
-      to="/BusinessOwner/send-friend-request" 
-      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-    >
-      <span className="font-medium">Send Friend Request</span>
-    </Link>
+{/* Friend Requests */}
+<Link
+  to="/BusinessOwner/friend-requests"
+  className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+>
+  <FiUsers className="mr-3 text-lg" />
+  <span className="font-medium">Friend Requests</span>
+</Link>
 
-    
-  </>
-)}
+{/* Send Friend Request */}
+<Link
+  to="/BusinessOwner/send-friend-request"
+  className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+>
+  <FiUserPlus className="mr-3 text-lg" />
+  <span className="font-medium">Send Friend Request</span>
+</Link>
           {/* Logout Button */}
       {user && (
         <div className="p-4 border-t border-gray-700">
-          <button 
+          <button
             onClick={handleLogout}
             className="w-full flex items-center p-3 rounded-lg text-red-400 hover:bg-red-900/30 hover:text-red-300 transition-colors"
           >
@@ -119,7 +133,7 @@ function Sidebar() {
       )}
       </nav>
 
-    
+
     </aside>
   );
 }

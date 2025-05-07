@@ -1,83 +1,84 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../../styles/landing.css';
 
 function Footer() {
   return (
-<div>
-  <footer id="footer" className="footer">
-    <div className="footer-newsletter">
-      <div className="container">
-        <div className="row justify-content-center text-center">
-          <div className="col-lg-6">
-            <h4>Join Our Newsletter</h4>
-            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-            <form action="forms/newsletter.php" method="post" className="php-email-form">
-              <div className="newsletter-form"><input type="email" name="email" /><input type="submit" defaultValue="Subscribe" /></div>
-              <div className="loading">Loading</div>
-              <div className="error-message" />
-              <div className="sent-message">Your subscription request has been sent. Thank you!</div>
-            </form>
+    <footer className="landing-footer">
+      <div className="container mx-auto px-6">
+        <div className="landing-footer-content">
+          <div>
+            <div className="landing-footer-logo">TuniBalance</div>
+            <p className="landing-footer-description">
+              Simplifying financial management for businesses and individuals. Track expenses, manage invoices, and gain insights with our powerful platform.
+            </p>
+            <div className="landing-footer-social">
+              <a href="#" className="landing-footer-social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a href="#" className="landing-footer-social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                </svg>
+              </a>
+              <a href="#" className="landing-footer-social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="#" className="landing-footer-social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div className="container footer-top">
-      <div className="row gy-4">
-        <div className="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" className="d-flex align-items-center">
-            <span className="sitename">Arsha</span>
-          </a>
-          <div className="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p className="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
-          </div>
-        </div>
-        <div className="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><i className="bi bi-chevron-right" /> <a href="#">Home</a></li>
-            <li><i className="bi bi-chevron-right" /> <a href="#">About us</a></li>
-            <li><i className="bi bi-chevron-right" /> <a href="#">Services</a></li>
-            <li><i className="bi bi-chevron-right" /> <a href="#">Terms of service</a></li>
-          </ul>
-        </div>
-        <div className="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><i className="bi bi-chevron-right" /> <a href="#">Web Design</a></li>
-            <li><i className="bi bi-chevron-right" /> <a href="#">Web Development</a></li>
-            <li><i className="bi bi-chevron-right" /> <a href="#">Product Management</a></li>
-            <li><i className="bi bi-chevron-right" /> <a href="#">Marketing</a></li>
-          </ul>
-        </div>
-        <div className="col-lg-4 col-md-12">
-          <h4>Follow Us</h4>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-          <div className="social-links d-flex">
-            <a href><i className="bi bi-twitter-x" /></a>
-            <a href><i className="bi bi-facebook" /></a>
-            <a href><i className="bi bi-instagram" /></a>
-            <a href><i className="bi bi-linkedin" /></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong className="px-1 sitename">Arsha</strong> <span>All Rights Reserved</span></p>
-      <div className="credits">
-        {/* All the links in the footer should remain intact. */}
-        {/* You can delete the links only if you've purchased the pro version. */}
-        {/* Licensing information: https://bootstrapmade.com/license/ */}
-        {/* Purchase the pro version with working PHP/AJAX contact form: [buy-url] */}
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer>
-</div>
 
-    
-  )
+          <div>
+            <h3 className="landing-footer-title">Quick Links</h3>
+            <div className="landing-footer-links">
+              <a href="#hero" className="landing-footer-link">Home</a>
+              <a href="#about" className="landing-footer-link">About</a>
+              <a href="#features" className="landing-footer-link">Features</a>
+              <a href="#services" className="landing-footer-link">Services</a>
+              <a href="#contact" className="landing-footer-link">Contact</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="landing-footer-title">Services</h3>
+            <div className="landing-footer-links">
+              <a href="#" className="landing-footer-link">Financial Tracking</a>
+              <a href="#" className="landing-footer-link">Invoice Management</a>
+              <a href="#" className="landing-footer-link">Financial Reports</a>
+              <a href="#" className="landing-footer-link">Time Tracking</a>
+              <a href="#" className="landing-footer-link">Multi-Currency Support</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="landing-footer-title">Contact Us</h3>
+            <div className="landing-footer-links">
+              <p className="landing-footer-link">123 Finance Street</p>
+              <p className="landing-footer-link">Tunis, Tunisia</p>
+              <p className="landing-footer-link">Email: info@tunibalance.com</p>
+              <p className="landing-footer-link">Phone: +216 123 456 789</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="landing-footer-bottom">
+          <p>&copy; {new Date().getFullYear()} TuniBalance. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
 }
 
 export default Footer

@@ -9,17 +9,28 @@ export class MailService {
     constructor(private readonly configService: ConfigService) {}
 
     emailTransport() {
+      const host = this.configService.get<string>('EMAIL_HOST');
+      const port = this.configService.get<number>('EMAIL_PORT');
+      const user = this.configService.get<string>('EMAIL_USER');
+      const pass = this.configService.get<string>('EMAIL_PASSWORD');
+
+      Logger.log(`Creating email transport with: host=${host}, port=${port}, user=${user}`);
+
       const transporter = nodemailer.createTransport({
-        host: this.configService.get<string>('EMAIL_HOST'),
-        port: this.configService.get<number>('PORT'),
+        host: host,
+        port: port,
         secure: false,
         auth: {
-          user: this.configService.get<string>('EMAIL_USER'),
-          pass: this.configService.get<string>('EMAIL_PASSWORD'),
+          user: user,
+          pass: pass,
         },
       });
-  
+
       return transporter;
+    }
+
+    getEmailUser(): string {
+      return this.configService.get<string>('EMAIL_USER');
     }
     async sendPasswordResetEmail(to: string, token: string) {
       const transport = this.emailTransport();
@@ -47,7 +58,7 @@ export class MailService {
     //         subject: 'Password Reset Request',
     //         html: `<p>You requested a password reset. Click the link below to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`,
     //     };
-    
+
     //     try {
     //         const info = await this.transporter.sendMail(mailOptions);
     //         Logger.log('Email sent:', info);
@@ -56,8 +67,8 @@ export class MailService {
     //     }
     // }
 
-  
-    async sendVerificationEmail(email: string, token: string) { 
+
+    async sendVerificationEmail(email: string, token: string) {
         const transport = this.emailTransport();
         const confirmLink = `http://localhost:3001/auth/confirm-email?token=${token}`;
 
@@ -86,7 +97,7 @@ export class MailService {
       ) {
         const transport = this.emailTransport();
         const loginLink = `http://localhost:5173/login`;
-      
+
         const mailOptions: nodemailer.SendMailOptions = {
           from: this.configService.get<string>('EMAIL_USER'),
           to: staffEmail,
@@ -103,7 +114,7 @@ export class MailService {
             <p>Merci et bienvenue !</p>
           `,
         };
-      
+
         try {
           await transport.sendMail(mailOptions);
           Logger.log(`Email envoyé à ${staffEmail}`);
@@ -111,7 +122,7 @@ export class MailService {
           Logger.error('Erreur lors de l\'envoi de l\'email:', error);
         }
       }
-      
+
 
 
 

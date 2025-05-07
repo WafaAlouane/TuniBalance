@@ -23,7 +23,7 @@ export class Appointment {
   @Prop({ required: true })
   end: Date;
 
-  @Prop({ 
+  @Prop({
     enum: ['meeting', 'fiscal_deadline', 'client_meeting'],
     default: 'meeting'
   })
@@ -34,6 +34,12 @@ export class Appointment {
 
   @Prop({ default: 'pending' })
   status: string;
+
+  @Prop()
+  meetLink: string;
+
+  @Prop({ default: false })
+  sendEmailNotification: boolean;
 }
 
 export const AppointmentSchema = SchemaFactory.createForClass(Appointment);
