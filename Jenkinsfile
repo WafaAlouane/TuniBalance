@@ -1,13 +1,13 @@
 pipeline {
     agent any
     triggers {
-            githubPush() // Pour GitHub
-        }
+        githubPush()
+    }
     stages {
         stage('Clone Repository') {
             steps {
                 script {
-                    // Cloner le dépôt unique avec la branche correspondante
+                    // Clone the repository with the specified branch
                     git branch: "${env.BRANCH_NAME}", url: 'https://github.com/WafaAlouane/TuniBalance.git'
                 }
             }
@@ -17,6 +17,9 @@ pipeline {
             steps {
                 script {
                     dir('client') {
+                        // Clear old dependencies to avoid issues with optional dependencies
+                        sh 'rm -rf node_modules package-lock.json'
+                        // Install dependencies
                         sh 'npm install'
                     }
                 }
@@ -27,17 +30,23 @@ pipeline {
             steps {
                 script {
                     dir('server') {
+                        // Clear old dependencies
+                        sh 'rm -rf node_modules package-lock.json'
+                        // Install dependencies and fix vulnerabilities
                         sh 'npm install'
+                        sh 'npm audit fix'
                     }
                 }
             }
         }
 
-
         stage('Build application - Client') {
             steps {
                 script {
                     dir('client') {
+                        // Explicitly install Rollup binary to fix the missing module issue
+                        sh 'npm install @rollup/rollup-linux-x64-gnu --force'
+                        // Run the build command
                         sh 'npm run build'
                     }
                 }
@@ -48,38 +57,50 @@ pipeline {
             steps {
                 script {
                     dir('server') {
+                        // Run the build command
                         sh 'npm run build'
                     }
                 }
             }
         }
-         // Stage SonarQube pour le projet Client (React)
+
         stage('SonarQube Analysis - Client') {
             steps {
                 script {
-                    def scannerHome = tool 'scanner'  // Nom de l'outil SonarQube configuré dans Jenkins
-                    withSonarQubeEnv('SonarQube') { 
-                         withCredentials([string(credentialsId: 'scanner', variable: 'SONAR_TOKEN')]) {
+                    def scannerHome = tool 'scanner' // Ensure 'scanner' is configured in Jenkins
+                    withSonarQubeEnv('SonarQube') {
+                        withCredentials([string(credentialsId: 'scanner', variable: 'SONAR_TOKEN')]) {
                             sh "${scannerHome}/bin/sonar-scanner -Dsonar.token=${env.SONAR_TOKEN} -Dproject.settings=client/sonar-project.properties"
                         }
+                    }
                 }
             }
         }
-    }
-        // Stage SonarQube pour le projet Server (NestJS)
+
         stage('SonarQube Analysis - Server') {
             steps {
                 script {
-                    def scannerHome = tool 'scanner'  // Nom de l'outil SonarQube configuré dans Jenkins
-                    withSonarQubeEnv('SonarQube') { 
-                         withCredentials([string(credentialsId: 'scanner', variable: 'SONAR_TOKEN')]) {
+                    def scannerHome = tool 'scanner' // Ensure 'scanner' is configured in Jenkins
+                    withSonarQubeEnv('SonarQube') {
+                        withCredentials([string(credentialsId: 'scanner', variable: 'SONAR_TOKEN')]) {
                             sh "${scannerHome}/bin/sonar-scanner -Dsonar.token=${env.SONAR_TOKEN} -Dproject.settings=server/sonar-project.properties"
                         }
-                }
+                    }
                 }
             }
         }
     }
-
-  
+    post {
+        always {
+            // Clean up workspace to avoid clutter
+            cleanWs()
+        }
+        failure {
+            // Notify on failure (optional: configure email or Slack notifications)
+            echo 'Pipeline failed! Check the console output for details.'
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+    }
 }
