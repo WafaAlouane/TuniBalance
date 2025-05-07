@@ -22,6 +22,13 @@ import { ImmobilisationModule } from './immobilisation/immobilisation.module';
 import { AmortissementModule } from './amortissement/amortissement.module';
 import { EmpruntModule } from './emprunt/emprunt.module';
 import { PaiementModule } from './paiement/paiement.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { WebSocketGateway } from '@nestjs/websockets';
+
+import { FriendRequestsModule } from './friend-request/friend-request.module';
+import { PrivateMessagesModule } from './private-messages/private-messages.module';
+import { MessagesGateway } from './private-messages/messages.gateway';
+import { AppointmentsModule } from './appointments/appointments.module';
 
 @Module({
   imports: [
@@ -30,7 +37,10 @@ import { PaiementModule } from './paiement/paiement.module';
       cache: true,
       load: [config],
     }),
-
+    EventEmitterModule.forRoot({
+      wildcard: true,
+      delimiter: ':'
+    }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (config) => ({
@@ -58,8 +68,12 @@ import { PaiementModule } from './paiement/paiement.module';
     AmortissementModule,
     EmpruntModule,
     PaiementModule,
+    FriendRequestsModule,
+    PrivateMessagesModule,
+    AppointmentsModule
   ],
   controllers: [AppController, SmsController],
-  providers: [AppService, SmsService, TwoFactorService],
+  providers: [AppService, SmsService, TwoFactorService,MessagesGateway],
+  exports: [ ConfigModule, MongooseModule ],
 })
 export class AppModule {}

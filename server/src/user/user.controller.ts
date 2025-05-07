@@ -1,4 +1,4 @@
-import { Controller, Get,Delete, Param, UseGuards, NotFoundException } from '@nestjs/common';
+import { Controller, Get,Delete, Param, UseGuards, NotFoundException, Query } from '@nestjs/common';
 import { Permissions} from '../auth/decorators/permissions.decorator';
 import { UsersService } from './user.service';
 import { AuthGuard } from '../guards/auth.guard';
@@ -16,7 +16,23 @@ export class UsersController {
   async getAllUsers() {
     return this.usersService.findAll();
   }
-
+  @Get('search')
+  @UseGuards(AuthGuard)
+  async searchUsers(@Query('term') term: string) {
+    return this.usersService.searchByName(term);
+  }
+  @Get(':id')
+@UseGuards(AuthGuard)
+async getUserById(@Param('id') id: string) {
+  try {
+    return await this.usersService.findById(id);
+  } catch (error) {
+    if (error instanceof NotFoundException) {
+      throw new NotFoundException(error.message);
+    }
+    throw error;
+  }
+}
   @Delete(':id')
   @Roles(UserRole.ADMIN) // Seul l'admin peut supprimer un utilisateur
   @UseGuards(AuthGuard, RolesGuard)

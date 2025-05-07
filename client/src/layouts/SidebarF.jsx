@@ -43,7 +43,7 @@ function SidebarF() {
     {
       to: "/layoutfinancier",
       icon: <FiDollarSign className="mr-3 text-lg" />,
-      label: "Gestion Financière"
+      label: "Financial Management"
     },
     {
       to: "/reports",
@@ -63,8 +63,19 @@ function SidebarF() {
     {
       to: "/profile",
       icon: <FiUser className="mr-3 text-lg" />,
-      label: "Mon Profil"
-    }
+      label: "My profile"
+    },
+    {
+      to: "/friend-requests",
+      icon: <FiCreditCard className="mr-3 text-lg" />,
+      label: "Friend Requests"
+    },
+    {
+      to: "/send-friend-request",
+      icon: <FiUser className="mr-3 text-lg" />,
+      label: "Send Friend Request"
+    },
+    
   ];
 
   return (
@@ -115,7 +126,7 @@ function SidebarF() {
               className="w-full flex items-center px-4 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
             >
               <FiLogOut className="mr-3 text-lg" />
-              <span>Déconnexion</span>
+              <span>Logout</span>
             </button>
           </div>
         ) : (

@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/theme-context";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Statistiques from "./pages/Stat"
 
 import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
@@ -22,9 +23,17 @@ import ViewBO from "./pages/viewBO";
 import ForgetPassword from "./pages/ForgetPassword";
 import AffTransaction from './pages/Transaction/Afftransaction'; // Importer la page AffTransaction
 
+import Notifications from "@/pages/friends/Notifications"
+import SendFriendRequest from "@/pages/friends/SendFriendRequest"
+import UserSearch from "@/pages/friends/UserSearch"
+import FriendRequestList from "./pages/friends/FriendRequestList"
+
+import LayoutFacture from "./routes/layoutFacture"
+import PrivateMessageChat from "./pages/privatemessages/PrivateMessageChat"
+import AppointmentForm from '../../client/src/pages/BusinessCalendar';
+import Appointment from '../../client/src/pages/AppointmentForm';
 
 
-import LayoutFacture from "./routes/layoutFacture";
 
 const router = createBrowserRouter([
     {
@@ -68,7 +77,19 @@ const router = createBrowserRouter([
       element: <ForgetPassword />,
   },
 
-
+  {
+    path: "/friend-requests",
+    element: <FriendRequestList />,
+  },
+  
+  {
+    path: "/private-chat/:userId",
+    element: <PrivateMessageChat />,
+  },
+  {
+    path: "/send-friend-request",
+    element: <SendFriendRequest />,
+  },
 
   {
       path: "/financier",
@@ -87,7 +108,12 @@ const router = createBrowserRouter([
         { path: "new-product", element: <h1 className="title">New Product</h1> },
         { path: "inventory", element: <h1 className="title">Inventory</h1> },
         { path: "settings", element: <h1 className="title">Settings</h1> },
-
+        { path: "friend-requests", element: <FriendRequestList /> },
+        { path: "send-friend-request", element: <SendFriendRequest /> },
+        { path: "notifications", element: <Notifications /> },
+        { path: "user-search", element: <UserSearch /> },
+        { path: "Appointment", element: <AppointmentForm /> },
+        { path: "Ajoutterappoint", element: <Appointment /> },
 
 
     ],
@@ -110,6 +136,12 @@ const router = createBrowserRouter([
         { path: "new-product", element: <h1 className="title">New Product</h1> },
         { path: "inventory", element: <h1 className="title">Inventory</h1> },
         { path: "settings", element: <h1 className="title">Settings</h1> },
+        { path: "friend-requests", element: <FriendRequestList /> },
+      { path: "send-friend-request", element: <SendFriendRequest /> },
+      { path: "notifications", element: <Notifications /> },
+      { path: "user-search", element: <UserSearch /> },
+      { path: "Appointment", element: <AppointmentForm /> },
+      { path: "Ajoutterappoint", element: <Appointment /> },
     ],
   },
 
@@ -126,7 +158,13 @@ const router = createBrowserRouter([
           { path: "change-password", element: <ChangePassword /> },
           { path: "forget-password", element: <ForgetPassword /> },
           { path: "transactions", element: <AffTransaction /> },
-
+          { path: "friend-requests", element: <FriendRequestList /> },
+          { path: "send-friend-request", element: <SendFriendRequest /> },
+          { path: "notifications", element: <Notifications /> },
+          { path: "user-search", element: <UserSearch /> },
+          { path: "stat", element: <Statistiques /> },
+          { path: "Appointment", element: <AppointmentForm /> },
+          { path: "Ajoutterappoint", element: <Appointment /> },
 
       ],
   },

@@ -32,8 +32,20 @@ export const Sidebar = forwardRef(({ collapsed }, ref) => {
                 { label: "Settings", path: "/settings", icon: FaCog },
             ],
         },
+        {
+            title: "Friend Requests",
+            links: [
+                { label: "Friend Requests", path: "/friend-requests", icon: FaCog },
+            ],
+        },
+        {
+            title: "Send Friend Request",
+            links: [
+                { label: "Send Friend Request", path: "/send-friend-request", icon: FaCog },
+            ],
+        },
     ];
-
+ 
     return (
         <aside
             ref={ref}

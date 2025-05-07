@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Bell, ChevronsLeft, Search } from "lucide-react";
 import profileImg from "@/assets/profile-image.jpg";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export const HeaderF = ({ collapsed, setCollapsed, onFactureClientClick }) => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -29,7 +30,7 @@ export const HeaderF = ({ collapsed, setCollapsed, onFactureClientClick }) => {
                         className="w-full bg-transparent text-white outline-0 placeholder:text-white"
                     />
                 </div>
-
+                
                
             </div>
             <div className="flex items-center gap-x-3">

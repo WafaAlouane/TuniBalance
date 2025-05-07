@@ -121,6 +121,11 @@ export class TransactionsController {
   getCompteResultat() {
       return this.transactionsService.getCompteResultat();
   }
+// Nouvelle méthode dans TransactionsController
+@Get('monthly-stats')
+async getMonthlyStats() {
+  return this.transactionsService.getMonthlyStats();
+}
 
   // Endpoint to get a specific transaction by its ID
   @Get(':id')

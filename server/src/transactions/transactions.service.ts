@@ -105,7 +105,37 @@ export class TransactionsService {
 
     return this.transactionModel.find(query).exec();
   }
-
+  async getMonthlyStats() {
+    const results = await this.transactionModel.aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: "$date_transaction" },
+            month: { $month: "$date_transaction" }
+          },
+          charges: { 
+            $sum: { 
+              $cond: [{ $eq: ["$categorie", TypeTransaction.CHARGE] }, "$montant", 0] 
+            } 
+          },
+          produits: { 
+            $sum: { 
+              $cond: [{ $eq: ["$categorie", TypeTransaction.PRODUIT] }, "$montant", 0] 
+            } 
+          }
+        }
+      },
+      { 
+        $sort: { "_id.year": 1, "_id.month": 1 } 
+      }
+    ]);
+  
+    return results.map(item => ({
+      date: new Date(item._id.year, item._id.month - 1).toISOString(),
+      charges: item.charges,
+      produits: item.produits
+    }));
+  }
   async getCompteResultat(): Promise<CompteResultat> {
     const transactions = await this.transactionModel.find().exec();
 
@@ -185,4 +215,6 @@ export class TransactionsService {
   }
 }
   
+  
+
   

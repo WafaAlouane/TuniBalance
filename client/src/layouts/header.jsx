@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Bell, ChevronsLeft, Search } from "lucide-react";
 import profileImg from "@/assets/profile-image.jpg";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export const Header = ({ collapsed, setCollapsed, onFactureClientClick }) => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -57,6 +58,20 @@ export const Header = ({ collapsed, setCollapsed, onFactureClientClick }) => {
                         </div>
                     )}
                 </div>
+            </div>
+            <div className="flex items-center gap-x-3">
+              
+                
+                <button className="btn-ghost size-10">
+                    <Bell size={20} className="text-white" />
+                </button>
+                <button className="size-10 overflow-hidden rounded-full">
+                    <img
+                        src={profileImg}
+                        alt="profile image"
+                        className="size-full object-cover"
+                    />
+                </button>
             </div>
             <div className="flex items-center gap-x-3">
                 <button className="btn-ghost size-10">

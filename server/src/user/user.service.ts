@@ -26,7 +26,11 @@ export class UsersService {
       await admin.save();
     }
   }
-
+  async searchByName(term: string) {
+    return this.userModel.find({
+      name: { $regex: new RegExp(term, 'i') } // recherche insensible à la casse
+    });
+  }
   async create(userData: {
     name: string;
     password: string;

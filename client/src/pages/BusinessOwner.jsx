@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
@@ -8,6 +8,16 @@ import Sidebar from '../components/admin/Sidebar';
 import Footer from '../components/admin/Footer';
 import { FiSearch, FiChevronLeft, FiChevronRight, FiDollarSign, FiCreditCard, FiActivity, FiCalendar } from 'react-icons/fi';
 
+import { Pie, Bar } from "react-chartjs-2";
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement } from "chart.js";
+import LayoutCompteRes from '../routes/LayoutCompteRes';
+import LayoutBilan from '../routes/LayoutBilan';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import html2canvas from "html2canvas";
+import axios from 'axios';
+import  statistiques from '../pages/Stat';
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement);
 function BusinessOwner() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,6 +29,13 @@ function BusinessOwner() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 6;
+
+  const [generating, setGenerating] = useState(false);
+  const tableRef = useRef();
+    const [facturesClient, setFacturesClient] = useState([]);
+  const [facturesFournisseur, setFacturesFournisseur] = useState([]);
+  const [journal, setJournal] = useState(null);
+  const [loadingJournal, setLoadingJournal] = useState(true);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -70,7 +87,22 @@ function BusinessOwner() {
       t.status?.toLowerCase().includes(searchTerm.toLowerCase())
     ).length / transactionsPerPage
   );
-
+  useEffect(() => {
+    const fetchJournal = async () => {
+      try {
+        setLoadingJournal(true);
+        const response = await axios.get(`${API_URL}`);
+        setJournal(response.data);
+        setError('');
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoadingJournal(false);
+      }
+    };
+    
+    fetchJournal();
+  }, []);
   const getCardColor = (type) => {
     switch(type) {
       case 'credit': return 'from-green-600 to-green-800';
@@ -324,6 +356,17 @@ function BusinessOwner() {
           </div>
 
           <Outlet />
+          {/* Section Compte Résultat */}
+          <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+            <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Compte Résultat</h2>
+            <LayoutCompteRes />
+          </div>
+
+          {/* Section Bilan */}
+          <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
+            <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">Bilan</h2>
+            <LayoutBilan />
+          </div>
         </main>
 
         <Footer />

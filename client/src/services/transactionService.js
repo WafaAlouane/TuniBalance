@@ -35,3 +35,23 @@ export const getAllTransactions = async () => {
     throw new Error(errorMessage);
   }
 };
+export const getCompteResultat = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/transactions/compte-resultat');
+    console.log("Données reçues de l'API :", response.data);
+    return response.data; // Doit être un objet contenant les champs requis
+  } catch (error) {
+    console.error("Erreur lors de la récupération du compte de résultat :", error);
+    throw error;
+  }
+};
+
+export const getMonthlyStats = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/transactions/monthly-stats');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching monthly stats:', error);
+    throw error;
+  }
+};

@@ -64,9 +64,47 @@ function Sidebar() {
               <FiDollarSign className="mr-3 text-lg" />
               <span className="font-medium">View Transactions</span>
             </Link>
+            <Link 
+      to="/BusinessOwner/Appointment" 
+      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+    >
+      <span className="font-medium">Calender</span>
+    </Link>
+    <Link 
+      to="/BusinessOwner/Ajoutterappoint" 
+      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+    >
+      <span className="font-medium">Appointments</span>
+    </Link>
+            <Link 
+      to="/BusinessOwner/stat" 
+      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+    >
+      <span className="font-medium">Statistiques</span>
+    </Link>
           </>
         )}
+{user && (
+  <>
+    
 
+    <Link 
+      to="/BusinessOwner/friend-requests" 
+      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+    >
+      <span className="font-medium">Friend Requests</span>
+    </Link>
+   
+    <Link 
+      to="/BusinessOwner/send-friend-request" 
+      className="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+    >
+      <span className="font-medium">Send Friend Request</span>
+    </Link>
+
+    
+  </>
+)}
           {/* Logout Button */}
       {user && (
         <div className="p-4 border-t border-gray-700">
