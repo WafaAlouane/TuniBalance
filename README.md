@@ -2,7 +2,7 @@
 
 TuniBalance is a comprehensive financial management system designed to help businesses track transactions, manage revenues, generate financial reports, and analyze financial performance.
 
-![TuniBalance Logo](client/public/assets/img/logo.png)
+![TuniBalance Logo](client/public/assets/img/logo.webp)
 
 ## Table of Contents
 
