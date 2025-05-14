@@ -482,19 +482,25 @@ const Layout = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-100 dark:bg-slate-950 transition-colors">
+    <div className="flex min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-950 transition-colors perspective-1000">
       <aside
         className={cn(
-          "fixed z-40 h-full transition-all duration-300",
+          "fixed z-40 h-full transition-all duration-300 shadow-2xl",
           collapsed ? "w-[70px]" : "w-[240px]"
         )}
+        style={{
+          transform: "translateZ(0)",
+          backfaceVisibility: "hidden",
+          willChange: "transform",
+          boxShadow: "0 0 20px rgba(0, 0, 0, 0.1)"
+        }}
       >
         <SidebarF collapsed={collapsed} />
       </aside>
 
       <div
         className={cn(
-          "fixed inset-0 z-30 bg-black opacity-0 transition-opacity pointer-events-none",
+          "fixed inset-0 z-30 bg-black opacity-0 transition-opacity pointer-events-none backdrop-blur-sm",
           !collapsed && "max-md:pointer-events-auto max-md:opacity-30"
         )}
       />
@@ -504,24 +510,37 @@ const Layout = () => {
           "flex flex-col flex-1 transition-all duration-300 ml-0",
           isDesktop && (collapsed ? "md:ml-[70px]" : "md:ml-[240px]")
         )}
+        style={{
+          transform: "translateZ(0)",
+          backfaceVisibility: "hidden",
+          willChange: "transform"
+        }}
       >
         <HeaderF collapsed={collapsed} setCollapsed={setCollapsed} />
 
-        <main className="flex-1 px-6 py-8 bg-slate-50 dark:bg-slate-900 space-y-8">
-          <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-semibold text-slate-800 dark:text-white">
-              Financial Management
+        <main className="flex-1 px-6 py-8 bg-gradient-to-br from-slate-50/90 to-slate-100/90 dark:from-slate-900/90 dark:to-slate-800/90 space-y-8 backdrop-blur-sm">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/30 dark:bg-slate-800/30 p-6 rounded-xl backdrop-blur-md shadow-lg transform hover:shadow-xl transition-all duration-300 border border-white/20 dark:border-slate-700/20">
+            <h1 className="text-3xl font-semibold text-slate-800 dark:text-white relative">
+              <span className="relative z-10">Financial Management</span>
+              <span className="absolute -bottom-1 left-0 w-1/3 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></span>
             </h1>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => {
                   setShowEmpruntForm(!showEmpruntForm);
                   setShowImmobilisationForm(false);
                   setShowPaiementForm(false);
                 }}
-                className={`px-4 py-2 ${showEmpruntForm ? 'bg-gray-600 hover:bg-gray-700' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded shadow`}
+                className={`px-5 py-2.5 ${
+                  showEmpruntForm
+                    ? 'bg-gray-600 hover:bg-gray-700'
+                    : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700'
+                } text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium flex items-center gap-2`}
+                style={{
+                  transform: showEmpruntForm ? "translateZ(5px)" : "translateZ(0)",
+                }}
               >
-                {showEmpruntForm ? 'Annuler' : 'Ajouter un emprunt'}
+                <span className="relative">{showEmpruntForm ? 'Annuler' : 'Ajouter un emprunt'}</span>
               </button>
               <button
                 onClick={() => {
@@ -529,9 +548,16 @@ const Layout = () => {
                   setShowEmpruntForm(false);
                   setShowPaiementForm(false);
                 }}
-                className={`px-4 py-2 ${showImmobilisationForm ? 'bg-gray-600 hover:bg-gray-700' : 'bg-green-600 hover:bg-green-700'} text-white rounded shadow`}
+                className={`px-5 py-2.5 ${
+                  showImmobilisationForm
+                    ? 'bg-gray-600 hover:bg-gray-700'
+                    : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+                } text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium flex items-center gap-2`}
+                style={{
+                  transform: showImmobilisationForm ? "translateZ(5px)" : "translateZ(0)",
+                }}
               >
-                {showImmobilisationForm ? 'Annuler' : 'Ajouter une immobilisation'}
+                <span className="relative">{showImmobilisationForm ? 'Annuler' : 'Ajouter une immobilisation'}</span>
               </button>
               <button
                 onClick={() => {
@@ -539,9 +565,16 @@ const Layout = () => {
                   setShowEmpruntForm(false);
                   setShowImmobilisationForm(false);
                 }}
-                className={`px-4 py-2 ${showPaiementForm ? 'bg-gray-600 hover:bg-gray-700' : 'bg-purple-600 hover:bg-purple-700'} text-white rounded shadow`}
+                className={`px-5 py-2.5 ${
+                  showPaiementForm
+                    ? 'bg-gray-600 hover:bg-gray-700'
+                    : 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700'
+                } text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium flex items-center gap-2`}
+                style={{
+                  transform: showPaiementForm ? "translateZ(5px)" : "translateZ(0)",
+                }}
               >
-                {showPaiementForm ? 'Annuler' : 'Ajouter un paiement'}
+                <span className="relative">{showPaiementForm ? 'Annuler' : 'Ajouter un paiement'}</span>
               </button>
             </div>
           </div>
@@ -549,39 +582,102 @@ const Layout = () => {
           {message && (
             <div
               className={cn(
-                "px-4 py-3 rounded-lg font-medium shadow text-white",
-                message.type === "success" ? "bg-green-600" : "bg-red-600"
+                "px-6 py-4 rounded-xl font-medium shadow-lg text-white backdrop-blur-sm animate-fadeIn",
+                message.type === "success"
+                  ? "bg-gradient-to-r from-green-500/90 to-emerald-600/90 border border-green-400/20"
+                  : "bg-gradient-to-r from-red-500/90 to-rose-600/90 border border-red-400/20"
               )}
+              style={{
+                transform: "translateZ(10px)",
+                animation: "slideIn 0.3s ease-out forwards"
+              }}
             >
-              {message.text}
+              <div className="flex items-center gap-3">
+                <div className={cn(
+                  "w-8 h-8 rounded-full flex items-center justify-center",
+                  message.type === "success" ? "bg-green-400/30" : "bg-red-400/30"
+                )}>
+                  {message.type === "success" ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </div>
+                <span>{message.text}</span>
+              </div>
             </div>
           )}
 
           {/* Emprunt Form */}
           {showEmpruntForm && (
-            <div className="mt-6 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-200 dark:border-slate-700">
-              <h2 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4 border-b pb-2 border-blue-200 dark:border-blue-700">
-                Ajouter un nouvel emprunt
-              </h2>
+            <div
+              className="mt-6 bg-white/80 dark:bg-slate-800/80 rounded-xl shadow-xl p-8 border border-white/50 dark:border-slate-700/50 backdrop-blur-md transform transition-all duration-300"
+              style={{
+                transform: "translateZ(20px) perspective(1000px)",
+                boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05)",
+                animation: "fadeIn 0.5s ease-out forwards"
+              }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                    <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400 relative">
+                  <span className="relative z-10">Ajouter un nouvel emprunt</span>
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-blue-300 rounded-full"></span>
+                </h2>
+              </div>
+              <div className="border-b border-blue-200/30 dark:border-blue-700/30 mb-6"></div>
 
               <form onSubmit={handleEmpruntSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Intitulé */}
-                  <div>
-                    <label htmlFor="intitule" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                      Intitulé <span className="text-red-500">*</span>
+                  <div className="transform transition-all duration-200 hover:translate-z-2">
+                    <label htmlFor="intitule" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 flex items-center">
+                      <span className="relative">
+                        Intitulé <span className="text-red-500">*</span>
+                        <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-blue-500/30 rounded-full"></span>
+                      </span>
                     </label>
-                    <input
-                      type="text"
-                      id="intitule"
-                      name="intitule"
-                      value={empruntFormData.intitule}
-                      onChange={handleEmpruntInputChange}
-                      className={`w-full px-3 py-2 border ${empruntErrors.intitule ? 'border-red-500' : 'border-slate-300 dark:border-slate-600'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white`}
-                      placeholder="Ex: Emprunt pour achat de matériel"
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        id="intitule"
+                        name="intitule"
+                        value={empruntFormData.intitule}
+                        onChange={handleEmpruntInputChange}
+                        className={`w-full px-4 py-3 border-2 ${
+                          empruntErrors.intitule
+                            ? 'border-red-500 focus:border-red-500'
+                            : 'border-slate-200 dark:border-slate-700 focus:border-blue-500 dark:focus:border-blue-400'
+                        } rounded-lg shadow-sm focus:outline-none focus:ring-0 dark:bg-slate-800/50 dark:text-white backdrop-blur-sm transition-all duration-200`}
+                        placeholder="Ex: Emprunt pour achat de matériel"
+                        style={{
+                          transform: "translateZ(0)",
+                          boxShadow: empruntErrors.intitule
+                            ? "0 0 0 1px rgba(239, 68, 68, 0.2)"
+                            : "0 2px 4px rgba(0, 0, 0, 0.05)"
+                        }}
+                      />
+                      <div className="absolute inset-0 rounded-lg pointer-events-none" style={{
+                        boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.1)",
+                        zIndex: 2
+                      }}></div>
+                    </div>
                     {empruntErrors.intitule && (
-                      <p className="mt-1 text-sm text-red-500">{empruntErrors.intitule}</p>
+                      <p className="mt-2 text-sm text-red-500 flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        {empruntErrors.intitule}
+                      </p>
                     )}
                   </div>
 
@@ -719,19 +815,37 @@ const Layout = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+                <div className="flex justify-end space-x-4 pt-6 border-t border-slate-200/50 dark:border-slate-700/50 mt-6">
                   <button
                     type="button"
                     onClick={() => setShowEmpruntForm(false)}
-                    className="px-4 py-2 bg-slate-300 hover:bg-slate-400 text-slate-800 rounded shadow"
+                    className="px-6 py-3 bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium border border-slate-200 dark:border-slate-600"
+                    style={{
+                      transform: "translateZ(5px)",
+                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+                    }}
                   >
-                    Annuler
+                    <span className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                      Annuler
+                    </span>
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded shadow"
+                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium"
+                    style={{
+                      transform: "translateZ(10px)",
+                      boxShadow: "0 4px 6px -1px rgba(59, 130, 246, 0.5), 0 2px 4px -1px rgba(59, 130, 246, 0.06)"
+                    }}
                   >
-                    Enregistrer
+                    <span className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Enregistrer
+                    </span>
                   </button>
                 </div>
               </form>
@@ -1761,7 +1875,7 @@ const Layout = () => {
               immobilisations={immobilisations}
             />
           )}
-  
+
                             <div className="bg-slate-800 p-6 rounded-lg shadow-md mt-6">
                                 <h2 className="text-xl font-semibold text-yellow-500 mb-4 text-center">KPI</h2>
                                 <LayoutKpi />
