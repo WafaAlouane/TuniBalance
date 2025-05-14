@@ -1,0 +1,329 @@
+/* Landing Page Styles */
+
+/* Base Styles */
+.landing-section {
+  @apply py-16 md:py-24;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-center;
+}
+
+.section-subtitle {
+  @apply text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 text-center max-w-3xl mx-auto;
+}
+
+/* Header Styles */
+.landing-header {
+  @apply fixed top-0 left-0 w-full bg-white dark:bg-dark-900 z-50 shadow-md transition-all duration-300;
+}
+
+.landing-header.scrolled {
+  @apply shadow-lg;
+}
+
+.landing-nav {
+  @apply flex items-center justify-between py-4 px-6 md:px-8 lg:px-12;
+}
+
+.landing-logo {
+  @apply text-2xl font-bold text-primary-600 dark:text-primary-400;
+}
+
+.landing-menu {
+  @apply hidden md:flex items-center space-x-8;
+}
+
+.landing-menu-item {
+  @apply text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors;
+}
+
+.landing-menu-item.active {
+  @apply text-primary-600 dark:text-primary-400 font-medium;
+}
+
+.landing-mobile-menu-button {
+  @apply md:hidden text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors;
+}
+
+.landing-mobile-menu {
+  @apply fixed inset-0 bg-white dark:bg-dark-900 z-50 flex flex-col p-6 md:hidden;
+}
+
+.landing-mobile-menu-close {
+  @apply self-end text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors;
+}
+
+.landing-mobile-menu-items {
+  @apply flex flex-col items-center justify-center space-y-6 h-full;
+}
+
+.landing-cta {
+  @apply hidden md:flex items-center space-x-4;
+}
+
+.landing-button {
+  @apply px-6 py-2 rounded-full font-medium transition-all duration-300;
+}
+
+.landing-button-primary {
+  @apply bg-primary-600 hover:bg-primary-700 text-white shadow-md hover:shadow-lg;
+}
+
+.landing-button-secondary {
+  @apply bg-white hover:bg-gray-100 dark:bg-dark-800 dark:hover:bg-dark-700 text-primary-600 dark:text-primary-400 border border-primary-600 dark:border-primary-400;
+}
+
+/* Hero Section */
+.landing-hero {
+  @apply pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-900 dark:to-dark-800 relative overflow-hidden;
+}
+
+.landing-hero-content {
+  @apply flex flex-col md:flex-row items-center justify-between gap-12;
+}
+
+.landing-hero-text {
+  @apply flex-1 text-center md:text-left;
+}
+
+.landing-hero-title {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6;
+}
+
+.landing-hero-subtitle {
+  @apply text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl;
+}
+
+.landing-hero-buttons {
+  @apply flex flex-col sm:flex-row items-center gap-4;
+}
+
+.landing-hero-image {
+  @apply flex-1 flex justify-center items-center;
+}
+
+.landing-hero-img {
+  @apply w-full max-w-lg mx-auto md:mx-0 rounded-lg shadow-xl transition-all duration-500;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+}
+
+.landing-hero-img:hover {
+  filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+}
+
+/* Features Section */
+.landing-features {
+  @apply bg-white dark:bg-dark-900;
+}
+
+.landing-features-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12;
+}
+
+.landing-feature-card {
+  @apply bg-gray-50 dark:bg-dark-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow;
+}
+
+.landing-feature-icon {
+  @apply w-12 h-12 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-4;
+}
+
+.landing-feature-title {
+  @apply text-xl font-semibold mb-3 text-gray-900 dark:text-white;
+}
+
+.landing-feature-description {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+/* About Section */
+.landing-about {
+  @apply bg-gray-50 dark:bg-dark-800;
+}
+
+.landing-about-content {
+  @apply flex flex-col md:flex-row items-center gap-12;
+}
+
+.landing-about-image {
+  @apply flex-1;
+}
+
+.landing-about-img {
+  @apply w-full max-w-lg mx-auto md:mx-0 rounded-lg shadow-xl;
+}
+
+.landing-about-text {
+  @apply flex-1;
+}
+
+.landing-about-title {
+  @apply text-3xl font-bold mb-6 text-gray-900 dark:text-white;
+}
+
+.landing-about-description {
+  @apply text-gray-600 dark:text-gray-300 mb-6;
+}
+
+/* Services Section */
+.landing-services {
+  @apply bg-white dark:bg-dark-900;
+}
+
+.landing-services-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12;
+}
+
+.landing-service-card {
+  @apply bg-gray-50 dark:bg-dark-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow;
+}
+
+.landing-service-icon {
+  @apply w-12 h-12 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mb-4;
+}
+
+.landing-service-title {
+  @apply text-xl font-semibold mb-3 text-gray-900 dark:text-white;
+}
+
+.landing-service-description {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+/* Team Section */
+.landing-team {
+  @apply bg-gray-50 dark:bg-dark-800;
+}
+
+.landing-team-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12;
+}
+
+.landing-team-card {
+  @apply bg-white dark:bg-dark-900 rounded-xl shadow-md overflow-hidden;
+}
+
+.landing-team-image {
+  @apply w-full h-64 object-cover;
+}
+
+.landing-team-info {
+  @apply p-6;
+}
+
+.landing-team-name {
+  @apply text-xl font-semibold mb-1 text-gray-900 dark:text-white;
+}
+
+.landing-team-position {
+  @apply text-gray-600 dark:text-gray-300 mb-4;
+}
+
+.landing-team-social {
+  @apply flex items-center gap-4;
+}
+
+.landing-team-social-icon {
+  @apply text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors;
+}
+
+/* Contact Section */
+.landing-contact {
+  @apply bg-white dark:bg-dark-900;
+}
+
+.landing-contact-content {
+  @apply flex flex-col lg:flex-row gap-12;
+}
+
+.landing-contact-info {
+  @apply flex-1;
+}
+
+.landing-contact-title {
+  @apply text-3xl font-bold mb-6 text-gray-900 dark:text-white;
+}
+
+.landing-contact-description {
+  @apply text-gray-600 dark:text-gray-300 mb-8;
+}
+
+.landing-contact-items {
+  @apply space-y-6;
+}
+
+.landing-contact-item {
+  @apply flex items-start gap-4;
+}
+
+.landing-contact-icon {
+  @apply w-10 h-10 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center flex-shrink-0;
+}
+
+.landing-contact-text {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+.landing-contact-form {
+  @apply flex-1 bg-gray-50 dark:bg-dark-800 p-8 rounded-xl shadow-md;
+}
+
+.landing-form-group {
+  @apply mb-6;
+}
+
+.landing-form-label {
+  @apply block text-gray-700 dark:text-gray-300 mb-2;
+}
+
+.landing-form-input {
+  @apply w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+}
+
+.landing-form-textarea {
+  @apply w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent h-32 resize-none;
+}
+
+/* Footer */
+.landing-footer {
+  @apply bg-gray-900 dark:bg-dark-950 text-white py-12;
+}
+
+.landing-footer-content {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8;
+}
+
+.landing-footer-logo {
+  @apply text-2xl font-bold text-white mb-4;
+}
+
+.landing-footer-description {
+  @apply text-gray-400 mb-6;
+}
+
+.landing-footer-social {
+  @apply flex items-center gap-4;
+}
+
+.landing-footer-social-icon {
+  @apply text-gray-400 hover:text-primary-400 transition-colors;
+}
+
+.landing-footer-title {
+  @apply text-lg font-semibold mb-4 text-white;
+}
+
+.landing-footer-links {
+  @apply space-y-3;
+}
+
+.landing-footer-link {
+  @apply text-gray-400 hover:text-primary-400 transition-colors;
+}
+
+.landing-footer-bottom {
+  @apply mt-12 pt-6 border-t border-gray-800 text-center text-gray-500;
+}

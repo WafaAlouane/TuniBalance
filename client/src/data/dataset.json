@@ -1,0 +1,160 @@
+{
+  "emprunts_historiques": [
+    {
+      "annee": 2018,
+      "montant_total": 150000,
+      "taux_moyen": 5.2,
+      "duree_moyenne": 7,
+      "remboursement_annuel": 24500,
+      "taux_defaut": 0.5
+    },
+    {
+      "annee": 2019,
+      "montant_total": 180000,
+      "taux_moyen": 5.0,
+      "duree_moyenne": 8,
+      "remboursement_annuel": 28000,
+      "taux_defaut": 0.8
+    },
+    {
+      "annee": 2020,
+      "montant_total": 160000,
+      "taux_moyen": 4.8,
+      "duree_moyenne": 7,
+      "remboursement_annuel": 26500,
+      "taux_defaut": 1.2
+    },
+    {
+      "annee": 2021,
+      "montant_total": 200000,
+      "taux_moyen": 4.5,
+      "duree_moyenne": 9,
+      "remboursement_annuel": 30000,
+      "taux_defaut": 0.9
+    },
+    {
+      "annee": 2022,
+      "montant_total": 220000,
+      "taux_moyen": 4.2,
+      "duree_moyenne": 10,
+      "remboursement_annuel": 32000,
+      "taux_defaut": 0.7
+    },
+    {
+      "annee": 2023,
+      "montant_total": 250000,
+      "taux_moyen": 4.0,
+      "duree_moyenne": 10,
+      "remboursement_annuel": 35000,
+      "taux_defaut": 0.6
+    }
+  ],
+  "immobilisations_historiques": [
+    {
+      "annee": 2018,
+      "valeur_acquisition_totale": 300000,
+      "duree_amortissement_moyenne": 8,
+      "amortissement_annuel": 37500,
+      "valeur_residuelle_moyenne": 0.15
+    },
+    {
+      "annee": 2019,
+      "valeur_acquisition_totale": 320000,
+      "duree_amortissement_moyenne": 8,
+      "amortissement_annuel": 40000,
+      "valeur_residuelle_moyenne": 0.15
+    },
+    {
+      "annee": 2020,
+      "valeur_acquisition_totale": 280000,
+      "duree_amortissement_moyenne": 7,
+      "amortissement_annuel": 40000,
+      "valeur_residuelle_moyenne": 0.12
+    },
+    {
+      "annee": 2021,
+      "valeur_acquisition_totale": 350000,
+      "duree_amortissement_moyenne": 9,
+      "amortissement_annuel": 38900,
+      "valeur_residuelle_moyenne": 0.10
+    },
+    {
+      "annee": 2022,
+      "valeur_acquisition_totale": 380000,
+      "duree_amortissement_moyenne": 10,
+      "amortissement_annuel": 38000,
+      "valeur_residuelle_moyenne": 0.10
+    },
+    {
+      "annee": 2023,
+      "valeur_acquisition_totale": 400000,
+      "duree_amortissement_moyenne": 10,
+      "amortissement_annuel": 40000,
+      "valeur_residuelle_moyenne": 0.08
+    }
+  ],
+  "indicateurs_economiques": [
+    {
+      "annee": 2018,
+      "inflation": 7.3,
+      "croissance_pib": 2.5,
+      "taux_directeur": 6.75
+    },
+    {
+      "annee": 2019,
+      "inflation": 6.7,
+      "croissance_pib": 1.0,
+      "taux_directeur": 7.75
+    },
+    {
+      "annee": 2020,
+      "inflation": 5.6,
+      "croissance_pib": -8.8,
+      "taux_directeur": 6.25
+    },
+    {
+      "annee": 2021,
+      "inflation": 5.7,
+      "croissance_pib": 3.1,
+      "taux_directeur": 6.25
+    },
+    {
+      "annee": 2022,
+      "inflation": 8.3,
+      "croissance_pib": 2.4,
+      "taux_directeur": 7.0
+    },
+    {
+      "annee": 2023,
+      "inflation": 9.3,
+      "croissance_pib": 0.4,
+      "taux_directeur": 8.0
+    }
+  ],
+  "predictions": {
+    "2024": {
+      "inflation_estimee": 8.5,
+      "croissance_pib_estimee": 1.2,
+      "taux_directeur_estime": 7.5,
+      "tendance_emprunts": "hausse_moderee",
+      "tendance_immobilisations": "stable",
+      "risque_financier": "modere"
+    },
+    "2025": {
+      "inflation_estimee": 7.2,
+      "croissance_pib_estimee": 1.8,
+      "taux_directeur_estime": 7.0,
+      "tendance_emprunts": "hausse",
+      "tendance_immobilisations": "hausse_legere",
+      "risque_financier": "faible_a_modere"
+    },
+    "2026": {
+      "inflation_estimee": 6.0,
+      "croissance_pib_estimee": 2.2,
+      "taux_directeur_estime": 6.5,
+      "tendance_emprunts": "hausse_significative",
+      "tendance_immobilisations": "hausse_moderee",
+      "risque_financier": "faible"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Installation des dépendances Python..."
+pip install -r requirements.txt
+echo "Démarrage de l'API de prédiction IA..."
+python ai_prediction_api.py

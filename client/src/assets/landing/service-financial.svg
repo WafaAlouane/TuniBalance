@@ -1,0 +1,28 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="200" rx="20" fill="#f0f9ff" />
+  
+  <!-- Chart -->
+  <rect x="40" y="140" width="20" height="40" fill="#0ea5e9" />
+  <rect x="70" y="120" width="20" height="60" fill="#0ea5e9" />
+  <rect x="100" y="90" width="20" height="90" fill="#0ea5e9" />
+  <rect x="130" y="60" width="20" height="120" fill="#0ea5e9" />
+  
+  <!-- Line Chart -->
+  <polyline points="40,100 70,80 100,110 130,50 160,70" stroke="#7c3aed" stroke-width="3" fill="none" />
+  
+  <!-- Data Points -->
+  <circle cx="40" cy="100" r="5" fill="#7c3aed" />
+  <circle cx="70" cy="80" r="5" fill="#7c3aed" />
+  <circle cx="100" cy="110" r="5" fill="#7c3aed" />
+  <circle cx="130" cy="50" r="5" fill="#7c3aed" />
+  <circle cx="160" cy="70" r="5" fill="#7c3aed" />
+  
+  <!-- Axis -->
+  <line x1="30" y1="30" x2="30" y2="160" stroke="#64748b" stroke-width="2" />
+  <line x1="30" y1="160" x2="170" y2="160" stroke="#64748b" stroke-width="2" />
+  
+  <!-- Decorative Elements -->
+  <circle cx="170" cy="30" r="15" fill="#0ea5e9" opacity="0.2" />
+  <circle cx="30" cy="30" r="10" fill="#7c3aed" opacity="0.2" />
+</svg>
